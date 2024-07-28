@@ -61,15 +61,55 @@
 		04B1D5172C546AA3000A9461 /* RadioApp */ = {
 			isa = PBXGroup;
 			children = (
-				04B1D52E2C56C318000A9461 /* MainViewController.swift */,
-				04B1D52C2C56B08F000A9461 /* WelcomeViewController.swift */,
+				04B1D5342C56C790000A9461 /* Supporting Files */,
+				04B1D5312C56C76F000A9461 /* Modules */,
+				04B1D5302C56C763000A9461 /* App */,
+			);
+			path = RadioApp;
+			sourceTree = "<group>";
+		};
+		04B1D5302C56C763000A9461 /* App */ = {
+			isa = PBXGroup;
+			children = (
 				04B1D5182C546AA3000A9461 /* AppDelegate.swift */,
 				04B1D51A2C546AA3000A9461 /* SceneDelegate.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		04B1D5312C56C76F000A9461 /* Modules */ = {
+			isa = PBXGroup;
+			children = (
+				04B1D5322C56C779000A9461 /* Main */,
+				04B1D5332C56C783000A9461 /* Welcome */,
+			);
+			path = Modules;
+			sourceTree = "<group>";
+		};
+		04B1D5322C56C779000A9461 /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				04B1D52E2C56C318000A9461 /* MainViewController.swift */,
+			);
+			path = Main;
+			sourceTree = "<group>";
+		};
+		04B1D5332C56C783000A9461 /* Welcome */ = {
+			isa = PBXGroup;
+			children = (
+				04B1D52C2C56B08F000A9461 /* WelcomeViewController.swift */,
+			);
+			path = Welcome;
+			sourceTree = "<group>";
+		};
+		04B1D5342C56C790000A9461 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
 				04B1D5212C546AA4000A9461 /* Assets.xcassets */,
 				04B1D5232C546AA4000A9461 /* LaunchScreen.storyboard */,
 				04B1D5262C546AA4000A9461 /* Info.plist */,
 			);
-			path = RadioApp;
+			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
