@@ -7,8 +7,16 @@
 
 import UIKit
 import SwiftUI
+import SnapKit
 
 final class SignInViewController: UIViewController {
+    private let backgroundImageView: UIImageView = {
+        let image = UIImage(named: "backgroundApp")
+        let imageView = UIImageView(image: image)
+        imageView.contentMode = .scaleAspectFill
+        return imageView
+    }()
+    
     override func viewDidLoad() {
         setupUI()
     }
@@ -18,14 +26,18 @@ final class SignInViewController: UIViewController {
 private extension SignInViewController {
     func setupUI() {
         view.backgroundColor = .black
+        addSubviews()
+        setConstraints()
     }
     
     func addSubviews() {
-        
+        view.addSubview(backgroundImageView)
     }
     
     func setConstraints() {
-        
+        backgroundImageView.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+        }
     }
 }
 
