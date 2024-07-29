@@ -42,7 +42,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
     
     private func makeMain() -> UIViewController {
-        let controller = MainViewController()
+        let controller = TabBarController() //MainViewController
         return UINavigationController(rootViewController: controller)
     }
 
