@@ -8,7 +8,7 @@
 import UIKit
 
 final class WelcomeViewController: UIViewController {
-    
+    public var action: (() -> Void)?
     private let welcomeView = WelcomeView()
 
     override func viewDidLoad() {
@@ -22,7 +22,6 @@ final class WelcomeViewController: UIViewController {
 extension WelcomeViewController: WelcomeViewDelegate {
 
     func startButtonPressed() {
-        //let signInVC = SigninViewController()
-        //navigationController?.pushViewController(signInVC, animated: true)
+        action?()
     }
 }
