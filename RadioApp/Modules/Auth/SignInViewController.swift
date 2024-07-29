@@ -12,3 +12,18 @@ final class SignInViewController: UIViewController {
         
     }
 }
+
+// MARK: - Private Methods
+private extension SignInViewController {
+    func setupUI() {
+        
+    }
+    
+    func addSubviews() {
+        
+    }
+    
+    func setConstraints() {
+        
+    }
+}
