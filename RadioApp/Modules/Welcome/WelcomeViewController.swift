@@ -7,11 +7,22 @@
 
 import UIKit
 
-class WelcomeViewController: UIViewController {
+final class WelcomeViewController: UIViewController {
+    
+    private let welcomeView = WelcomeView()
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        view = welcomeView
+        welcomeView.delegate = self
+    }
+}
 
-        view.backgroundColor = .systemPink
+
+extension WelcomeViewController: WelcomeViewDelegate {
+
+    func startButtonPressed() {
+        //let signInVC = SigninViewController()
+        //navigationController?.pushViewController(signInVC, animated: true)
     }
 }
