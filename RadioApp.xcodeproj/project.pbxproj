@@ -31,6 +31,7 @@
 		79922C0A2C569FAB0041F8BB /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		DC3C126A2C57B0BF00C46BA7 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		DC3C126C2C57B12600C46BA7 /* CustomTabBarItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabBarItemView.swift; sourceTree = "<group>"; };
+		DCC669332C58009200B37730 /* SFProDisplayBlack.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = SFProDisplayBlack.otf; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -110,6 +111,7 @@
 		04B1D5342C56C790000A9461 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				DCC669322C57FF3400B37730 /* Fonts */,
 				04B1D5212C546AA4000A9461 /* Assets.xcassets */,
 				04B1D5232C546AA4000A9461 /* LaunchScreen.storyboard */,
 				04B1D5262C546AA4000A9461 /* Info.plist */,
@@ -124,6 +126,14 @@
 				DC3C126C2C57B12600C46BA7 /* CustomTabBarItemView.swift */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		DCC669322C57FF3400B37730 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				DCC669332C58009200B37730 /* SFProDisplayBlack.otf */,
+			);
+			name = Fonts;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

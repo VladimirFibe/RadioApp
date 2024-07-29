@@ -1,4 +1,12 @@
+//
+//  TabBarViewController.swift
+//  RadioApp
+//
+//  Created by Sergey Zakurakin on 29/07/2024.
+//
+
 import UIKit
+import SnapKit
 
 class ViewController: UIViewController {
     override func viewDidLoad() {
@@ -14,26 +22,36 @@ class PopularViewController: UIViewController {
     }
 }
 
-class TabBarController: UITabBarController, UITabBarControllerDelegate {
 
+final class TabBarController: UITabBarController {
+    
+    // MARK: - UI
+    private lazy var customTabBarBackground: UIView = {
+        let element = UIView()
+        element.backgroundColor = .clear
+        element.translatesAutoresizingMaskIntoConstraints = false
+        return element
+    }()
+    
+    //MARK: - Private Property
     private var customTabBarItemViews = [CustomTabBarItemView]()
+    
     
     // MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        setupTabs()
-        
-        // Скрываем стандартный таббар
         tabBar.isHidden = true
-        
-        // Настройка пользовательского таббара
+        setupTabs()
         setupCustomTabBar()
-        
-        self.delegate = self
         updateTabBarItem(selectedIndex: 0)
+        setupConstraints()
+         
+        
     }
     
+    
+    //MARK: - Private Methods
     private func setupTabs() {
         let popularVC = PopularViewController()
         popularVC.tabBarItem = UITabBarItem(title: "Popular", image: UIImage(named: "ellipse"), tag: 0)
@@ -50,42 +68,32 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate {
     }
     
     private func setupCustomTabBar() {
-        let customTabBarBackground = UIView()
-        customTabBarBackground.backgroundColor = .clear
-        customTabBarBackground.translatesAutoresizingMaskIntoConstraints = false
-        
         view.addSubview(customTabBarBackground)
         
-        NSLayoutConstraint.activate([
-            customTabBarBackground.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            customTabBarBackground.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            customTabBarBackground.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            customTabBarBackground.heightAnchor.constraint(equalToConstant: 80) // Высота кастомного таббара
-        ])
+        guard let tabBarItems = tabBar.items else { return }
         
-        // Проверка наличия viewControllers и tabBar.items
-        guard let viewControllers = viewControllers, let tabBarItems = tabBar.items else {
-            print("Error: viewControllers or tabBar.items is nil.")
-            return
-        }
-        
-        for (index, _) in viewControllers.enumerated() {
-            let tabBarItemView = CustomTabBarItemView(title: tabBarItems[index].title ?? "",
-                                                      image: tabBarItems[index].image ?? UIImage())
+        for index in 0..<tabBarItems.count {
+            let tabBarItemView = CustomTabBarItemView(title: tabBarItems[index].title ?? "", image: tabBarItems[index].image)
             
-            tabBarItemView.translatesAutoresizingMaskIntoConstraints = false
             customTabBarBackground.addSubview(tabBarItemView)
             
-            NSLayoutConstraint.activate([
-                tabBarItemView.leadingAnchor.constraint(equalTo: customTabBarBackground.leadingAnchor, constant: CGFloat(index) * (view.frame.width / CGFloat(viewControllers.count))),
-                tabBarItemView.widthAnchor.constraint(equalToConstant: view.frame.width / CGFloat(viewControllers.count)),
-                tabBarItemView.topAnchor.constraint(equalTo: customTabBarBackground.topAnchor),
-                tabBarItemView.bottomAnchor.constraint(equalTo: customTabBarBackground.bottomAnchor)
-            ])
+            tabBarItemView.snp.makeConstraints { make in
+                make.top.bottom.equalToSuperview()
+                make.width.equalTo(view.frame.width / CGFloat(tabBarItems.count))
+                switch index {
+                case 0:
+                    make.leading.equalToSuperview()
+                case 1:
+                    make.centerX.equalToSuperview()
+                case 2:
+                    make.trailing.equalToSuperview()
+                default:
+                    break
+                }
+            }
             
             tabBarItemView.tag = index
             tabBarItemView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(tabBarItemTapped(_:))))
-            
             customTabBarItemViews.append(tabBarItemView)
         }
     }
@@ -106,6 +114,14 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate {
                 tabBarItemView.titleLabel.textColor = .gray
                 tabBarItemView.setActive(false)
             }
+        }
+    }
+    
+    // MARK: - Constraints Setup
+    private func setupConstraints() {
+        customTabBarBackground.snp.makeConstraints { make in
+            make.leading.trailing.bottom.equalToSuperview()
+            make.height.equalTo(80)
         }
     }
 }
