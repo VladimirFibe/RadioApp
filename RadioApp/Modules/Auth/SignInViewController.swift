@@ -17,6 +17,13 @@ final class SignInViewController: UIViewController {
         return imageView
     }()
     
+    private let signUpButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("or Sign UP", for: .normal)
+        button.setTitleColor(.white, for: .normal)
+        return button
+    }()
+    
     override func viewDidLoad() {
         setupUI()
     }
@@ -32,12 +39,20 @@ private extension SignInViewController {
     
     func addSubviews() {
         view.addSubview(backgroundImageView)
+        view.addSubview(signUpButton)
     }
     
     func setConstraints() {
         backgroundImageView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
+        
+        signUpButton.snp.makeConstraints { make in
+            make.leading.equalToSuperview().offset(32)
+            make.bottom.equalToSuperview().offset(-64)
+        }
+        
+        
     }
 }
 
