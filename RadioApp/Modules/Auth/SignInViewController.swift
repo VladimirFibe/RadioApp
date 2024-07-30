@@ -90,10 +90,10 @@ private extension SignInViewController {
         view.addSubview(loginButton)
         
         view.addSubview(authStackView)
-        authStackView.addArrangedSubview(signInLabel)
-        authStackView.addArrangedSubview(toStartPlayLabel)
+        authStackView.addArrangedSubview(SignInStartLabel())
         authStackView.addArrangedSubview(emailLabel)
         authStackView.addArrangedSubview(loginTextField)
+        authStackView.addArrangedSubview(BorderView())
     }
     
     func setConstraints() {
