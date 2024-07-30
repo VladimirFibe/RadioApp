@@ -10,6 +10,14 @@ import SwiftUI
 import SnapKit
 
 final class SignInViewController: UIViewController {
+    private let authStackView: UIStackView = {
+       let stackView = UIStackView()
+        stackView.axis = .vertical
+        stackView.distribution = .fill
+        stackView.backgroundColor = .blue
+        return stackView
+    }()
+    
     private let backgroundImageView: UIImageView = {
         let image = UIImage(named: "backgroundApp")
         let imageView = UIImageView(image: image)
@@ -51,6 +59,7 @@ private extension SignInViewController {
         view.addSubview(backgroundImageView)
         view.addSubview(signUpButton)
         view.addSubview(loginButton)
+        view.addSubview(authStackView)
     }
     
     func setConstraints() {
@@ -68,6 +77,12 @@ private extension SignInViewController {
             make.bottom.equalTo(signUpButton.snp.top).offset(-16)
             make.width.equalTo(153)
             make.height.equalTo(62)
+        }
+        
+        authStackView.snp.makeConstraints { make in
+            make.leading.equalToSuperview().offset(16)
+            make.trailing.equalToSuperview().offset(-16)
+            make.centerY.equalToSuperview()
         }
     }
 }
