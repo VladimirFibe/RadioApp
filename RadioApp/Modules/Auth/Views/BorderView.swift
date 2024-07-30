@@ -60,6 +60,7 @@ private extension BorderView {
         stackView.snp.makeConstraints { make in
             make.width.equalTo(338)
             make.height.equalTo(87)
+            make.edges.equalToSuperview()
         }
     }
     

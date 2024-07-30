@@ -14,13 +14,21 @@ final class SignInViewController: UIViewController {
        let stackView = UIStackView()
         stackView.axis = .vertical
         stackView.distribution = .fill
+        stackView.spacing = 16
         return stackView
     }()
     
-    private let loginTextField: UITextField = {
+    private let emailTextField: UITextField = {
        let textField = UITextField()
         let attributes: [NSAttributedString.Key: Any] = [.foregroundColor: UIColor.gray]
         textField.attributedPlaceholder = NSAttributedString(string: "Your email", attributes: attributes)
+        return textField
+    }()
+    
+    private let passwordTextField: UITextField = {
+       let textField = UITextField()
+        let attributes: [NSAttributedString.Key: Any] = [.foregroundColor: UIColor.gray]
+        textField.attributedPlaceholder = NSAttributedString(string: "Your password", attributes: attributes)
         return textField
     }()
     
@@ -68,8 +76,8 @@ private extension SignInViewController {
         
         view.addSubview(authStackView)
         authStackView.addArrangedSubview(SignInStartLabel())
-        authStackView.addArrangedSubview(BorderView(title: "Email"))
-        authStackView.addArrangedSubview(BorderView(title: "Password"))
+        authStackView.addArrangedSubview(createEmailBorderedTF())
+        authStackView.addArrangedSubview(createPasswordBorderedTF())
     }
     
     func setConstraints() {
@@ -95,9 +103,31 @@ private extension SignInViewController {
             make.centerY.equalToSuperview()
         }
         
-        loginTextField.snp.makeConstraints { make in
+        emailTextField.snp.makeConstraints { make in
             make.height.equalTo(40)
         }
+    }
+    
+    func createEmailBorderedTF() -> BorderView {
+        let borderView = BorderView(title: "Email")
+        borderView.addSubview(emailTextField)
+        
+        emailTextField.snp.makeConstraints { make in
+            make.leading.equalToSuperview().inset(16)
+            make.bottom.equalToSuperview().offset(-5)
+        }
+        return borderView
+    }
+    
+    func createPasswordBorderedTF() -> BorderView {
+        let borderView = BorderView(title: "Password")
+        borderView.addSubview(passwordTextField)
+        
+        passwordTextField.snp.makeConstraints { make in
+            make.leading.equalToSuperview().inset(16)
+            make.bottom.equalToSuperview().offset(-14)
+        }
+        return borderView
     }
 }
 
