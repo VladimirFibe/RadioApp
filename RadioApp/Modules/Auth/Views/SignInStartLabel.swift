@@ -58,8 +58,3 @@ private extension SignInStartLabel {
         }
     }
 }
-
-@available(iOS 17.0, *)
-#Preview {
-    SignInStartLabel()
-}

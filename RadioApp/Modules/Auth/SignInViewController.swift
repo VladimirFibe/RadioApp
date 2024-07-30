@@ -17,29 +17,6 @@ final class SignInViewController: UIViewController {
         return stackView
     }()
     
-    private let signInLabel: UILabel = {
-       let label = UILabel()
-        label.text = "Sign in"
-        label.font = .systemFont(ofSize: 48, weight: .bold)
-        label.textColor = .white
-        return label
-    }()
-    
-    private let toStartPlayLabel: UILabel = {
-       let label = UILabel()
-        label.text = "to start play"
-        label.font = .systemFont(ofSize: 24)
-        label.textColor = .white
-        return label
-    }()
-    
-    private let emailLabel: UILabel = {
-       let label = UILabel()
-        label.text = "Email"
-        label.textColor = .white
-        return label
-    }()
-    
     private let loginTextField: UITextField = {
        let textField = UITextField()
         let attributes: [NSAttributedString.Key: Any] = [.foregroundColor: UIColor.gray]
@@ -91,9 +68,8 @@ private extension SignInViewController {
         
         view.addSubview(authStackView)
         authStackView.addArrangedSubview(SignInStartLabel())
-        authStackView.addArrangedSubview(emailLabel)
-        authStackView.addArrangedSubview(loginTextField)
-        authStackView.addArrangedSubview(BorderView())
+        authStackView.addArrangedSubview(BorderView(title: "Email"))
+        authStackView.addArrangedSubview(BorderView(title: "Password"))
     }
     
     func setConstraints() {

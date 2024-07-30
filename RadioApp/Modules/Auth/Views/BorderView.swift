@@ -8,6 +8,20 @@
 import UIKit
 
 final class BorderView: UIView {
+    private let stackView: UIStackView = {
+       let stackView = UIStackView()
+        stackView.axis = .vertical
+        stackView.spacing = 16
+        return stackView
+    }()
+    
+    private let titleLabel: UILabel = {
+       let label = UILabel()
+        label.font = .systemFont(ofSize: 19)
+        label.textColor = .white
+        return label
+    }()
+    
     private let borderView: UIView = {
         let view = UIView()
         view.backgroundColor = .clear
@@ -17,8 +31,9 @@ final class BorderView: UIView {
         return view
     }()
     
-    override init(frame: CGRect) {
+    init(frame: CGRect = .zero, title: String) {
         super.init(frame: frame)
+        titleLabel.text = title
         setupUI()
     }
     
@@ -36,15 +51,15 @@ private extension BorderView {
     }
     
     func addSubviews() {
-        addSubview(borderView)
+        addSubview(stackView)
+        stackView.addArrangedSubview(titleLabel)
+        stackView.addArrangedSubview(borderView)
     }
     
     func setConstraints() {
-        borderView.snp.makeConstraints { make in
+        stackView.snp.makeConstraints { make in
             make.width.equalTo(338)
-            make.height.equalTo(53)
-            make.centerY.equalToSuperview()
-            make.centerX.equalToSuperview()
+            make.height.equalTo(87)
         }
     }
     
@@ -54,9 +69,4 @@ private extension BorderView {
         borderView.layer.shadowOffset = CGSize(width: 4, height: 4)
         borderView.layer.shadowRadius = 4
     }
-}
-
-@available(iOS 17.0, *)
-#Preview {
-    BorderView()
 }
