@@ -33,6 +33,13 @@ final class SignInViewController: UIViewController {
         return label
     }()
     
+    private let emailLabel: UILabel = {
+       let label = UILabel()
+        label.text = "Email"
+        label.textColor = .white
+        return label
+    }()
+    
     private let backgroundImageView: UIImageView = {
         let image = UIImage(named: "backgroundApp")
         let imageView = UIImageView(image: image)
@@ -78,6 +85,7 @@ private extension SignInViewController {
         view.addSubview(authStackView)
         authStackView.addArrangedSubview(signInLabel)
         authStackView.addArrangedSubview(toStartPlayLabel)
+        authStackView.addArrangedSubview(emailLabel)
     }
     
     func setConstraints() {
