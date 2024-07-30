@@ -24,6 +24,16 @@ final class SignInViewController: UIViewController {
         return button
     }()
     
+    private let loginButton: UIButton = {
+        let button = UIButton()
+        button.backgroundColor = .cyan
+        let largeConfig = UIImage.SymbolConfiguration(pointSize: 24, weight: .bold, scale: .large)
+        let largeBoldDoc = UIImage(systemName: "arrow.right", withConfiguration: largeConfig)
+        button.setImage(largeBoldDoc, for: .normal)
+        button.tintColor = .white
+        return button
+    }()
+    
     override func viewDidLoad() {
         setupUI()
     }
@@ -40,6 +50,7 @@ private extension SignInViewController {
     func addSubviews() {
         view.addSubview(backgroundImageView)
         view.addSubview(signUpButton)
+        view.addSubview(loginButton)
     }
     
     func setConstraints() {
@@ -52,7 +63,12 @@ private extension SignInViewController {
             make.bottom.equalToSuperview().offset(-64)
         }
         
-        
+        loginButton.snp.makeConstraints { make in
+            make.leading.equalToSuperview().offset(32)
+            make.bottom.equalTo(signUpButton.snp.top).offset(-16)
+            make.width.equalTo(153)
+            make.height.equalTo(62)
+        }
     }
 }
 
