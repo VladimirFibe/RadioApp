@@ -40,6 +40,13 @@ final class SignInViewController: UIViewController {
         return label
     }()
     
+    private let loginTextField: UITextField = {
+       let textField = UITextField()
+        let attributes: [NSAttributedString.Key: Any] = [.foregroundColor: UIColor.gray]
+        textField.attributedPlaceholder = NSAttributedString(string: "Your email", attributes: attributes)
+        return textField
+    }()
+    
     private let backgroundImageView: UIImageView = {
         let image = UIImage(named: "backgroundApp")
         let imageView = UIImageView(image: image)
@@ -86,6 +93,7 @@ private extension SignInViewController {
         authStackView.addArrangedSubview(signInLabel)
         authStackView.addArrangedSubview(toStartPlayLabel)
         authStackView.addArrangedSubview(emailLabel)
+        authStackView.addArrangedSubview(loginTextField)
     }
     
     func setConstraints() {
@@ -110,23 +118,14 @@ private extension SignInViewController {
             make.trailing.equalToSuperview().offset(-16)
             make.centerY.equalToSuperview()
         }
+        
+        loginTextField.snp.makeConstraints { make in
+            make.height.equalTo(40)
+        }
     }
 }
 
-struct SignInViewControllerPreview: UIViewControllerRepresentable {
-    
-    func makeUIViewController(context: Context) -> SignInViewController {
-        return SignInViewController()
-    }
-    
-    func updateUIViewController(_ uiViewController: SignInViewController, context: Context) {
-        // Code to update the view controller if needed
-    }
-}
-
-struct SignInViewControllerPreview_Previews: PreviewProvider {
-    static var previews: some View {
-        SignInViewControllerPreview()
-            .edgesIgnoringSafeArea(.all)
-    }
+@available(iOS 17.0, *)
+#Preview {
+    SignInViewController()
 }
