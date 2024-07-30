@@ -14,8 +14,15 @@ final class SignInViewController: UIViewController {
        let stackView = UIStackView()
         stackView.axis = .vertical
         stackView.distribution = .fill
-        stackView.backgroundColor = .blue
         return stackView
+    }()
+    
+    private let signInLabel: UILabel = {
+       let label = UILabel()
+        label.text = "Sign In"
+        label.font = .systemFont(ofSize: 48, weight: .bold)
+        label.textColor = .white
+        return label
     }()
     
     private let backgroundImageView: UIImageView = {
@@ -59,7 +66,9 @@ private extension SignInViewController {
         view.addSubview(backgroundImageView)
         view.addSubview(signUpButton)
         view.addSubview(loginButton)
+        
         view.addSubview(authStackView)
+        authStackView.addArrangedSubview(signInLabel)
     }
     
     func setConstraints() {
