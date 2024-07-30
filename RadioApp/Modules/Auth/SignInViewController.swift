@@ -19,8 +19,16 @@ final class SignInViewController: UIViewController {
     
     private let signInLabel: UILabel = {
        let label = UILabel()
-        label.text = "Sign In"
+        label.text = "Sign in"
         label.font = .systemFont(ofSize: 48, weight: .bold)
+        label.textColor = .white
+        return label
+    }()
+    
+    private let toStartPlayLabel: UILabel = {
+       let label = UILabel()
+        label.text = "to start play"
+        label.font = .systemFont(ofSize: 24)
         label.textColor = .white
         return label
     }()
@@ -69,6 +77,7 @@ private extension SignInViewController {
         
         view.addSubview(authStackView)
         authStackView.addArrangedSubview(signInLabel)
+        authStackView.addArrangedSubview(toStartPlayLabel)
     }
     
     func setConstraints() {
