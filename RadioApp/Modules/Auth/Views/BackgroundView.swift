@@ -21,6 +21,12 @@ final class BackgroundView: UIView {
         return imageView
     }()
     
+    private let backgroundPart3ImageView: UIImageView = {
+       let imageView = UIImageView()
+        imageView.image = UIImage(named: "backgroundAppPart3")
+        return imageView
+    }()
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
     }
