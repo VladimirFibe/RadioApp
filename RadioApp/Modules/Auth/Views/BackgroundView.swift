@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SnapKit
 
 final class BackgroundView: UIView {
     
@@ -29,9 +30,41 @@ final class BackgroundView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        setupUI()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+}
+
+// MARK: - Private Methods
+private extension BackgroundView {
+    func setupUI() {
+        backgroundColor = .black
+        addSubviews()
+        setConstraints()
+    }
+    
+    func addSubviews() {
+        addSubview(backgroundPart1ImageView)
+        addSubview(backgroundPart2ImageView)
+        addSubview(backgroundPart3ImageView)
+    }
+    
+    func setConstraints() {
+        backgroundPart1ImageView.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+        }
+        
+        backgroundPart2ImageView.snp.makeConstraints { make in
+            make.leading.equalToSuperview().inset(43)
+            make.top.equalToSuperview().inset(112)
+        }
+        
+        backgroundPart3ImageView.snp.makeConstraints { make in
+            make.centerX.equalToSuperview().multipliedBy(1.8)
+            make.top.equalToSuperview().inset(80)
+        }
     }
 }

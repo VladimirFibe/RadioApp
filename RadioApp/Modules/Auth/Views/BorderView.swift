@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SnapKit
 
 final class BorderView: UIView {
     private let stackView: UIStackView = {
