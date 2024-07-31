@@ -85,8 +85,3 @@ private extension ConnectWithGoogleView {
         }
     }
 }
-
-@available(iOS 17.0, *)
-#Preview() {
-    ConnectWithGoogleView()
-}
