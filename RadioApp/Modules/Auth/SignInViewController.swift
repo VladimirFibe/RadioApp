@@ -10,12 +10,13 @@ import SwiftUI
 import SnapKit
 
 final class SignInViewController: UIViewController {
+    
+    // MARK: - Private Properties
     private let backgroundView = BackgroundView()
     
     private let authStackView: UIStackView = {
        let stackView = UIStackView()
         stackView.axis = .vertical
-        stackView.distribution = .fill
         stackView.spacing = 16
         return stackView
     }()
@@ -34,10 +35,11 @@ final class SignInViewController: UIViewController {
         return textField
     }()
     
-    private let signUpButton: UIButton = {
+    private let forgotPasswordButton: UIButton = {
         let button = UIButton()
-        button.setTitle("or Sign UP", for: .normal)
-        button.setTitleColor(.white, for: .normal)
+        button.setTitle("Forgot Password ?", for: .normal)
+        button.setTitleColor(.systemGray4, for: .normal)
+        button.contentHorizontalAlignment = .right
         return button
     }()
     
@@ -48,6 +50,13 @@ final class SignInViewController: UIViewController {
         let largeBoldDoc = UIImage(systemName: "arrow.right", withConfiguration: largeConfig)
         button.setImage(largeBoldDoc, for: .normal)
         button.tintColor = .white
+        return button
+    }()
+    
+    private let signUpButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("or Sign UP", for: .normal)
+        button.setTitleColor(.white, for: .normal)
         return button
     }()
     
@@ -73,11 +82,22 @@ private extension SignInViewController {
         authStackView.addArrangedSubview(SignInStartLabel())
         authStackView.addArrangedSubview(createEmailBorderedTF())
         authStackView.addArrangedSubview(createPasswordBorderedTF())
+        authStackView.addArrangedSubview(forgotPasswordButton)
     }
     
     func setConstraints() {
         backgroundView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
+        }
+        
+        authStackView.snp.makeConstraints { make in
+            make.leading.equalToSuperview().offset(16)
+            make.trailing.equalToSuperview().offset(-16)
+            make.centerY.equalToSuperview()
+        }
+        
+        forgotPasswordButton.snp.makeConstraints { make in
+            make.trailing.equalToSuperview().offset(-16)
         }
         
         signUpButton.snp.makeConstraints { make in
@@ -91,16 +111,6 @@ private extension SignInViewController {
             make.width.equalTo(153)
             make.height.equalTo(62)
         }
-        
-        authStackView.snp.makeConstraints { make in
-            make.leading.equalToSuperview().offset(16)
-            make.trailing.equalToSuperview().offset(-16)
-            make.centerY.equalToSuperview()
-        }
-        
-        emailTextField.snp.makeConstraints { make in
-            make.height.equalTo(40)
-        }
     }
     
     func createEmailBorderedTF() -> BorderView {
@@ -110,6 +120,7 @@ private extension SignInViewController {
         emailTextField.snp.makeConstraints { make in
             make.leading.equalToSuperview().inset(16)
             make.bottom.equalToSuperview().offset(-5)
+            make.height.equalTo(40)
         }
         return borderView
     }
@@ -120,7 +131,8 @@ private extension SignInViewController {
         
         passwordTextField.snp.makeConstraints { make in
             make.leading.equalToSuperview().inset(16)
-            make.bottom.equalToSuperview().offset(-14)
+            make.bottom.equalToSuperview().offset(-5)
+            make.height.equalTo(40)
         }
         return borderView
     }
