@@ -130,6 +130,11 @@ final class FavoritesView: UIView {
         delegate?.didSlideSlider(slider: sender)
     }
     
+    func setDelegate(viewController: FavoritesViewController) {
+        collectionView.delegate = viewController
+        collectionView.dataSource = viewController
+    }
+    
     func setupViews() {
         backgroundColor = #colorLiteral(red: 0.002947255969, green: 0.002675811062, blue: 0.1643544436, alpha: 1)
         addSubview(volumeImageView)
@@ -187,4 +192,3 @@ final class FavoritesView: UIView {
         ])
     }
 }
-
