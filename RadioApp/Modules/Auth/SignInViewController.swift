@@ -33,7 +33,7 @@ final class SignInViewController: UIViewController {
     }()
     
     private let backgroundImageView: UIImageView = {
-        let image = UIImage(named: "backgroundApp")
+        let image = UIImage(named: "backgroundAppPart1")
         let imageView = UIImageView(image: image)
         imageView.contentMode = .scaleAspectFill
         return imageView
