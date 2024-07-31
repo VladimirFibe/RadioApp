@@ -43,6 +43,12 @@ final class SignInViewController: UIViewController {
         return button
     }()
     
+    private let connectGoogleButton: UIButton = {
+       let button = UIButton()
+        button.setImage(UIImage(named: "google-plus"), for: .normal)
+        return button
+    }()
+    
     private let loginButton: UIButton = {
         let button = UIButton()
         button.backgroundColor = .cyan
@@ -84,6 +90,7 @@ private extension SignInViewController {
         authStackView.addArrangedSubview(createPasswordBorderedTF())
         authStackView.addArrangedSubview(forgotPasswordButton)
         authStackView.addArrangedSubview(ConnectWithGoogleView())
+        authStackView.addArrangedSubview(connectGoogleButton)
     }
     
     func setConstraints() {
@@ -99,6 +106,10 @@ private extension SignInViewController {
         
         forgotPasswordButton.snp.makeConstraints { make in
             make.trailing.equalToSuperview().offset(-16)
+        }
+        
+        connectGoogleButton.snp.makeConstraints { make in
+            make.height.width.equalTo(40)
         }
         
         signUpButton.snp.makeConstraints { make in
