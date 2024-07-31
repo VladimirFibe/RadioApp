@@ -67,6 +67,7 @@ private extension ConnectWithGoogleView {
             make.width.equalTo(295)
             make.height.equalTo(13)
             make.centerX.equalToSuperview()
+            make.top.bottom.equalToSuperview()
         }
         
         leftDividerView.snp.makeConstraints { make in
