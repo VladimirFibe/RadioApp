@@ -20,20 +20,20 @@ final class ConnectWithGoogleView: UIView {
     
     private let leftDividerView: UIView = {
        let view = UIView()
-        view.backgroundColor = .gray
+        view.backgroundColor = .systemGray2
         return view
     }()
     
     private let rightDividerView: UIView = {
        let view = UIView()
-        view.backgroundColor = .gray
+        view.backgroundColor = .systemGray2
         return view
     }()
     
     private let connectLabel: UILabel = {
        let label = UILabel()
         label.text = "Or connect with"
-        label.textColor = .gray
+        label.textColor = .systemGray2
         return label
     }()
     
@@ -66,6 +66,7 @@ private extension ConnectWithGoogleView {
         stackView.snp.makeConstraints { make in
             make.width.equalTo(295)
             make.height.equalTo(13)
+            make.centerX.equalToSuperview()
         }
         
         leftDividerView.snp.makeConstraints { make in
@@ -73,13 +74,13 @@ private extension ConnectWithGoogleView {
             make.height.equalTo(2)
         }
         
-        connectLabel.snp.makeConstraints { make in
-            make.width.equalTo(95)
-        }
-        
         rightDividerView.snp.makeConstraints { make in
             make.width.equalTo(78)
             make.height.equalTo(2)
+        }
+        
+        connectLabel.snp.makeConstraints { make in
+            make.width.equalTo(95)
         }
     }
 }
