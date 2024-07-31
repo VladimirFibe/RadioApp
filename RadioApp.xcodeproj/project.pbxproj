@@ -15,6 +15,7 @@
 		04B1D52F2C56C318000A9461 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04B1D52E2C56C318000A9461 /* MainViewController.swift */; };
 		4D63BC4C2C5A5E580051EF26 /* FavoritesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D63BC4B2C5A5E580051EF26 /* FavoritesViewController.swift */; };
 		4D63BC4E2C5A5E8D0051EF26 /* FavoritesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D63BC4D2C5A5E8D0051EF26 /* FavoritesView.swift */; };
+		4D63BC502C5A63290051EF26 /* FavoriteCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D63BC4F2C5A63290051EF26 /* FavoriteCell.swift */; };
 		79922C0B2C569FAB0041F8BB /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 79922C0A2C569FAB0041F8BB /* README.md */; };
 		79922C0E2C56A0080041F8BB /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 79922C0D2C56A0080041F8BB /* SnapKit */; };
 /* End PBXBuildFile section */
@@ -30,6 +31,7 @@
 		04B1D52E2C56C318000A9461 /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		4D63BC4B2C5A5E580051EF26 /* FavoritesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesViewController.swift; sourceTree = "<group>"; };
 		4D63BC4D2C5A5E8D0051EF26 /* FavoritesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesView.swift; sourceTree = "<group>"; };
+		4D63BC4F2C5A63290051EF26 /* FavoriteCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteCell.swift; sourceTree = "<group>"; };
 		79922C0A2C569FAB0041F8BB /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -122,6 +124,7 @@
 			children = (
 				4D63BC4B2C5A5E580051EF26 /* FavoritesViewController.swift */,
 				4D63BC4D2C5A5E8D0051EF26 /* FavoritesView.swift */,
+				4D63BC4F2C5A63290051EF26 /* FavoriteCell.swift */,
 			);
 			path = Favorites;
 			sourceTree = "<group>";
@@ -205,6 +208,7 @@
 			files = (
 				04B1D52D2C56B08F000A9461 /* WelcomeViewController.swift in Sources */,
 				04B1D5192C546AA3000A9461 /* AppDelegate.swift in Sources */,
+				4D63BC502C5A63290051EF26 /* FavoriteCell.swift in Sources */,
 				4D63BC4E2C5A5E8D0051EF26 /* FavoritesView.swift in Sources */,
 				04B1D51B2C546AA3000A9461 /* SceneDelegate.swift in Sources */,
 				4D63BC4C2C5A5E580051EF26 /* FavoritesViewController.swift in Sources */,
