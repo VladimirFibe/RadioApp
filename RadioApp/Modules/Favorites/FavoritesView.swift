@@ -11,7 +11,7 @@ protocol FavoritesViewDelegate: AnyObject {
     func nextButtonPressed()
     func backButtonPressed()
     func playButtonPressed()
-    func didSlideSlider(slider: UISlider)
+    func didSlideSlider(_ volume: Float)
 }
 
 final class FavoritesView: UIView {
@@ -111,7 +111,7 @@ final class FavoritesView: UIView {
     }
     
     required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        fatalError("FavoritesView not initialised")
     }
     
     @objc func buttonPressed(_ sender: UIButton) {
@@ -128,7 +128,7 @@ final class FavoritesView: UIView {
     
     @objc func sliderTapped(_ sender: UISlider) {
         volumeLabel.text = "\(Int(sender.value * 100))%"
-        delegate?.didSlideSlider(slider: sender)
+        delegate?.didSlideSlider(sender.value)
     }
     
     func setDelegate(viewController: FavoritesViewController) {
