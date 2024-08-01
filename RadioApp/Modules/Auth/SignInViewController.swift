@@ -113,8 +113,10 @@ private extension SignInViewController {
         authStackView.addArrangedSubview(createEmailBorderedTF())
         authStackView.addArrangedSubview(createPasswordBorderedTF())
         authStackView.addArrangedSubview(forgotPasswordButton)
-        authStackView.addArrangedSubview(ConnectWithGoogleView())
-        authStackView.addArrangedSubview(connectGoogleButton)
+        
+        authStackView.addArrangedSubview(connectWithGoogleStackView)
+        connectWithGoogleStackView.addArrangedSubview(ConnectWithGoogleView())
+        connectWithGoogleStackView.addArrangedSubview(connectGoogleButton)
     }
     
     func setConstraints() {
