@@ -14,6 +14,7 @@ final class SignInViewController: UIViewController {
     // MARK: - Private Properties
     private var isLogin: Bool = true
     private let backgroundView = BackgroundView()
+    private var nameTFView: BorderView!
     
     private let authStackView: UIStackView = {
        let stackView = UIStackView()
@@ -33,7 +34,7 @@ final class SignInViewController: UIViewController {
        let textField = UITextField()
         textField.textColor = .white
         let attributes: [NSAttributedString.Key: Any] = [.foregroundColor: UIColor.gray]
-        textField.attributedPlaceholder = NSAttributedString(string: "Name",
+        textField.attributedPlaceholder = NSAttributedString(string: "Your name",
         attributes: attributes)
         return textField
     }()
@@ -89,7 +90,7 @@ final class SignInViewController: UIViewController {
     
     private let signUpButton: UIButton = {
         let button = UIButton()
-        button.setTitle("or Sign UP", for: .normal)
+        button.setTitle("Or Sign UP", for: .normal)
         button.setTitleColor(.white, for: .normal)
         return button
     }()
@@ -103,6 +104,10 @@ final class SignInViewController: UIViewController {
 private extension SignInViewController {
     func setupUI() {
         view.backgroundColor = .black
+        
+        nameTFView = createNameBorderedTF()
+        nameTFView.isHidden = true
+        
         addSubviews()
         setConstraints()
         
@@ -126,6 +131,7 @@ private extension SignInViewController {
         
         view.addSubview(authStackView)
         authStackView.addArrangedSubview(SignInStartLabel())
+        authStackView.addArrangedSubview(nameTFView)
         authStackView.addArrangedSubview(createEmailBorderedTF())
         authStackView.addArrangedSubview(createPasswordBorderedTF())
         authStackView.addArrangedSubview(forgotPasswordButton)
@@ -167,6 +173,18 @@ private extension SignInViewController {
         }
     }
     
+    func createNameBorderedTF() -> BorderView {
+        let borderView = BorderView(title: "Name")
+        borderView.addSubview(nameTextField)
+        
+        nameTextField.snp.makeConstraints { make in
+            make.leading.trailing.equalToSuperview().inset(16)
+            make.bottom.equalToSuperview().offset(-5)
+            make.height.equalTo(40)
+        }
+        return borderView
+    }
+    
     func createEmailBorderedTF() -> BorderView {
         let borderView = BorderView(title: "Email")
         borderView.addSubview(emailTextField)
@@ -205,6 +223,8 @@ private extension SignInViewController {
     }
     
     @objc func changeLoginState() {
+        nameTFView.isHidden.toggle()
+        forgotPasswordButton.isHidden.toggle()
         connectWithGoogleStackView.isHidden.toggle()
         signUpButton.setTitle("or Sign UP", for: .normal)
         
