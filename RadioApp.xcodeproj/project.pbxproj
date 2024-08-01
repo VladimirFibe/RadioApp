@@ -13,6 +13,11 @@
 		04B1D5252C546AA4000A9461 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = 04B1D5242C546AA4000A9461 /* Base */; };
 		04B1D52D2C56B08F000A9461 /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04B1D52C2C56B08F000A9461 /* WelcomeViewController.swift */; };
 		04B1D52F2C56C318000A9461 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04B1D52E2C56C318000A9461 /* MainViewController.swift */; };
+		0F204ABC2C5BFF52009CC358 /* AboutUs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F204ABB2C5BFF52009CC358 /* AboutUs.swift */; };
+		0F87DFE42C577C8000361AD6 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F87DFE32C577C8000361AD6 /* ProfileViewController.swift */; };
+		0FAB55812C581367003B357D /* ProfileEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FAB55802C581367003B357D /* ProfileEditViewController.swift */; };
+		0FAB55832C581667003B357D /* CellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FAB55822C581667003B357D /* CellView.swift */; };
+		0FE54D882C591DB8009E1F32 /* PoliciesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FE54D872C591DB8009E1F32 /* PoliciesView.swift */; };
 		79922C0B2C569FAB0041F8BB /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 79922C0A2C569FAB0041F8BB /* README.md */; };
 		79922C0E2C56A0080041F8BB /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 79922C0D2C56A0080041F8BB /* SnapKit */; };
 /* End PBXBuildFile section */
@@ -26,6 +31,11 @@
 		04B1D5262C546AA4000A9461 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		04B1D52C2C56B08F000A9461 /* WelcomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
 		04B1D52E2C56C318000A9461 /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
+		0F204ABB2C5BFF52009CC358 /* AboutUs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutUs.swift; sourceTree = "<group>"; };
+		0F87DFE32C577C8000361AD6 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		0FAB55802C581367003B357D /* ProfileEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileEditViewController.swift; sourceTree = "<group>"; };
+		0FAB55822C581667003B357D /* CellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellView.swift; sourceTree = "<group>"; };
+		0FE54D872C591DB8009E1F32 /* PoliciesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PoliciesView.swift; sourceTree = "<group>"; };
 		79922C0A2C569FAB0041F8BB /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -80,6 +90,7 @@
 		04B1D5312C56C76F000A9461 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				0F87DFE52C577C9700361AD6 /* Profile */,
 				04B1D5322C56C779000A9461 /* Main */,
 				04B1D5332C56C783000A9461 /* Welcome */,
 			);
@@ -110,6 +121,18 @@
 				04B1D5262C546AA4000A9461 /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		0F87DFE52C577C9700361AD6 /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				0F87DFE32C577C8000361AD6 /* ProfileViewController.swift */,
+				0FAB55822C581667003B357D /* CellView.swift */,
+				0FAB55802C581367003B357D /* ProfileEditViewController.swift */,
+				0FE54D872C591DB8009E1F32 /* PoliciesView.swift */,
+				0F204ABB2C5BFF52009CC358 /* AboutUs.swift */,
+			);
+			path = Profile;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -189,9 +212,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0FE54D882C591DB8009E1F32 /* PoliciesView.swift in Sources */,
 				04B1D52D2C56B08F000A9461 /* WelcomeViewController.swift in Sources */,
 				04B1D5192C546AA3000A9461 /* AppDelegate.swift in Sources */,
+				0FAB55832C581667003B357D /* CellView.swift in Sources */,
+				0F87DFE42C577C8000361AD6 /* ProfileViewController.swift in Sources */,
 				04B1D51B2C546AA3000A9461 /* SceneDelegate.swift in Sources */,
+				0FAB55812C581367003B357D /* ProfileEditViewController.swift in Sources */,
+				0F204ABC2C5BFF52009CC358 /* AboutUs.swift in Sources */,
 				04B1D52F2C56C318000A9461 /* MainViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -336,7 +364,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 723HTEFHBA;
+				DEVELOPMENT_TEAM = "";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = RadioApp/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -364,7 +392,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 723HTEFHBA;
+				DEVELOPMENT_TEAM = "";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = RadioApp/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
