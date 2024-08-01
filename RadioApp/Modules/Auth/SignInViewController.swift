@@ -23,6 +23,7 @@ final class SignInViewController: UIViewController {
     
     private let emailTextField: UITextField = {
        let textField = UITextField()
+        textField.textColor = .white
         let attributes: [NSAttributedString.Key: Any] = [.foregroundColor: UIColor.gray]
         textField.attributedPlaceholder = NSAttributedString(string: "Your email", attributes: attributes)
         return textField
@@ -30,9 +31,19 @@ final class SignInViewController: UIViewController {
     
     private let passwordTextField: UITextField = {
        let textField = UITextField()
+        textField.isSecureTextEntry = true
+        textField.textColor = .white
         let attributes: [NSAttributedString.Key: Any] = [.foregroundColor: UIColor.gray]
         textField.attributedPlaceholder = NSAttributedString(string: "Your password", attributes: attributes)
         return textField
+    }()
+    
+    private let showPasswordButton: UIButton = {
+        let button = UIButton(type: .custom)
+        button.setImage(UIImage(systemName: "eye.slash"), for: .normal)
+        button.setImage(UIImage(systemName: "eye"), for: .selected)
+        button.tintColor = .gray
+        return button
     }()
     
     private let forgotPasswordButton: UIButton = {
@@ -77,6 +88,12 @@ private extension SignInViewController {
         view.backgroundColor = .black
         addSubviews()
         setConstraints()
+        
+        showPasswordButton.addTarget(
+            self,
+            action: #selector(togglePasswordVisibility),
+            for: .touchUpInside
+        )
     }
     
     func addSubviews() {
@@ -130,7 +147,7 @@ private extension SignInViewController {
         borderView.addSubview(emailTextField)
         
         emailTextField.snp.makeConstraints { make in
-            make.leading.equalToSuperview().inset(16)
+            make.leading.trailing.equalToSuperview().inset(16)
             make.bottom.equalToSuperview().offset(-5)
             make.height.equalTo(40)
         }
@@ -143,10 +160,23 @@ private extension SignInViewController {
         
         passwordTextField.snp.makeConstraints { make in
             make.leading.equalToSuperview().inset(16)
+            make.trailing.equalToSuperview().inset(50)
             make.bottom.equalToSuperview().offset(-5)
             make.height.equalTo(40)
         }
+        
+        borderView.addSubview(showPasswordButton)
+        showPasswordButton.snp.makeConstraints { make in
+            make.trailing.equalToSuperview().inset(16)
+            make.centerY.equalTo(passwordTextField.snp.centerY)
+            make.width.height.equalTo(24)
+        }
         return borderView
+    }
+    
+    @objc func togglePasswordVisibility() {
+        passwordTextField.isSecureTextEntry.toggle()
+        showPasswordButton.isSelected.toggle()
     }
 }
 
