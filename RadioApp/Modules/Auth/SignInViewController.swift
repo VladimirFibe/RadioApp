@@ -30,6 +30,14 @@ final class SignInViewController: UIViewController {
         return stackView
     }()
     
+    private let loginButtonsStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .vertical
+        stackView.alignment = .leading
+        stackView.spacing = 16
+        return stackView
+    }()
+    
     private let nameTextField: UITextField = {
        let textField = UITextField()
         textField.textColor = .white
@@ -126,8 +134,6 @@ private extension SignInViewController {
     
     func addSubviews() {
         view.addSubview(backgroundView)
-        view.addSubview(signUpButton)
-        view.addSubview(loginButton)
         
         view.addSubview(authStackView)
         authStackView.addArrangedSubview(SignInStartLabel())
@@ -135,10 +141,14 @@ private extension SignInViewController {
         authStackView.addArrangedSubview(createEmailBorderedTF())
         authStackView.addArrangedSubview(createPasswordBorderedTF())
         authStackView.addArrangedSubview(forgotPasswordButton)
-        
         authStackView.addArrangedSubview(connectWithGoogleStackView)
+        
         connectWithGoogleStackView.addArrangedSubview(ConnectWithGoogleView())
         connectWithGoogleStackView.addArrangedSubview(connectGoogleButton)
+        
+        view.addSubview(loginButtonsStackView)
+        loginButtonsStackView.addArrangedSubview(loginButton)
+        loginButtonsStackView.addArrangedSubview(signUpButton)
     }
     
     func setConstraints() {
@@ -160,14 +170,12 @@ private extension SignInViewController {
             make.height.width.equalTo(40)
         }
         
-        signUpButton.snp.makeConstraints { make in
-            make.leading.equalToSuperview().offset(32)
-            make.bottom.equalToSuperview().offset(-64)
+        loginButtonsStackView.snp.makeConstraints { make in
+            make.top.equalTo(authStackView.snp.bottom).offset(32)
+            make.leading.equalToSuperview().offset(16)
         }
         
         loginButton.snp.makeConstraints { make in
-            make.leading.equalToSuperview().offset(32)
-            make.bottom.equalTo(signUpButton.snp.top).offset(-16)
             make.width.equalTo(153)
             make.height.equalTo(62)
         }
@@ -223,6 +231,21 @@ private extension SignInViewController {
     }
     
     @objc func changeLoginState() {
+        UIView.animate(withDuration: 0.3) {
+            self.authStackView.alpha = 0
+            self.loginButtonsStackView.alpha = 0
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                self.viewsIsHiddenToogle()
+                UIView.animate(withDuration: 0.3) {
+                    self.authStackView.alpha = 1
+                    self.loginButtonsStackView.alpha = 1
+                }
+            }
+        }
+    }
+    
+    func viewsIsHiddenToogle() {
         nameTFView.isHidden.toggle()
         forgotPasswordButton.isHidden.toggle()
         connectWithGoogleStackView.isHidden.toggle()
@@ -232,7 +255,6 @@ private extension SignInViewController {
             isLogin ? "Or Sign UP" : "Or Sign In",
             for: .normal
         )
-        
         isLogin.toggle()
     }
 }
