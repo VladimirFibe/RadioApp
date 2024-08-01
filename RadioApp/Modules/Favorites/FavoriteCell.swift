@@ -42,7 +42,7 @@ class FavoriteCell: UICollectionViewCell {
     
     private lazy var curvedLineImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = UIImage(named: "сurvedLineImageView")
+        imageView.image = UIImage(named: "lineIsSelected")
         imageView.contentMode = .left
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
@@ -57,6 +57,24 @@ class FavoriteCell: UICollectionViewCell {
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
+    
+    private lazy var leftPointView: UIView = {
+        let view = UIView()
+        view.layer.cornerRadius = 4.13
+        view.backgroundColor = .green
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
+    private lazy var rightPointView: UIView = {
+        let view = UIView()
+        view.layer.cornerRadius = 4.13
+        view.backgroundColor = .green
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
+    let arrayPointColors: [UIColor] = [#colorLiteral(red: 0.6901960784, green: 0.1568627451, blue: 0.3294117647, alpha: 1), #colorLiteral(red: 0.09019607843, green: 0.5411764706, blue: 0.8666666667, alpha: 1), #colorLiteral(red: 0.5294117647, green: 0.08235294118, blue: 0.8, alpha: 1), #colorLiteral(red: 0.1568627451, green: 0.6901960784, blue: 0.4352941176, alpha: 1), #colorLiteral(red: 0.8901960784, green: 0.6588235294, blue: 0.06274509804, alpha: 1), #colorLiteral(red: 0.9098039216, green: 0.07058823529, blue: 0.07058823529, alpha: 1)]
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -100,6 +118,8 @@ class FavoriteCell: UICollectionViewCell {
         stackView.addArrangedSubview(genreLabel)
         stackView.addArrangedSubview(radioNameLabel)
         stackView.addArrangedSubview(curvedLineImageView)
+        curvedLineImageView.addSubview(leftPointView)
+        curvedLineImageView.addSubview(rightPointView)
         addSubview(likeButton)
     }
     
@@ -121,6 +141,16 @@ extension FavoriteCell {
             stackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
             stackView.trailingAnchor.constraint(equalTo: likeButton.leadingAnchor, constant: 0),
             stackView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -16),
+            
+            leftPointView.leadingAnchor.constraint(equalTo: curvedLineImageView.leadingAnchor),
+            leftPointView.centerYAnchor.constraint(equalTo: curvedLineImageView.centerYAnchor, constant: -5),
+            leftPointView.heightAnchor.constraint(equalToConstant: 8.26),
+            leftPointView.widthAnchor.constraint(equalToConstant: 8.26),
+            
+            rightPointView.trailingAnchor.constraint(equalTo: curvedLineImageView.trailingAnchor, constant: -104),
+            rightPointView.centerYAnchor.constraint(equalTo: curvedLineImageView.centerYAnchor, constant: -5),
+            rightPointView.heightAnchor.constraint(equalToConstant: 8.26),
+            rightPointView.widthAnchor.constraint(equalToConstant: 8.26),
 
             likeButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
             likeButton.centerYAnchor.constraint(equalTo:  centerYAnchor),
