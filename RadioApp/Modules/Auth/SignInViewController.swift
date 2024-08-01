@@ -29,6 +29,15 @@ final class SignInViewController: UIViewController {
         return stackView
     }()
     
+    private let nameTextField: UITextField = {
+       let textField = UITextField()
+        textField.textColor = .white
+        let attributes: [NSAttributedString.Key: Any] = [.foregroundColor: UIColor.gray]
+        textField.attributedPlaceholder = NSAttributedString(string: "Name",
+        attributes: attributes)
+        return textField
+    }()
+    
     private let emailTextField: UITextField = {
        let textField = UITextField()
         textField.textColor = .white
