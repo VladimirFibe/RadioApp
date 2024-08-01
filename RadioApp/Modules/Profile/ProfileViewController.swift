@@ -19,22 +19,24 @@ class ProfileViewController: UIViewController {
     let generalLabel = UILabel()
     let moreLabel = UILabel()
     let notificationImage = UIImageView()
-    //let profileEditButton = UIButton()
-
+    
+    let generalCellView = (CellView(title: "General", image1: "alert", text1: "Notification", btn1: nil, image2: "globe", text2: "Language", btn2: "left-arrow"))
+    
+    let moreCellView = (CellView(title: "More", image1: "shield", text1: "Legal and Policies", btn1: "left-arrow", image2: "info", text2: "About Us", btn2: "left-arrow"))
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
-//        view.backgroundColor = .red
         assignBackground()
         setNavBar()
         setupView()
         setNameLabel()
-        setEmaleLabel()
+        setEmailLabel()
         setGeneralLabel()
         setNotificationImage()
         setMoreLabel()
         setupConstraints()
-       // view.backgroundColor = UIColor(patternImage: UIImage(named: "Profile-background")!)
+        
     }
   
     func assignBackground(){
@@ -46,7 +48,6 @@ class ProfileViewController: UIViewController {
             imageView.image = background
             imageView.center = view.center
             view.addSubview(imageView)
-//            view.sendSubviewToBack(imageView)
         }
     
     func setNavBar() {
@@ -72,7 +73,7 @@ class ProfileViewController: UIViewController {
         return imageView
     }()
     
-     func setNameLabel() {
+     private func setNameLabel() {
         nameLabel.text = "Name"
         nameLabel.textColor = .white
         nameLabel.textAlignment = .left
@@ -80,7 +81,7 @@ class ProfileViewController: UIViewController {
 //      nameLabellayer.masksToBounds = true
         nameLabel.translatesAutoresizingMaskIntoConstraints = false
     }
-    private func setEmaleLabel() {
+    private func setEmailLabel() {
         emailLabel.text = "Email"
         emailLabel.textColor = UIColor(named: "colorGray")
         emailLabel.textAlignment = .left
@@ -92,11 +93,6 @@ class ProfileViewController: UIViewController {
     private lazy var profileEditButton: UIButton = {
         let button = UIButton(primaryAction: profileEditAction)
         button.setImage(UIImage(named: "Icon - Edit"), for: .normal)
-        //button.setTitle("Log Out", for: .normal)
-        //button.setTitleColor(.white, for: .normal)
-        //button.titleLabel?.font = UIFont(name: "Medium", size: 16)
-        //button.layer.cornerRadius = 28
-        //button.backgroundColor = UIColor(named: "ColorButton")
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
@@ -113,9 +109,6 @@ class ProfileViewController: UIViewController {
         generalLabel.textColor = .white
         generalLabel.textAlignment = .left
         generalLabel.font = .boldSystemFont(ofSize: 18)
-       // generalLabel.backgroundColor = UIColor(named: "lightGreyApp")
-//        generalLa.layer.masksToBounds = true
-        //general.layer.cornerRadius = 12
         generalLabel.translatesAutoresizingMaskIntoConstraints = false
     }
     private func setNotificationImage(){
@@ -169,56 +162,66 @@ class ProfileViewController: UIViewController {
             nameLabel.leadingAnchor.constraint(equalTo: imageView.trailingAnchor, constant: 16),
 
             
-            
-            
             emailLabel.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 8),
             emailLabel.leadingAnchor.constraint(equalTo: imageView.trailingAnchor, constant: 16),
-
-            
-            
-            
             
             profileEditButton.centerYAnchor.constraint(equalTo: profileView.centerYAnchor),
             profileEditButton.trailingAnchor.constraint(equalTo: profileView.trailingAnchor,constant: -19),
             
-            generalView.topAnchor.constraint(equalTo: profileView.bottomAnchor,constant: 35.6),
-            generalView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            generalView.widthAnchor.constraint(equalToConstant: 327),
-            generalView.heightAnchor.constraint(equalToConstant: 190),
+            generalCellView.topAnchor.constraint(equalTo: profileView.bottomAnchor,constant: 35.6),
+            generalCellView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            generalCellView.widthAnchor.constraint(equalToConstant: 327),
+            generalCellView.heightAnchor.constraint(equalToConstant: 190),
             
-            notificationImage.topAnchor.constraint(equalTo: generalLabel.bottomAnchor, constant: 20),
-            notificationImage.leadingAnchor.constraint(equalTo: generalView.leadingAnchor, constant: 10),
-            //notificationImage.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            notificationImage.widthAnchor.constraint(equalToConstant: 24),
-            notificationImage.heightAnchor.constraint(equalToConstant: 24),
-
-            moreView.topAnchor.constraint(equalTo: generalView.bottomAnchor,constant: 35.6),
-            moreView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            moreView.widthAnchor.constraint(equalToConstant: 327),
-            moreView.heightAnchor.constraint(equalToConstant: 190),
+            moreCellView.topAnchor.constraint(equalTo: generalCellView.bottomAnchor,constant: 35.6),
+            moreCellView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            moreCellView.widthAnchor.constraint(equalToConstant: 327),
+            moreCellView.heightAnchor.constraint(equalToConstant: 190),
 
             logOutButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             logOutButton.widthAnchor.constraint(equalToConstant: 327),
             logOutButton.heightAnchor.constraint(equalToConstant: 56),
-            logOutButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -79)
-        ])
+            logOutButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -79),
+            ])
         
     }
     private func setupView() {
+        
+        generalCellView.onTap1 = { isOn in
+            guard let isOn else { return }
+            if isOn {
+                print("Включить уведомления")
+            } else {
+                print("Выключить уведомления")
+            }
+        }
+        generalCellView.onTap2 = {
+            print("language")
+        }
+        moreCellView.onTap1 = {_ in
+            let policiesVC = PoliciesView()
+            self.navigationController?.pushViewController(policiesVC, animated: true)
+            policiesVC.navigationItem.title = "Privacy Policy"
+            policiesVC.navigationController?.navigationBar.titleTextAttributes = [
+              .font: UIFont.systemFont(ofSize: 20), .foregroundColor: UIColor.white]
+        }
+        moreCellView.onTap2 = {
+            let aboutUs = AboutUs()
+            self.navigationController?.pushViewController(aboutUs, animated: true)
+            aboutUs.navigationItem.title = "About Us"
+            aboutUs.navigationController?.navigationBar.titleTextAttributes = [
+              .font: UIFont.systemFont(ofSize: 20), .foregroundColor: UIColor.white]
+        }
+        
         view.addSubview(profileView)
-        view.addSubview(generalView)
-        view.addSubview(moreView)
+        view.addSubview(generalCellView)
+        view.addSubview(moreCellView)
         view.addSubview(logOutButton)
         
         profileView.addSubview(imageView)
         profileView.addSubview(nameLabel)
         profileView.addSubview(emailLabel)
         profileView.addSubview(profileEditButton)
-        
-        generalView.addSubview(generalLabel)
-        generalView.addSubview(notificationImage)
-        
-        moreView.addSubview(moreLabel)
         
     }
 }

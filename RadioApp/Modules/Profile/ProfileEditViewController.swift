@@ -115,7 +115,8 @@ class ProfileEditViewController: UIViewController {
     }()
   
     private lazy var saveChangesAction = UIAction { _ in
-        print("Saved")
+        print("Save Profile")
+        self.navigationController?.popViewController(animated: true)
     }
     private func setupView(){
         view.addSubview(imageView)
@@ -163,8 +164,6 @@ class ProfileEditViewController: UIViewController {
             saveChangesButton.widthAnchor.constraint(equalToConstant: 327),
             saveChangesButton.heightAnchor.constraint(equalToConstant: 56),
 
-
-            
         ])
     }
 }
@@ -174,6 +173,7 @@ extension UITextField {
         self.init()
         self.attributedPlaceholder = NSAttributedString(string: text, attributes: [.foregroundColor: UIColor.lightGray, .font: UIFont.systemFont(ofSize: size, weight: weight)])
         self.layer.borderWidth = 1
+        self.textColor = .white
         self.layer.borderColor = UIColor(named: "ColorBorder")?.cgColor
         self.layer.cornerRadius = 8
         self.keyboardType = .default
