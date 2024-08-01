@@ -107,6 +107,10 @@ class FavoriteCell: UICollectionViewCell {
             genreLabel.text = radio.tags
         }
         radioNameLabel.text = radio.name
+        let color = arrayPointColors.randomElement()
+        leftPointView.backgroundColor = color
+        rightPointView.backgroundColor = color
+
     }
     
     private func setupViews() {
