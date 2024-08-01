@@ -7,14 +7,24 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0450E16A2C57C7C70010EE93 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 0450E1692C57C7C70010EE93 /* SnapKit */; };
 		04B1D5192C546AA3000A9461 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04B1D5182C546AA3000A9461 /* AppDelegate.swift */; };
 		04B1D51B2C546AA3000A9461 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04B1D51A2C546AA3000A9461 /* SceneDelegate.swift */; };
 		04B1D5222C546AA4000A9461 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 04B1D5212C546AA4000A9461 /* Assets.xcassets */; };
 		04B1D5252C546AA4000A9461 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = 04B1D5242C546AA4000A9461 /* Base */; };
 		04B1D52D2C56B08F000A9461 /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04B1D52C2C56B08F000A9461 /* WelcomeViewController.swift */; };
 		04B1D52F2C56C318000A9461 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04B1D52E2C56C318000A9461 /* MainViewController.swift */; };
+		4D85107F2C578DA500D42B09 /* CustomFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D85107E2C578DA500D42B09 /* CustomFont.swift */; };
+		4D8510812C578DE000D42B09 /* SF-Pro-Display-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 4D8510802C578DE000D42B09 /* SF-Pro-Display-Bold.otf */; };
+		4D8510832C578DEA00D42B09 /* SF-Pro-Display-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 4D8510822C578DEA00D42B09 /* SF-Pro-Display-Medium.otf */; };
+		4D8510852C578DF400D42B09 /* SF-Pro-Display-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 4D8510842C578DF400D42B09 /* SF-Pro-Display-Regular.otf */; };
+		4D8510872C578EED00D42B09 /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D8510862C578EED00D42B09 /* WelcomeView.swift */; };
+		7974F6882C5971FF009D5565 /* BorderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7974F6872C5971FF009D5565 /* BorderView.swift */; };
+		7974F68A2C59767A009D5565 /* SignInStartLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7974F6892C59767A009D5565 /* SignInStartLabel.swift */; };
+		7974F68C2C5A83B0009D5565 /* BackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7974F68B2C5A83B0009D5565 /* BackgroundView.swift */; };
+		7974F68E2C5A90AC009D5565 /* ConnectWithGoogleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7974F68D2C5A90AC009D5565 /* ConnectWithGoogleView.swift */; };
 		79922C0B2C569FAB0041F8BB /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 79922C0A2C569FAB0041F8BB /* README.md */; };
-		79922C0E2C56A0080041F8BB /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 79922C0D2C56A0080041F8BB /* SnapKit */; };
+		79ED8B612C582C1B00F91004 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79ED8B602C582C1B00F91004 /* SignInViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,7 +36,17 @@
 		04B1D5262C546AA4000A9461 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		04B1D52C2C56B08F000A9461 /* WelcomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
 		04B1D52E2C56C318000A9461 /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
+		4D85107E2C578DA500D42B09 /* CustomFont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomFont.swift; sourceTree = "<group>"; };
+		4D8510802C578DE000D42B09 /* SF-Pro-Display-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Display-Bold.otf"; sourceTree = "<group>"; };
+		4D8510822C578DEA00D42B09 /* SF-Pro-Display-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Display-Medium.otf"; sourceTree = "<group>"; };
+		4D8510842C578DF400D42B09 /* SF-Pro-Display-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Display-Regular.otf"; sourceTree = "<group>"; };
+		4D8510862C578EED00D42B09 /* WelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeView.swift; sourceTree = "<group>"; };
+		7974F6872C5971FF009D5565 /* BorderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BorderView.swift; sourceTree = "<group>"; };
+		7974F6892C59767A009D5565 /* SignInStartLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInStartLabel.swift; sourceTree = "<group>"; };
+		7974F68B2C5A83B0009D5565 /* BackgroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundView.swift; sourceTree = "<group>"; };
+		7974F68D2C5A90AC009D5565 /* ConnectWithGoogleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectWithGoogleView.swift; sourceTree = "<group>"; };
 		79922C0A2C569FAB0041F8BB /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		79ED8B602C582C1B00F91004 /* SignInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -34,7 +54,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				79922C0E2C56A0080041F8BB /* SnapKit in Frameworks */,
+				0450E16A2C57C7C70010EE93 /* SnapKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -80,6 +100,7 @@
 		04B1D5312C56C76F000A9461 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				79ED8B5F2C582BFF00F91004 /* Auth */,
 				04B1D5322C56C779000A9461 /* Main */,
 				04B1D5332C56C783000A9461 /* Welcome */,
 			);
@@ -98,6 +119,7 @@
 			isa = PBXGroup;
 			children = (
 				04B1D52C2C56B08F000A9461 /* WelcomeViewController.swift */,
+				4D8510862C578EED00D42B09 /* WelcomeView.swift */,
 			);
 			path = Welcome;
 			sourceTree = "<group>";
@@ -105,11 +127,43 @@
 		04B1D5342C56C790000A9461 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				4D85107D2C578D8B00D42B09 /* Font */,
 				04B1D5212C546AA4000A9461 /* Assets.xcassets */,
 				04B1D5232C546AA4000A9461 /* LaunchScreen.storyboard */,
 				04B1D5262C546AA4000A9461 /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		4D85107D2C578D8B00D42B09 /* Font */ = {
+			isa = PBXGroup;
+			children = (
+				4D8510842C578DF400D42B09 /* SF-Pro-Display-Regular.otf */,
+				4D8510822C578DEA00D42B09 /* SF-Pro-Display-Medium.otf */,
+				4D8510802C578DE000D42B09 /* SF-Pro-Display-Bold.otf */,
+				4D85107E2C578DA500D42B09 /* CustomFont.swift */,
+			);
+			name = Font;
+			sourceTree = "<group>";
+		};
+		7974F6862C5971BD009D5565 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				7974F6872C5971FF009D5565 /* BorderView.swift */,
+				7974F6892C59767A009D5565 /* SignInStartLabel.swift */,
+				7974F68B2C5A83B0009D5565 /* BackgroundView.swift */,
+				7974F68D2C5A90AC009D5565 /* ConnectWithGoogleView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		79ED8B5F2C582BFF00F91004 /* Auth */ = {
+			isa = PBXGroup;
+			children = (
+				7974F6862C5971BD009D5565 /* Views */,
+				79ED8B602C582C1B00F91004 /* SignInViewController.swift */,
+			);
+			path = Auth;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -129,7 +183,7 @@
 			);
 			name = RadioApp;
 			packageProductDependencies = (
-				79922C0D2C56A0080041F8BB /* SnapKit */,
+				0450E1692C57C7C70010EE93 /* SnapKit */,
 			);
 			productName = RadioApp;
 			productReference = 04B1D5152C546AA3000A9461 /* RadioApp.app */;
@@ -160,7 +214,7 @@
 			);
 			mainGroup = 04B1D50C2C546AA3000A9461;
 			packageReferences = (
-				79922C0C2C56A0080041F8BB /* XCRemoteSwiftPackageReference "SnapKit" */,
+				0450E1682C57C7C70010EE93 /* XCRemoteSwiftPackageReference "SnapKit" */,
 			);
 			productRefGroup = 04B1D5162C546AA3000A9461 /* Products */;
 			projectDirPath = "";
@@ -178,7 +232,10 @@
 			files = (
 				04B1D5222C546AA4000A9461 /* Assets.xcassets in Resources */,
 				04B1D5252C546AA4000A9461 /* Base in Resources */,
+				4D8510812C578DE000D42B09 /* SF-Pro-Display-Bold.otf in Resources */,
 				79922C0B2C569FAB0041F8BB /* README.md in Resources */,
+				4D8510852C578DF400D42B09 /* SF-Pro-Display-Regular.otf in Resources */,
+				4D8510832C578DEA00D42B09 /* SF-Pro-Display-Medium.otf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -189,10 +246,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7974F68C2C5A83B0009D5565 /* BackgroundView.swift in Sources */,
+				79ED8B612C582C1B00F91004 /* SignInViewController.swift in Sources */,
+				4D85107F2C578DA500D42B09 /* CustomFont.swift in Sources */,
+				4D8510872C578EED00D42B09 /* WelcomeView.swift in Sources */,
 				04B1D52D2C56B08F000A9461 /* WelcomeViewController.swift in Sources */,
+				7974F68E2C5A90AC009D5565 /* ConnectWithGoogleView.swift in Sources */,
 				04B1D5192C546AA3000A9461 /* AppDelegate.swift in Sources */,
 				04B1D51B2C546AA3000A9461 /* SceneDelegate.swift in Sources */,
 				04B1D52F2C56C318000A9461 /* MainViewController.swift in Sources */,
+				7974F6882C5971FF009D5565 /* BorderView.swift in Sources */,
+				7974F68A2C59767A009D5565 /* SignInStartLabel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -409,9 +473,9 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		79922C0C2C56A0080041F8BB /* XCRemoteSwiftPackageReference "SnapKit" */ = {
+		0450E1682C57C7C70010EE93 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/SnapKit/SnapKit";
+			repositoryURL = "https://github.com/SnapKit/SnapKit.git";
 			requirement = {
 				kind = upToNextMajorVersion;
 				minimumVersion = 5.7.1;
@@ -420,9 +484,9 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		79922C0D2C56A0080041F8BB /* SnapKit */ = {
+		0450E1692C57C7C70010EE93 /* SnapKit */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 79922C0C2C56A0080041F8BB /* XCRemoteSwiftPackageReference "SnapKit" */;
+			package = 0450E1682C57C7C70010EE93 /* XCRemoteSwiftPackageReference "SnapKit" */;
 			productName = SnapKit;
 		};
 /* End XCSwiftPackageProductDependency section */
