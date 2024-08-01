@@ -12,6 +12,7 @@ import SnapKit
 final class SignInViewController: UIViewController {
     
     // MARK: - Private Properties
+    private var isLogin: Bool = true
     private let backgroundView = BackgroundView()
     
     private let authStackView: UIStackView = {
@@ -101,6 +102,12 @@ private extension SignInViewController {
             action: #selector(togglePasswordVisibility),
             for: .touchUpInside
         )
+        
+        signUpButton.addTarget(
+            self,
+            action: #selector(changeLoginState),
+            for: .touchUpInside
+        )
     }
     
     func addSubviews() {
@@ -186,6 +193,18 @@ private extension SignInViewController {
     @objc func togglePasswordVisibility() {
         passwordTextField.isSecureTextEntry.toggle()
         showPasswordButton.isSelected.toggle()
+    }
+    
+    @objc func changeLoginState() {
+        connectWithGoogleStackView.isHidden.toggle()
+        signUpButton.setTitle("or Sign UP", for: .normal)
+        
+        signUpButton.setTitle(
+            isLogin ? "Or Sign UP" : "Or Sign In",
+            for: .normal
+        )
+        
+        isLogin.toggle()
     }
 }
 
