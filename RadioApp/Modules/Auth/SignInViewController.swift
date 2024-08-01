@@ -21,6 +21,13 @@ final class SignInViewController: UIViewController {
         return stackView
     }()
     
+    private let connectWithGoogleStackView: UIStackView = {
+       let stackView = UIStackView()
+        stackView.axis = .vertical
+        stackView.spacing = 16
+        return stackView
+    }()
+    
     private let emailTextField: UITextField = {
        let textField = UITextField()
         textField.textColor = .white
