@@ -41,7 +41,7 @@ final class FavoritesView: UIView {
         let label = UILabel()
         label.textColor = .white
         label.text = "50%"
-        label.font = .systemFont(ofSize: 15, weight: .regular)
+        label.font = .custom(font: .regular, size: 15)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
