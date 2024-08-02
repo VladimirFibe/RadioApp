@@ -62,6 +62,11 @@ final class FavoritesViewController: UIViewController {
         updateButtonImage(isPlay: true)
     }
     
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        radioPlayer.stopMusic()
+    }
+    
     func updateButtonImage(isPlay: Bool) {
         let image = isPlay ? UIImage(named: "playButton") : UIImage(named: "pauseButton")
         favoritesView.playPauseButton.setBackgroundImage(image, for: .normal)
@@ -101,10 +106,10 @@ extension FavoritesViewController: FavoritesViewDelegate {
         let currentRadioStation = radioStations[selectedIndex]
         if radioPlayer.isPlayerPerforming() {
             radioPlayer.pauseMusic()
-            favoritesView.playPauseButton.setBackgroundImage(UIImage(named: "playButton"), for: .normal)
+            updateButtonImage(isPlay: true)
         } else {
             radioPlayer.playMusic()
-            favoritesView.playPauseButton.setBackgroundImage(UIImage(named: "pauseButton"), for: .normal)
+            updateButtonImage(isPlay: false)
             radioPlayer.configurePlayer(from: currentRadioStation)
         }
         //radioPlayer.isPlayerPerforming() ? radioPlayer.pauseMusic() : radioPlayer.playMusic()

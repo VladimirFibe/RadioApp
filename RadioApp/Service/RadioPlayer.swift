@@ -17,7 +17,6 @@ class RadioPlayer {
 
     static let shared = RadioPlayer()
 
-    weak var viewController: FavoritesViewController?
     weak var delegate: RadioPlayerDelegate?
     private var player: AVPlayer?
     private var playerItem: AVPlayerItem?
@@ -45,7 +44,6 @@ class RadioPlayer {
         currentURL = radio.url_resolved
         delegate?.changePlayButton(isPlaying: true)
         delegate?.changeCurrentURL(radio.url_resolved)
-        viewController?.updateButtonImage(isPlay: true)
     }
     
     func playMusicWithURL(_ radio: RadioStation) {
@@ -60,13 +58,11 @@ class RadioPlayer {
     func playMusic() {
         player?.play()
         delegate?.changePlayButton(isPlaying: true)
-        viewController?.updateButtonImage(isPlay: true)
     }
 
     func pauseMusic() {
         player?.pause()
         delegate?.changePlayButton(isPlaying: false)
-        viewController?.updateButtonImage(isPlay: false)
     }
 
     func stopMusic() {
