@@ -12,20 +12,29 @@ class ForgotPasswordViewController : UIViewController {
     // MARK: - Variables
     
     private let forgotPasswordView = ForgotPasswordView()
-
+    private lazy var backgroundImageView: UIImageView = {
+        let imageView = UIImageView(image: .backgroundAppPart1)
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        return imageView
+    }()
     //MARK: - Lifecycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
         view = forgotPasswordView
+        view.backgroundColor = .black
         forgotPasswordView.delegate = self
-        view.backgroundColor = .lightGray
-        forgotPasswordView.hideChangePasswordView()
     }
 }
 
 extension ForgotPasswordViewController: ForgotPasswordViewDelegate {
+   
     func sentButtonPressed() {
-        forgotPasswordView.showChangePasswordView()
+        
     }
+    
+    func forgotPasswordleftArrowButtonPressed() {
+        navigationController?.popViewController(animated: true)
+    }
+    
 }
