@@ -13,6 +13,8 @@
 		04B1D5252C546AA4000A9461 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = 04B1D5242C546AA4000A9461 /* Base */; };
 		04B1D52D2C56B08F000A9461 /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04B1D52C2C56B08F000A9461 /* WelcomeViewController.swift */; };
 		04B1D52F2C56C318000A9461 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04B1D52E2C56C318000A9461 /* MainViewController.swift */; };
+		4DD92DD82C5D10AB00ABCF0B /* PopularViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DD92DD72C5D10AB00ABCF0B /* PopularViewController.swift */; };
+		4DD92DDA2C5D10D100ABCF0B /* PopularView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DD92DD92C5D10D100ABCF0B /* PopularView.swift */; };
 		79922C0B2C569FAB0041F8BB /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 79922C0A2C569FAB0041F8BB /* README.md */; };
 		79922C0E2C56A0080041F8BB /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 79922C0D2C56A0080041F8BB /* SnapKit */; };
 /* End PBXBuildFile section */
@@ -26,6 +28,8 @@
 		04B1D5262C546AA4000A9461 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		04B1D52C2C56B08F000A9461 /* WelcomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
 		04B1D52E2C56C318000A9461 /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
+		4DD92DD72C5D10AB00ABCF0B /* PopularViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopularViewController.swift; sourceTree = "<group>"; };
+		4DD92DD92C5D10D100ABCF0B /* PopularView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopularView.swift; sourceTree = "<group>"; };
 		79922C0A2C569FAB0041F8BB /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -80,6 +84,7 @@
 		04B1D5312C56C76F000A9461 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				4DD92DD62C5D109200ABCF0B /* Popular */,
 				04B1D5322C56C779000A9461 /* Main */,
 				04B1D5332C56C783000A9461 /* Welcome */,
 			);
@@ -110,6 +115,15 @@
 				04B1D5262C546AA4000A9461 /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		4DD92DD62C5D109200ABCF0B /* Popular */ = {
+			isa = PBXGroup;
+			children = (
+				4DD92DD72C5D10AB00ABCF0B /* PopularViewController.swift */,
+				4DD92DD92C5D10D100ABCF0B /* PopularView.swift */,
+			);
+			path = Popular;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -190,8 +204,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				04B1D52D2C56B08F000A9461 /* WelcomeViewController.swift in Sources */,
+				4DD92DD82C5D10AB00ABCF0B /* PopularViewController.swift in Sources */,
 				04B1D5192C546AA3000A9461 /* AppDelegate.swift in Sources */,
 				04B1D51B2C546AA3000A9461 /* SceneDelegate.swift in Sources */,
+				4DD92DDA2C5D10D100ABCF0B /* PopularView.swift in Sources */,
 				04B1D52F2C56C318000A9461 /* MainViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
