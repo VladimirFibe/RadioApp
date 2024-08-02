@@ -14,18 +14,31 @@ class DetailsViewController: UIViewController {
     private lazy var background: UIImageView = {
         let element = UIImageView()
         element.image = UIImage(named: "detailsBackground")
-        // setup
         
-        element.translatesAutoresizingMaskIntoConstraints = false
         return element
     }()
 
-    private lazy var mainTitle: UILabel = {
+    private lazy var mainTitleLabel: UILabel = {
         let element = UILabel()
-        // setup
+        element.textColor = .white
+        element.font = UIFont.systemFont(ofSize: 60)
         
+        return element
+    }()
+    
+    private lazy var descriptionLabel: UILabel = {
+        let element = UILabel()
+        element.textColor = .white
+        element.font = UIFont.systemFont(ofSize: 20)
         
-        element.translatesAutoresizingMaskIntoConstraints = false
+        return element
+    }()
+    
+    private lazy var logoButton: UIButton = {
+        let element = UIButton(type: .system)
+        element.setImage(.logo, for: .normal)
+        element.tintColor = .red
+        
         return element
     }()
     
@@ -33,14 +46,46 @@ class DetailsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        setupView()
+        setupConstraint()
+        
     }
     
+    //MARK: - Setup View
+    private func setupView() {
+        view.addSubview(background)
+        view.addSubview(mainTitleLabel)
+        view.addSubview(logoButton)
+        view.addSubview(descriptionLabel)
+        
+        mainTitleLabel.text = "90.5"
+        descriptionLabel.text = "Radio Divelement"
+        
+    }
 }
 
+//MARK: - Setup Constraints
 extension DetailsViewController {
     
     func setupConstraint() {
-        background.snp
+        background.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+        }
+        
+        mainTitleLabel.snp.makeConstraints { make in
+            make.top.equalTo(view.snp.top).offset(176)
+            make.centerX.equalTo(view.snp.centerX)
+        }
+        
+        descriptionLabel.snp.makeConstraints { make in
+            make.top.equalTo(mainTitleLabel.snp.bottom)
+            make.centerX.equalTo(view.snp.centerX)
+        }
+        
+        logoButton.snp.makeConstraints { make in
+            make.top.equalTo(view.snp.top).offset(144)
+            make.trailing.equalTo(view.snp.trailing).offset(-44)
+        }
     }
 }
+
