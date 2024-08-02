@@ -41,7 +41,7 @@ final class PopularViewController: UIViewController {
     }
     
     func updateButtonImage(isPlay: Bool) {
-        let image = isPlay ? UIImage(named: "playButton") : UIImage(named: "pause")
+        let image = isPlay ? UIImage(named: "playButton") : UIImage(named: "pauseButton")
         popularView.playPauseButton.setBackgroundImage(image, for: .normal)
     }
 }
@@ -78,10 +78,10 @@ extension PopularViewController: PopularViewDelegate {
         let currentRadioStation = radioStations[selectedIndex]
         if radioPlayer.isPlayerPerforming() {
             radioPlayer.pauseMusic()
-            popularView.playPauseButton.setBackgroundImage(UIImage(named: "playButton"), for: .normal)
+            updateButtonImage(isPlay: true)
         } else {
             radioPlayer.playMusic()
-            popularView.playPauseButton.setBackgroundImage(UIImage(named: "pause"), for: .normal)
+            updateButtonImage(isPlay: false)
             radioPlayer.configurePlayer(from: currentRadioStation)
         }
         //radioPlayer.isPlayerPerforming() ? radioPlayer.pauseMusic() : radioPlayer.playMusic()

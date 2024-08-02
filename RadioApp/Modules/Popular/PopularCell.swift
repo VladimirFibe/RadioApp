@@ -17,8 +17,7 @@ final class PopularCell: UICollectionViewCell {
         label.textAlignment = .center
         label.numberOfLines = 0
         label.text = "RADIO"
-        label.font = .systemFont(ofSize: 25, weight: .bold)
-        //label.font = .custom(font: .bold, size: 25)
+        label.font = .custom(font: .bold, size: 25)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -29,8 +28,7 @@ final class PopularCell: UICollectionViewCell {
         label.textColor = #colorLiteral(red: 0.2032947838, green: 0.204798311, blue: 0.3333529532, alpha: 1)
         label.numberOfLines = 0
         label.textAlignment = .right
-        //label.font = .custom(font: .bold, size: 10)
-        label.font = .systemFont(ofSize: 10, weight: .bold)
+        label.font = .custom(font: .bold, size: 10)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -52,8 +50,7 @@ final class PopularCell: UICollectionViewCell {
     
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
-        label.font = .systemFont(ofSize: 15, weight: .regular)
-        //label.font = .custom(font: .regular, size: 15)
+        label.font = .custom(font: .regular, size: 15)
         label.textColor = #colorLiteral(red: 0.2032947838, green: 0.204798311, blue: 0.3333529532, alpha: 1)
         label.textAlignment = .center
         label.text = "Radio Record"
@@ -123,7 +120,7 @@ final class PopularCell: UICollectionViewCell {
                 votesLabel.textColor = .white
                 titleLabel.textColor = .white
                 playButton.setBackgroundImage(UIImage(named: "playPopular"), for: .normal)
-                curvedLineImageView.image = UIImage(named: "line")
+                curvedLineImageView.image = UIImage(named: "lineIsSelected")
                 curvedLineImageView.alpha = 1.0
             } else {
                 backgroundColor = .none
@@ -148,7 +145,14 @@ final class PopularCell: UICollectionViewCell {
         votesLabel.text = nil
     }
     
-    public func configure() {
+    public func configure(with radio: RadioStation) {
+        if radio.tag == "" {
+            genreLabel.text = "Online"
+        } else {
+            genreLabel.text = radio.tag
+        }
+        titleLabel.text = radio.name
+        votesLabel.text = "votes \(radio.votes)"
         let color = arrayPointColors.randomElement()
         leftPointView.backgroundColor = color
         rightPointView.backgroundColor = color
@@ -204,4 +208,3 @@ final class PopularCell: UICollectionViewCell {
         ])
     }
 }
-

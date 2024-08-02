@@ -31,16 +31,14 @@ final class PopularView: UIView {
         let label = UILabel()
         label.textColor = .white
         label.text = "50%"
-        label.font = .systemFont(ofSize: 15, weight: .regular)
+        label.font = .custom(font: .regular, size: 15)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
     private lazy var popularLabel: UILabel = {
         let label = UILabel()
-        //label.font = .custom(font: .light, size: 30)
-        label.font = .systemFont(ofSize: 30)
-        //label.font = .systemFont(ofSize: 30, weight: .light)
+        label.font = .custom(font: .regular, size: 30)
         label.textColor = .white
         label.text = "Popular"
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -51,6 +49,7 @@ final class PopularView: UIView {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: setupFlowLayout())
         collectionView.backgroundColor = .clear
         collectionView.showsVerticalScrollIndicator = false
+        collectionView.register(PopularCell.self, forCellWithReuseIdentifier: PopularCell.identifier)
         collectionView.bounces = false
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         return collectionView
@@ -117,19 +116,19 @@ final class PopularView: UIView {
     
     @objc func sliderTapped(_ sender: UISlider) {
         volumeLabel.text = "\(Int(sender.value * 100))%"
-        
+        delegate?.didSlideSlider(sender.value)
     }
     
     @objc func buttonPressed(_ sender: UIButton) {
-        
+        delegate?.nextButtonPressed()
     }
     
     @objc func backButtonTapped(_ sender: UIButton) {
-        
+        delegate?.backButtonPressed()
     }
     
     @objc func playPauseButtonTapped(_ sender: UIButton) {
-        
+        delegate?.playButtonPressed()
     }
     
     func setDelegate(viewController: PopularViewController) {
