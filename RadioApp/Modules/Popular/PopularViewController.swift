@@ -7,23 +7,55 @@
 
 import UIKit
 
-class PopularViewController: UIViewController {
-
+final class PopularViewController: UIViewController {
+    
+    private let popularView = PopularView()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.backgroundColor = .blue
+        view = popularView
+        popularView.setDelegate(viewController: self)
+        popularView.delegate = self
+    }
+}
 
-        // Do any additional setup after loading the view.
+
+// MARK: - UICollectionViewDataSource, UICollectionViewDelegate
+
+extension PopularViewController: UICollectionViewDataSource, UICollectionViewDelegate {
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return 1
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        return UICollectionViewCell()
     }
-    */
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        print(indexPath.row)
 
+    }
 }
+
+
+extension PopularViewController: PopularViewDelegate {
+    func didSlideSlider(_ value: Float) {
+        //radioPlayer.volume = value
+    }
+    
+    func playButtonPressed() {
+
+    }
+    
+    func backButtonPressed() {
+
+    }
+    
+    func nextButtonPressed() {
+    }
+}
+
+
+    

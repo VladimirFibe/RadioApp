@@ -133,7 +133,8 @@ final class PopularView: UIView {
     }
     
     func setDelegate(viewController: PopularViewController) {
-        
+        popularCollectionView.delegate = viewController
+        popularCollectionView.dataSource = viewController
     }
     
     func setupFlowLayout() -> UICollectionViewFlowLayout {
