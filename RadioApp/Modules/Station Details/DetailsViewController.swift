@@ -17,6 +17,14 @@ class DetailsViewController: UIViewController {
         
         return element
     }()
+    
+    private lazy var equalizer: UIImageView = {
+        let element = UIImageView()
+        element.image = UIImage(named: "equalizer")
+        
+        return element
+    }()
+    
 
     private lazy var mainTitleLabel: UILabel = {
         let element = UILabel()
@@ -57,10 +65,10 @@ class DetailsViewController: UIViewController {
         view.addSubview(mainTitleLabel)
         view.addSubview(logoButton)
         view.addSubview(descriptionLabel)
+        view.addSubview(equalizer)
         
         mainTitleLabel.text = "90.5"
         descriptionLabel.text = "Radio Divelement"
-        
     }
 }
 
@@ -85,6 +93,11 @@ extension DetailsViewController {
         logoButton.snp.makeConstraints { make in
             make.top.equalTo(view.snp.top).offset(144)
             make.trailing.equalTo(view.snp.trailing).offset(-44)
+        }
+        
+        equalizer.snp.makeConstraints { make in
+            make.centerY.equalTo(background.snp.centerY)
+            make.leading.trailing.equalToSuperview()
         }
     }
 }
