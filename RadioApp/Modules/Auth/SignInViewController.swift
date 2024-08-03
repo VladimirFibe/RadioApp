@@ -275,13 +275,17 @@ private extension SignInViewController {
     }
     
     func signUp() {
-        guard let name = nameTextField.text,
+        guard /*let name = nameTextField.text,*/
            let email = emailTextField.text,
-              let password = passwordTextField.text else { return }
-        Auth.auth().createUser(withEmail: email, password: password) { authDataResult, error in
+              let password = passwordTextField.text else {
+            showAlert(title: "Missing Information", message: "Please fill in all required fields to proceed.")
+            return
+        }
+        
+        Auth.auth().createUser(withEmail: email, password: password) { [weak self] authDataResult, error in
             
             if let error = error {
-                print("Error signing up: \(error.localizedDescription)")
+                self?.showAlert(title: "Oops..", message: "\(error.localizedDescription)")
                 return
             }
             print("User signed up successfully!")
