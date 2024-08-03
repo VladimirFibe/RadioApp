@@ -289,6 +289,21 @@ private extension SignInViewController {
     }
 }
 
+// MARK: - Alert
+private extension SignInViewController {
+    func showAlert(title: String, message: String) {
+        let alert = UIAlertController(
+            title: title,
+            message: message,
+            preferredStyle: .alert
+        )
+        
+        let okButton = UIAlertAction(title: "OK", style: .cancel)
+        alert.addAction(okButton)
+        present(alert, animated: true)
+    }
+}
+
 @available(iOS 17.0, *)
 #Preview {
     SignInViewController()
