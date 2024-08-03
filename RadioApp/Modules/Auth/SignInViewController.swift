@@ -8,6 +8,7 @@
 import UIKit
 import SwiftUI
 import SnapKit
+import FirebaseAuth
 
 final class SignInViewController: UIViewController {
     
@@ -118,18 +119,7 @@ private extension SignInViewController {
         
         addSubviews()
         setConstraints()
-        
-        showPasswordButton.addTarget(
-            self,
-            action: #selector(togglePasswordVisibility),
-            for: .touchUpInside
-        )
-        
-        signUpButton.addTarget(
-            self,
-            action: #selector(changeLoginState),
-            for: .touchUpInside
-        )
+        addTargets()
     }
     
     func addSubviews() {
@@ -179,6 +169,26 @@ private extension SignInViewController {
             make.width.equalTo(153)
             make.height.equalTo(62)
         }
+    }
+    
+    func addTargets() {
+        showPasswordButton.addTarget(
+            self,
+            action: #selector(togglePasswordVisibility),
+            for: .touchUpInside
+        )
+        
+        signUpButton.addTarget(
+            self,
+            action: #selector(changeLoginState),
+            for: .touchUpInside
+        )
+        
+        loginButton.addTarget(
+            self,
+            action: #selector(loginButtonPressed),
+            for: .touchUpInside
+        )
     }
     
     func createNameBorderedTF() -> BorderView {
@@ -256,6 +266,26 @@ private extension SignInViewController {
             for: .normal
         )
         isLogin.toggle()
+    }
+    
+    @objc func loginButtonPressed() {
+        if !isLogin {
+            signUp()
+        }
+    }
+    
+    func signUp() {
+        guard let name = nameTextField.text,
+           let email = emailTextField.text,
+              let password = passwordTextField.text else { return }
+        Auth.auth().createUser(withEmail: email, password: password) { authDataResult, error in
+            
+            if let error = error {
+                print("Error signing up: \(error.localizedDescription)")
+                return
+            }
+            print("User signed up successfully!")
+        }
     }
 }
 
