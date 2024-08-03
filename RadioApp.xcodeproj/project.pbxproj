@@ -15,7 +15,7 @@
 		04B1D52F2C56C318000A9461 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04B1D52E2C56C318000A9461 /* MainViewController.swift */; };
 		79922C0B2C569FAB0041F8BB /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 79922C0A2C569FAB0041F8BB /* README.md */; };
 		DC33C6D92C5C6C810029F5FA /* DetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC33C6D82C5C6C810029F5FA /* DetailsViewController.swift */; };
-		DC33C6DC2C5C70700029F5FA /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = DC33C6DB2C5C70700029F5FA /* SnapKit */; };
+		DC9E90622C5E7F7A0053D2A0 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = DC9E90612C5E7F7A0053D2A0 /* SnapKit */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,7 +36,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DC33C6DC2C5C70700029F5FA /* SnapKit in Frameworks */,
+				DC9E90622C5E7F7A0053D2A0 /* SnapKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -140,7 +140,7 @@
 			);
 			name = RadioApp;
 			packageProductDependencies = (
-				DC33C6DB2C5C70700029F5FA /* SnapKit */,
+				DC9E90612C5E7F7A0053D2A0 /* SnapKit */,
 			);
 			productName = RadioApp;
 			productReference = 04B1D5152C546AA3000A9461 /* RadioApp.app */;
@@ -171,7 +171,7 @@
 			);
 			mainGroup = 04B1D50C2C546AA3000A9461;
 			packageReferences = (
-				DC33C6DA2C5C70700029F5FA /* XCRemoteSwiftPackageReference "SnapKit" */,
+				DC9E90602C5E7F7A0053D2A0 /* XCRemoteSwiftPackageReference "SnapKit" */,
 			);
 			productRefGroup = 04B1D5162C546AA3000A9461 /* Products */;
 			projectDirPath = "";
@@ -421,7 +421,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		DC33C6DA2C5C70700029F5FA /* XCRemoteSwiftPackageReference "SnapKit" */ = {
+		DC9E90602C5E7F7A0053D2A0 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SnapKit/SnapKit";
 			requirement = {
@@ -432,9 +432,9 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		DC33C6DB2C5C70700029F5FA /* SnapKit */ = {
+		DC9E90612C5E7F7A0053D2A0 /* SnapKit */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = DC33C6DA2C5C70700029F5FA /* XCRemoteSwiftPackageReference "SnapKit" */;
+			package = DC9E90602C5E7F7A0053D2A0 /* XCRemoteSwiftPackageReference "SnapKit" */;
 			productName = SnapKit;
 		};
 /* End XCSwiftPackageProductDependency section */
