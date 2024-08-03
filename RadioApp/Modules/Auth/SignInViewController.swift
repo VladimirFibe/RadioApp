@@ -281,9 +281,7 @@ private extension SignInViewController {
     }
     
     @objc func loginButtonPressed() {
-        if !isLogin {
-            signUp()
-        }
+        isLogin ? signIn() : signUp()
     }
     
     func signUp() {
@@ -300,7 +298,20 @@ private extension SignInViewController {
                 self?.showAlert(title: "Oops..", message: "\(error.localizedDescription)")
                 return
             }
-            print("User signed up successfully!")
+        }
+    }
+    
+    func signIn() {
+        guard let email = emailTextField.text, !email.isEmpty,
+              let password = passwordTextField.text, !password.isEmpty else {
+            showAlert(title: "Missing Information", message: "Please fill in all required fields to proceed.")
+            return
+        }
+        
+        Auth.auth().signIn(withEmail: email, password: password) { [weak self] authResult, error in
+            if let error = error {
+                self?.showAlert(title: "Oops..", message: "\(error.localizedDescription)")
+            }
         }
     }
 }
