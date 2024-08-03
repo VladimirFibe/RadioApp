@@ -12,13 +12,39 @@ import SnapKit
 final class SignInViewController: UIViewController {
     
     // MARK: - Private Properties
+    private var isLogin: Bool = true
     private let backgroundView = BackgroundView()
+    private var nameTFView: BorderView!
     
     private let authStackView: UIStackView = {
        let stackView = UIStackView()
         stackView.axis = .vertical
         stackView.spacing = 16
         return stackView
+    }()
+    
+    private let connectWithGoogleStackView: UIStackView = {
+       let stackView = UIStackView()
+        stackView.axis = .vertical
+        stackView.spacing = 16
+        return stackView
+    }()
+    
+    private let loginButtonsStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .vertical
+        stackView.alignment = .leading
+        stackView.spacing = 16
+        return stackView
+    }()
+    
+    private let nameTextField: UITextField = {
+       let textField = UITextField()
+        textField.textColor = .white
+        let attributes: [NSAttributedString.Key: Any] = [.foregroundColor: UIColor.gray]
+        textField.attributedPlaceholder = NSAttributedString(string: "Your name",
+        attributes: attributes)
+        return textField
     }()
     
     private let emailTextField: UITextField = {
@@ -72,7 +98,7 @@ final class SignInViewController: UIViewController {
     
     private let signUpButton: UIButton = {
         let button = UIButton()
-        button.setTitle("or Sign UP", for: .normal)
+        button.setTitle("Or Sign UP", for: .normal)
         button.setTitleColor(.white, for: .normal)
         return button
     }()
@@ -86,6 +112,10 @@ final class SignInViewController: UIViewController {
 private extension SignInViewController {
     func setupUI() {
         view.backgroundColor = .black
+        
+        nameTFView = createNameBorderedTF()
+        nameTFView.isHidden = true
+        
         addSubviews()
         setConstraints()
         
@@ -94,20 +124,31 @@ private extension SignInViewController {
             action: #selector(togglePasswordVisibility),
             for: .touchUpInside
         )
+        
+        signUpButton.addTarget(
+            self,
+            action: #selector(changeLoginState),
+            for: .touchUpInside
+        )
     }
     
     func addSubviews() {
         view.addSubview(backgroundView)
-        view.addSubview(signUpButton)
-        view.addSubview(loginButton)
         
         view.addSubview(authStackView)
         authStackView.addArrangedSubview(SignInStartLabel())
+        authStackView.addArrangedSubview(nameTFView)
         authStackView.addArrangedSubview(createEmailBorderedTF())
         authStackView.addArrangedSubview(createPasswordBorderedTF())
         authStackView.addArrangedSubview(forgotPasswordButton)
-        authStackView.addArrangedSubview(ConnectWithGoogleView())
-        authStackView.addArrangedSubview(connectGoogleButton)
+        authStackView.addArrangedSubview(connectWithGoogleStackView)
+        
+        connectWithGoogleStackView.addArrangedSubview(ConnectWithGoogleView())
+        connectWithGoogleStackView.addArrangedSubview(connectGoogleButton)
+        
+        view.addSubview(loginButtonsStackView)
+        loginButtonsStackView.addArrangedSubview(loginButton)
+        loginButtonsStackView.addArrangedSubview(signUpButton)
     }
     
     func setConstraints() {
@@ -129,17 +170,27 @@ private extension SignInViewController {
             make.height.width.equalTo(40)
         }
         
-        signUpButton.snp.makeConstraints { make in
-            make.leading.equalToSuperview().offset(32)
-            make.bottom.equalToSuperview().offset(-64)
+        loginButtonsStackView.snp.makeConstraints { make in
+            make.top.equalTo(authStackView.snp.bottom).offset(32)
+            make.leading.equalToSuperview().offset(16)
         }
         
         loginButton.snp.makeConstraints { make in
-            make.leading.equalToSuperview().offset(32)
-            make.bottom.equalTo(signUpButton.snp.top).offset(-16)
             make.width.equalTo(153)
             make.height.equalTo(62)
         }
+    }
+    
+    func createNameBorderedTF() -> BorderView {
+        let borderView = BorderView(title: "Name")
+        borderView.addSubview(nameTextField)
+        
+        nameTextField.snp.makeConstraints { make in
+            make.leading.trailing.equalToSuperview().inset(16)
+            make.bottom.equalToSuperview().offset(-5)
+            make.height.equalTo(40)
+        }
+        return borderView
     }
     
     func createEmailBorderedTF() -> BorderView {
@@ -177,6 +228,34 @@ private extension SignInViewController {
     @objc func togglePasswordVisibility() {
         passwordTextField.isSecureTextEntry.toggle()
         showPasswordButton.isSelected.toggle()
+    }
+    
+    @objc func changeLoginState() {
+        UIView.animate(withDuration: 0.3) {
+            self.authStackView.alpha = 0
+            self.loginButtonsStackView.alpha = 0
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                self.viewsIsHiddenToogle()
+                UIView.animate(withDuration: 0.3) {
+                    self.authStackView.alpha = 1
+                    self.loginButtonsStackView.alpha = 1
+                }
+            }
+        }
+    }
+    
+    func viewsIsHiddenToogle() {
+        nameTFView.isHidden.toggle()
+        forgotPasswordButton.isHidden.toggle()
+        connectWithGoogleStackView.isHidden.toggle()
+        signUpButton.setTitle("or Sign UP", for: .normal)
+        
+        signUpButton.setTitle(
+            isLogin ? "Or Sign UP" : "Or Sign In",
+            for: .normal
+        )
+        isLogin.toggle()
     }
 }
 

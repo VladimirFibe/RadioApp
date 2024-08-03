@@ -51,7 +51,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
     
     private func makeMain() -> UIViewController {
-        let controller = TabBarController() //MainViewController
+        let controller = ProfileViewController()
         return UINavigationController(rootViewController: controller)
     }
 
