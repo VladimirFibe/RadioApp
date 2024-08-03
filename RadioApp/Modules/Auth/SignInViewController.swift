@@ -17,6 +17,12 @@ final class SignInViewController: UIViewController {
     private let backgroundView = BackgroundView()
     private var nameTFView: BorderView!
     
+    private let scrollView: UIScrollView = {
+       let scrollView = UIScrollView()
+        scrollView.showsHorizontalScrollIndicator = false
+        return scrollView
+    }()
+    
     private let authStackView: UIStackView = {
        let stackView = UIStackView()
         stackView.axis = .vertical
@@ -275,7 +281,7 @@ private extension SignInViewController {
     }
     
     func signUp() {
-        guard /*let name = nameTextField.text,*/
+        guard let _ = nameTextField.text,
            let email = emailTextField.text,
               let password = passwordTextField.text else {
             showAlert(title: "Missing Information", message: "Please fill in all required fields to proceed.")
