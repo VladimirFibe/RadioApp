@@ -130,8 +130,9 @@ private extension SignInViewController {
     
     func addSubviews() {
         view.addSubview(backgroundView)
+        view.addSubview(scrollView)
         
-        view.addSubview(authStackView)
+        scrollView.addSubview(authStackView)
         authStackView.addArrangedSubview(SignInStartLabel())
         authStackView.addArrangedSubview(nameTFView)
         authStackView.addArrangedSubview(createEmailBorderedTF())
@@ -152,10 +153,14 @@ private extension SignInViewController {
             make.edges.equalToSuperview()
         }
         
+        scrollView.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+        }
+        
         authStackView.snp.makeConstraints { make in
+            make.top.equalToSuperview().offset(200)
             make.leading.equalToSuperview().offset(16)
             make.trailing.equalToSuperview().offset(-16)
-            make.centerY.equalToSuperview()
         }
         
         forgotPasswordButton.snp.makeConstraints { make in
@@ -169,6 +174,7 @@ private extension SignInViewController {
         loginButtonsStackView.snp.makeConstraints { make in
             make.top.equalTo(authStackView.snp.bottom).offset(32)
             make.leading.equalToSuperview().offset(16)
+//            make.bottom.equalToSuperview().offset(-200)
         }
         
         loginButton.snp.makeConstraints { make in
