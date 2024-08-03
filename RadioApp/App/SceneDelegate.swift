@@ -51,7 +51,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
     
     private func makeMain() -> UIViewController {
-        let controller = ProfileViewController()
+        let controller = SignInViewController()
         return UINavigationController(rootViewController: controller)
     }
 
