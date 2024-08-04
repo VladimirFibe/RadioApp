@@ -54,6 +54,7 @@ final class SignInViewController: UIViewController {
     private let nameTextField: UITextField = {
        let textField = UITextField()
         textField.textColor = .white
+        textField.returnKeyType = .next
         let attributes: [NSAttributedString.Key: Any] = [.foregroundColor: UIColor.gray]
         textField.attributedPlaceholder = NSAttributedString(string: "Your name",
         attributes: attributes)
@@ -63,6 +64,7 @@ final class SignInViewController: UIViewController {
     private let emailTextField: UITextField = {
        let textField = UITextField()
         textField.textColor = .white
+        textField.returnKeyType = .next
         let attributes: [NSAttributedString.Key: Any] = [.foregroundColor: UIColor.gray]
         textField.attributedPlaceholder = NSAttributedString(string: "Your email", attributes: attributes)
         return textField
@@ -72,6 +74,7 @@ final class SignInViewController: UIViewController {
        let textField = UITextField()
         textField.isSecureTextEntry = true
         textField.textColor = .white
+        textField.returnKeyType = .go
         let attributes: [NSAttributedString.Key: Any] = [.foregroundColor: UIColor.gray]
         textField.attributedPlaceholder = NSAttributedString(string: "Your password", attributes: attributes)
         return textField
@@ -88,7 +91,7 @@ final class SignInViewController: UIViewController {
     private let forgotPasswordButton: UIButton = {
         let button = UIButton()
         button.setTitle("Forgot Password ?", for: .normal)
-        button.setTitleColor(.systemGray4, for: .normal)
+        button.setTitleColor(.gray, for: .normal)
         button.contentHorizontalAlignment = .right
         return button
     }()
@@ -118,6 +121,15 @@ final class SignInViewController: UIViewController {
     
     override func viewDidLoad() {
         setupUI()
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+        view.addGestureRecognizer(tapGesture)
+    }
+    
+    @objc private func dismissKeyboard() {
+        view.endEditing(true)
+        if !isLogin {
+            scrollView.scrollToTop(animated: true)
+        }
     }
 }
 
@@ -174,7 +186,7 @@ private extension SignInViewController {
         }
         
         authStackView.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(200)
+            make.top.equalToSuperview().offset(220)
             make.leading.equalToSuperview().offset(16)
             make.trailing.equalToSuperview().offset(-16)
         }
@@ -316,19 +328,13 @@ extension SignInViewController: UITextFieldDelegate {
     }
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
-        if textField == nameTextField || textField == emailTextField {
-            textField.returnKeyType = .next
-        } else {
-            textField.returnKeyType = .go
-        }
-        
         if !isLogin {
             scrollView.scrollToBottom(animated: true)
         }
     }
 }
 
-// MARK: - Authorization Methods
+// MARK: - FireBase Authorization
 private extension SignInViewController {
     func signUp() {
         guard let _ = nameTextField.text,
@@ -342,7 +348,8 @@ private extension SignInViewController {
             
             if let error = error {
                 self?.showAlert(title: "Oops..", message: "\(error.localizedDescription)")
-                return
+            } else {
+                self?.navigationController?.pushViewController(TabBarController(), animated: true)
             }
         }
     }
@@ -358,8 +365,7 @@ private extension SignInViewController {
             if let error = error {
                 self?.showAlert(title: "Oops..", message: "\(error.localizedDescription)")
             } else {
-                print("User registered successfully")
-                // Переход на другой экран или отображение сообщения
+                self?.navigationController?.pushViewController(TabBarController(), animated: true)
             }
         }
     }
