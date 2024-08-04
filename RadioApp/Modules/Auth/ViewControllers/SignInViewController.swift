@@ -16,6 +16,7 @@ final class SignInViewController: UIViewController {
     private var isLogin: Bool = true
     private let backgroundView = BackgroundView()
     private var nameTFView: BorderView!
+    private let signInStartLabel = SignInStartLabel()
     
     private let scrollView: UIScrollView = {
        let scrollView = UIScrollView()
@@ -156,7 +157,7 @@ private extension SignInViewController {
         scrollView.addSubview(contentView)
         
         contentView.addSubview(authStackView)
-        authStackView.addArrangedSubview(SignInStartLabel())
+        authStackView.addArrangedSubview(signInStartLabel)
         authStackView.addArrangedSubview(nameTFView)
         authStackView.addArrangedSubview(createEmailBorderedTF())
         authStackView.addArrangedSubview(createPasswordBorderedTF())
@@ -299,6 +300,7 @@ private extension SignInViewController {
         nameTFView.isHidden.toggle()
         forgotPasswordButton.isHidden.toggle()
         connectWithGoogleStackView.isHidden.toggle()
+        signInStartLabel.changeTitle()
         signUpButton.setTitle("or Sign UP", for: .normal)
         
         signUpButton.setTitle(

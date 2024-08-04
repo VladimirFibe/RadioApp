@@ -286,12 +286,20 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
+		79E4B82C2C5FCC8D00D8C21A /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				79ED8B602C582C1B00F91004 /* SignInViewController.swift */,
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
 		79ED8B5F2C582BFF00F91004 /* Auth */ = {
 			isa = PBXGroup;
 			children = (
-				79E4B8272C5FB5AF00D8C21A /* Extensions */,
+				79E4B82C2C5FCC8D00D8C21A /* ViewControllers */,
 				7974F6862C5971BD009D5565 /* Views */,
-				79ED8B602C582C1B00F91004 /* SignInViewController.swift */,
+				79E4B8272C5FB5AF00D8C21A /* Extensions */,
 			);
 			path = Auth;
 			sourceTree = "<group>";
