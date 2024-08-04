@@ -301,9 +301,30 @@ private extension SignInViewController {
     }
 }
 
+// MARK: - UITextFieldDelegate
 extension SignInViewController: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        switch textField {
+        case nameTextField:
+            emailTextField.becomeFirstResponder()
+        case emailTextField:
+            passwordTextField.becomeFirstResponder()
+        default:
+            loginButtonPressed()
+        }
+        return true
+    }
+    
     func textFieldDidBeginEditing(_ textField: UITextField) {
-        scrollView.scrollToBottom(animated: true)
+        if textField == nameTextField || textField == emailTextField {
+            textField.returnKeyType = .next
+        } else {
+            textField.returnKeyType = .go
+        }
+        
+        if !isLogin {
+            scrollView.scrollToBottom(animated: true)
+        }
     }
 }
 
@@ -353,7 +374,9 @@ private extension SignInViewController {
             preferredStyle: .alert
         )
         
-        let okButton = UIAlertAction(title: "OK", style: .cancel)
+        let okButton = UIAlertAction(title: "OK", style: .cancel) { [weak self] _ in
+            self?.passwordTextField.text = ""
+        }
         alert.addAction(okButton)
         present(alert, animated: true)
     }
