@@ -22,7 +22,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
     
     func start() {
-        setRootViewController(makeWelcome())
+        setRootViewController(makeMain())
     }
 
     func setRootViewController(_ controller: UIViewController, animated: Bool = true) {
@@ -39,15 +39,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                           options: .transitionCrossDissolve,
                           animations: nil,
                           completion: nil)
-    }
-    
-    private func makeWelcome() -> UIViewController {
-        let controller = WelcomeViewController()
-        controller.action = { [weak self] in
-            guard let self else { return }
-            self.setRootViewController(self.makeMain())
-        }
-        return controller
     }
     
     private func makeMain() -> UIViewController {

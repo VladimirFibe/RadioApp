@@ -42,6 +42,7 @@
 		79E4B82E2C5FD2AD00D8C21A /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 79E4B82D2C5FD2AD00D8C21A /* GoogleService-Info.plist */; };
 		79E4B8312C5FD37600D8C21A /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = 79E4B8302C5FD37600D8C21A /* GoogleSignIn */; };
 		79ED8B612C582C1B00F91004 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79ED8B602C582C1B00F91004 /* SignInViewController.swift */; };
+		DC9E90652C5E8EC90053D2A0 /* DetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC9E90632C5E8EC90053D2A0 /* DetailsViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -80,6 +81,7 @@
 		79E4B8282C5FB5C900D8C21A /* UIScrollView + Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIScrollView + Ext.swift"; sourceTree = "<group>"; };
 		79E4B82D2C5FD2AD00D8C21A /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		79ED8B602C582C1B00F91004 /* SignInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
+		DC9E90632C5E8EC90053D2A0 /* DetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailsViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -160,6 +162,7 @@
 		04B1D5312C56C76F000A9461 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				DC9E90642C5E8EC90053D2A0 /* Station Details */,
 				04CFD7712C5D548B005DCBB7 /* ChangePassword */,
 				04CFD76A2C5D547B005DCBB7 /* ForgotPassword */,
 				04B2BA422C5C0F6E00B1A3C4 /* Profile */,
@@ -306,6 +309,14 @@
 			path = Auth;
 			sourceTree = "<group>";
 		};
+		DC9E90642C5E8EC90053D2A0 /* Station Details */ = {
+			isa = PBXGroup;
+			children = (
+				DC9E90632C5E8EC90053D2A0 /* DetailsViewController.swift */,
+			);
+			path = "Station Details";
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -394,6 +405,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				04B2BA452C5C0F6E00B1A3C4 /* PoliciesView.swift in Sources */,
+				DC9E90652C5E8EC90053D2A0 /* DetailsViewController.swift in Sources */,
 				04CFD7722C5D548B005DCBB7 /* ChangePasswordView.swift in Sources */,
 				048918C22C5962A200B677CC /* CustomFont.swift in Sources */,
 				7974F68C2C5A83B0009D5565 /* BackgroundView.swift in Sources */,
