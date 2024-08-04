@@ -20,6 +20,7 @@ final class SignInViewController: UIViewController {
     private let scrollView: UIScrollView = {
        let scrollView = UIScrollView()
         scrollView.showsHorizontalScrollIndicator = false
+        scrollView.isScrollEnabled = false
         return scrollView
     }()
     
@@ -131,6 +132,10 @@ private extension SignInViewController {
         addSubviews()
         setConstraints()
         addTargets()
+        
+        nameTextField.delegate = self
+        emailTextField.delegate = self
+        passwordTextField.delegate = self
     }
     
     func addSubviews() {
@@ -296,10 +301,9 @@ private extension SignInViewController {
     }
 }
 
-// MARK: - Keyboard with Observers
-private extension SignInViewController {
-    @objc func keyboardWillShow(notification: NSNotification) {
-        
+extension SignInViewController: UITextFieldDelegate {
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        scrollView.scrollToBottom(animated: true)
     }
 }
 
