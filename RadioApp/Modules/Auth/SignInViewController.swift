@@ -296,6 +296,13 @@ private extension SignInViewController {
     }
 }
 
+// MARK: - Keyboard with Observers
+private extension SignInViewController {
+    @objc func keyboardWillShow(notification: NSNotification) {
+        
+    }
+}
+
 // MARK: - Authorization Methods
 private extension SignInViewController {
     func signUp() {
