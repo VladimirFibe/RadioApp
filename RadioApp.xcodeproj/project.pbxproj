@@ -34,12 +34,12 @@
 		7974F68A2C59767A009D5565 /* SignInStartLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7974F6892C59767A009D5565 /* SignInStartLabel.swift */; };
 		7974F68C2C5A83B0009D5565 /* BackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7974F68B2C5A83B0009D5565 /* BackgroundView.swift */; };
 		7974F68E2C5A90AC009D5565 /* ConnectWithGoogleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7974F68D2C5A90AC009D5565 /* ConnectWithGoogleView.swift */; };
-		7974F6942C5BE875009D5565 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7974F6932C5BE875009D5565 /* GoogleService-Info.plist */; };
 		79922C0B2C569FAB0041F8BB /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 79922C0A2C569FAB0041F8BB /* README.md */; };
 		79922C0E2C56A0080041F8BB /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 79922C0D2C56A0080041F8BB /* SnapKit */; };
 		79E4B8242C5E5AF800D8C21A /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 79E4B8232C5E5AF800D8C21A /* FirebaseAnalytics */; };
 		79E4B8262C5E5AF800D8C21A /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 79E4B8252C5E5AF800D8C21A /* FirebaseAuth */; };
 		79E4B8292C5FB5C900D8C21A /* UIScrollView + Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79E4B8282C5FB5C900D8C21A /* UIScrollView + Ext.swift */; };
+		79E4B82E2C5FD2AD00D8C21A /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 79E4B82D2C5FD2AD00D8C21A /* GoogleService-Info.plist */; };
 		79ED8B612C582C1B00F91004 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79ED8B602C582C1B00F91004 /* SignInViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -75,9 +75,9 @@
 		7974F6892C59767A009D5565 /* SignInStartLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInStartLabel.swift; sourceTree = "<group>"; };
 		7974F68B2C5A83B0009D5565 /* BackgroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundView.swift; sourceTree = "<group>"; };
 		7974F68D2C5A90AC009D5565 /* ConnectWithGoogleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectWithGoogleView.swift; sourceTree = "<group>"; };
-		7974F6932C5BE875009D5565 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		79922C0A2C569FAB0041F8BB /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		79E4B8282C5FB5C900D8C21A /* UIScrollView + Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIScrollView + Ext.swift"; sourceTree = "<group>"; };
+		79E4B82D2C5FD2AD00D8C21A /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		79ED8B602C582C1B00F91004 /* SignInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -119,7 +119,7 @@
 		04B1D50C2C546AA3000A9461 = {
 			isa = PBXGroup;
 			children = (
-				7974F6932C5BE875009D5565 /* GoogleService-Info.plist */,
+				79E4B82D2C5FD2AD00D8C21A /* GoogleService-Info.plist */,
 				79922C0A2C569FAB0041F8BB /* README.md */,
 				04B1D5172C546AA3000A9461 /* RadioApp */,
 				04B1D5162C546AA3000A9461 /* Products */,
@@ -373,8 +373,8 @@
 			files = (
 				04B1D5222C546AA4000A9461 /* Assets.xcassets in Resources */,
 				04B1D5252C546AA4000A9461 /* Base in Resources */,
-				7974F6942C5BE875009D5565 /* GoogleService-Info.plist in Resources */,
 				048918C92C59633E00B677CC /* SF-Pro-Display-Regular.otf in Resources */,
+				79E4B82E2C5FD2AD00D8C21A /* GoogleService-Info.plist in Resources */,
 				79922C0B2C569FAB0041F8BB /* README.md in Resources */,
 				048918CC2C59633E00B677CC /* SF-Pro-Display-Bold.otf in Resources */,
 				048918CA2C59633E00B677CC /* SF-Pro-Display-Medium.otf in Resources */,
