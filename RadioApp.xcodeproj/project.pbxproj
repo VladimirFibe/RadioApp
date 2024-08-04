@@ -37,6 +37,7 @@
 		79922C0B2C569FAB0041F8BB /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 79922C0A2C569FAB0041F8BB /* README.md */; };
 		79922C0E2C56A0080041F8BB /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 79922C0D2C56A0080041F8BB /* SnapKit */; };
 		79ED8B612C582C1B00F91004 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79ED8B602C582C1B00F91004 /* SignInViewController.swift */; };
+		DC9E90652C5E8EC90053D2A0 /* DetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC9E90632C5E8EC90053D2A0 /* DetailsViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -73,6 +74,7 @@
 		7974F68D2C5A90AC009D5565 /* ConnectWithGoogleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectWithGoogleView.swift; sourceTree = "<group>"; };
 		79922C0A2C569FAB0041F8BB /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		79ED8B602C582C1B00F91004 /* SignInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
+		DC9E90632C5E8EC90053D2A0 /* DetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailsViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -149,6 +151,7 @@
 		04B1D5312C56C76F000A9461 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				DC9E90642C5E8EC90053D2A0 /* Station Details */,
 				04CFD7712C5D548B005DCBB7 /* ChangePassword */,
 				04CFD76A2C5D547B005DCBB7 /* ForgotPassword */,
 				04B2BA422C5C0F6E00B1A3C4 /* Profile */,
@@ -278,6 +281,14 @@
 			path = Auth;
 			sourceTree = "<group>";
 		};
+		DC9E90642C5E8EC90053D2A0 /* Station Details */ = {
+			isa = PBXGroup;
+			children = (
+				DC9E90632C5E8EC90053D2A0 /* DetailsViewController.swift */,
+			);
+			path = "Station Details";
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -360,6 +371,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				04B2BA452C5C0F6E00B1A3C4 /* PoliciesView.swift in Sources */,
+				DC9E90652C5E8EC90053D2A0 /* DetailsViewController.swift in Sources */,
 				04CFD7722C5D548B005DCBB7 /* ChangePasswordView.swift in Sources */,
 				048918C22C5962A200B677CC /* CustomFont.swift in Sources */,
 				7974F68C2C5A83B0009D5565 /* BackgroundView.swift in Sources */,
