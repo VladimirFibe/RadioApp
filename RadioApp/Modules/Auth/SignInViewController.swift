@@ -23,6 +23,11 @@ final class SignInViewController: UIViewController {
         return scrollView
     }()
     
+    private let contentView: UIView = {
+        let view = UIView()
+        return view
+    }()
+    
     private let authStackView: UIStackView = {
        let stackView = UIStackView()
         stackView.axis = .vertical
@@ -131,8 +136,9 @@ private extension SignInViewController {
     func addSubviews() {
         view.addSubview(backgroundView)
         view.addSubview(scrollView)
+        scrollView.addSubview(contentView)
         
-        scrollView.addSubview(authStackView)
+        contentView.addSubview(authStackView)
         authStackView.addArrangedSubview(SignInStartLabel())
         authStackView.addArrangedSubview(nameTFView)
         authStackView.addArrangedSubview(createEmailBorderedTF())
@@ -143,7 +149,7 @@ private extension SignInViewController {
         connectWithGoogleStackView.addArrangedSubview(ConnectWithGoogleView())
         connectWithGoogleStackView.addArrangedSubview(connectGoogleButton)
         
-        view.addSubview(loginButtonsStackView)
+        contentView.addSubview(loginButtonsStackView)
         loginButtonsStackView.addArrangedSubview(loginButton)
         loginButtonsStackView.addArrangedSubview(signUpButton)
     }
@@ -155,6 +161,11 @@ private extension SignInViewController {
         
         scrollView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
+        }
+        
+        contentView.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+            make.width.equalTo(scrollView)
         }
         
         authStackView.snp.makeConstraints { make in
@@ -174,6 +185,7 @@ private extension SignInViewController {
         loginButtonsStackView.snp.makeConstraints { make in
             make.top.equalTo(authStackView.snp.bottom).offset(32)
             make.leading.equalToSuperview().offset(16)
+            make.bottom.equalToSuperview().offset(-200)
         }
         
         loginButton.snp.makeConstraints { make in
@@ -313,6 +325,9 @@ private extension SignInViewController {
         Auth.auth().signIn(withEmail: email, password: password) { [weak self] authResult, error in
             if let error = error {
                 self?.showAlert(title: "Oops..", message: "\(error.localizedDescription)")
+            } else {
+                print("User registered successfully")
+                // Переход на другой экран или отображение сообщения
             }
         }
     }
