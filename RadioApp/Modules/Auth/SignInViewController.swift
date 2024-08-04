@@ -174,7 +174,6 @@ private extension SignInViewController {
         loginButtonsStackView.snp.makeConstraints { make in
             make.top.equalTo(authStackView.snp.bottom).offset(32)
             make.leading.equalToSuperview().offset(16)
-//            make.bottom.equalToSuperview().offset(-200)
         }
         
         loginButton.snp.makeConstraints { make in
@@ -283,10 +282,13 @@ private extension SignInViewController {
     @objc func loginButtonPressed() {
         isLogin ? signIn() : signUp()
     }
-    
+}
+
+// MARK: - Authorization Methods
+private extension SignInViewController {
     func signUp() {
         guard let _ = nameTextField.text,
-           let email = emailTextField.text,
+              let email = emailTextField.text,
               let password = passwordTextField.text else {
             showAlert(title: "Missing Information", message: "Please fill in all required fields to proceed.")
             return
