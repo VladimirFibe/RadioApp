@@ -301,10 +301,9 @@ private extension SignInViewController {
         forgotPasswordButton.isHidden.toggle()
         connectWithGoogleStackView.isHidden.toggle()
         signInStartLabel.changeTitle()
-        signUpButton.setTitle("or Sign UP", for: .normal)
         
         signUpButton.setTitle(
-            isLogin ? "Or Sign UP" : "Or Sign In",
+            isLogin ? "Or Sign In" : "Or Sign Up",
             for: .normal
         )
         isLogin.toggle()
