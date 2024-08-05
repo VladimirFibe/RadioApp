@@ -32,12 +32,17 @@ final class PopularViewController: UIViewController {
         popularView.setDelegate(viewController: self)
         popularView.delegate = self
         updateButtonImage(isPlay: true)
+        setupNavBar()
         fetchRadio()
     }
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         radioPlayer.stopMusic()
+    }
+    
+    private func setupNavBar() {
+        navigationController?.navigationBar.isHidden = true
     }
     
     func selectStation(at position: Int) {
@@ -63,7 +68,7 @@ extension PopularViewController: UICollectionViewDataSource, UICollectionViewDel
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PopularCell.identifier, for: indexPath) as? PopularCell else { return UICollectionViewCell() }
         let radio = radioStations[indexPath.row]
-        cell.configure(with: radio)
+        cell.configure(with: radio, indexPath: indexPath)
         return cell
     }
     

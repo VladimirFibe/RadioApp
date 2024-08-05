@@ -18,6 +18,12 @@ final class PopularView: UIView {
     
     weak var delegate: PopularViewDelegate?
     
+    private lazy var topView: CustomNavigationView = {
+        let view = CustomNavigationView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
     private lazy var volumeImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(systemName: "volume.2")
@@ -145,6 +151,7 @@ final class PopularView: UIView {
     
     func setupViews() {
         backgroundColor = #colorLiteral(red: 0.002947255969, green: 0.002675811062, blue: 0.1643544436, alpha: 1)
+        addSubview(topView)
         addSubview(popularLabel)
         addSubview(popularCollectionView)
         addSubview(volumeSlider)
@@ -158,7 +165,12 @@ final class PopularView: UIView {
     
     func setConstraints() {
         NSLayoutConstraint.activate([
-            popularLabel.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 45),
+            topView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 0),
+            topView.heightAnchor.constraint(equalToConstant: 45),
+            topView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            topView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            
+            popularLabel.topAnchor.constraint(equalTo: topView.bottomAnchor, constant: 10),
             popularLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 62.79),
             popularLabel.heightAnchor.constraint(equalToConstant: 36),
             
