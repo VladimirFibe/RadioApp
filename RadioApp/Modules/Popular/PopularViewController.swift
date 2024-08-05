@@ -35,6 +35,11 @@ final class PopularViewController: UIViewController {
         fetchRadio()
     }
     
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        radioPlayer.stopMusic()
+    }
+    
     func selectStation(at position: Int) {
         radioPlayer.changeCurrentURL(radioStations[selectedIndex].url_resolved)
         popularView.popularCollectionView.selectItem(at: IndexPath(item: position, section: 0), animated: true, scrollPosition: .top)

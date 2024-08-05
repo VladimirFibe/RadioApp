@@ -84,8 +84,6 @@ final class PopularCell: UICollectionViewCell {
         return view
     }()
     
-    let arrayPointColors: [UIColor] = [#colorLiteral(red: 0.6901960784, green: 0.1568627451, blue: 0.3294117647, alpha: 1), #colorLiteral(red: 0.09019607843, green: 0.5411764706, blue: 0.8666666667, alpha: 1), #colorLiteral(red: 0.5294117647, green: 0.08235294118, blue: 0.8, alpha: 1), #colorLiteral(red: 0.1568627451, green: 0.6901960784, blue: 0.4352941176, alpha: 1), #colorLiteral(red: 0.8901960784, green: 0.6588235294, blue: 0.06274509804, alpha: 1), #colorLiteral(red: 0.9098039216, green: 0.07058823529, blue: 0.07058823529, alpha: 1)]
-    
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupViews()
@@ -145,7 +143,7 @@ final class PopularCell: UICollectionViewCell {
         votesLabel.text = nil
     }
     
-    public func configure(with radio: RadioStation) {
+    public func configure(with radio: RadioStation, indexPath: IndexPath) {
         if radio.tag == "" {
             genreLabel.text = "Online"
         } else {
@@ -153,10 +151,15 @@ final class PopularCell: UICollectionViewCell {
         }
         titleLabel.text = radio.name
         votesLabel.text = "votes \(radio.votes)"
-        let color = arrayPointColors.randomElement()
+        updateFavoriteButtonAppearance(isFavorite: true)
+        addPointColors(indexPath)
+    }
+    
+    private func addPointColors(_ indexPath: IndexPath) {
+        let arrayPointColors = [#colorLiteral(red: 0.6901960784, green: 0.1568627451, blue: 0.3294117647, alpha: 1), #colorLiteral(red: 0.09019607843, green: 0.5411764706, blue: 0.8666666667, alpha: 1), #colorLiteral(red: 0.5294117647, green: 0.08235294118, blue: 0.8, alpha: 1), #colorLiteral(red: 0.1568627451, green: 0.6901960784, blue: 0.4352941176, alpha: 1), #colorLiteral(red: 0.8901960784, green: 0.6588235294, blue: 0.06274509804, alpha: 1), #colorLiteral(red: 0.9098039216, green: 0.07058823529, blue: 0.07058823529, alpha: 1)]
+        let color = arrayPointColors[indexPath.row % arrayPointColors.count]
         leftPointView.backgroundColor = color
         rightPointView.backgroundColor = color
-        updateFavoriteButtonAppearance(isFavorite: true)
     }
     
     private func updateFavoriteButtonAppearance(isFavorite: Bool) {
