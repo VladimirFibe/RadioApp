@@ -17,7 +17,6 @@ class AboutUs: UIViewController {
         assignBackground()
         view.addSubview(privacyText)
         setConstraint()
-        //        view.backgroundColor = .red
         
     }
     
@@ -30,7 +29,6 @@ class AboutUs: UIViewController {
         imageView.image = background
         imageView.center = view.center
         view.addSubview(imageView)
-        //            view.sendSubviewToBack(imageView)
     }
     
     func setNavBar() {
@@ -66,7 +64,7 @@ class AboutUs: UIViewController {
         
         attributedText.append(titleText2)
         
-        let ruleText2 = NSMutableAttributedString(string:"\nНачинающие разработчики и замечательые людю. Собравшиеся в отличную команду...\n\n\n\n\nпокорять МИР!\n", attributes: [.font: UIFont.systemFont(ofSize: 14),.foregroundColor: UIColor.gray])
+        let ruleText2 = NSMutableAttributedString(string:"\nНачинающие разработчики и замечательые люди. Собравшиеся в отличную команду...\n\n\n\n\nпокорять МИР!\n", attributes: [.font: UIFont.systemFont(ofSize: 14),.foregroundColor: UIColor.gray])
         
         attributedText.append(ruleText2)
         privacyText.attributedText = attributedText

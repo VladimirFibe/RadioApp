@@ -26,12 +26,12 @@
 		04B2BA452C5C0F6E00B1A3C4 /* PoliciesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04B2BA3F2C5C0F6E00B1A3C4 /* PoliciesView.swift */; };
 		04B2BA462C5C0F6E00B1A3C4 /* ProfileEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04B2BA402C5C0F6E00B1A3C4 /* ProfileEditViewController.swift */; };
 		04B2BA472C5C0F6E00B1A3C4 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04B2BA412C5C0F6E00B1A3C4 /* ProfileViewController.swift */; };
+		0F204ABF2C5C12E6009CC358 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 0F204ABE2C5C12E6009CC358 /* SnapKit */; };
 		7974F6882C5971FF009D5565 /* BorderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7974F6872C5971FF009D5565 /* BorderView.swift */; };
 		7974F68A2C59767A009D5565 /* SignInStartLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7974F6892C59767A009D5565 /* SignInStartLabel.swift */; };
 		7974F68C2C5A83B0009D5565 /* BackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7974F68B2C5A83B0009D5565 /* BackgroundView.swift */; };
 		7974F68E2C5A90AC009D5565 /* ConnectWithGoogleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7974F68D2C5A90AC009D5565 /* ConnectWithGoogleView.swift */; };
 		79922C0B2C569FAB0041F8BB /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 79922C0A2C569FAB0041F8BB /* README.md */; };
-		79922C0E2C56A0080041F8BB /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 79922C0D2C56A0080041F8BB /* SnapKit */; };
 		79ED8B612C582C1B00F91004 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79ED8B602C582C1B00F91004 /* SignInViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -72,7 +72,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				79922C0E2C56A0080041F8BB /* SnapKit in Frameworks */,
+				0F204ABF2C5C12E6009CC358 /* SnapKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -235,7 +235,7 @@
 			);
 			name = RadioApp;
 			packageProductDependencies = (
-				79922C0D2C56A0080041F8BB /* SnapKit */,
+				0F204ABE2C5C12E6009CC358 /* SnapKit */,
 			);
 			productName = RadioApp;
 			productReference = 04B1D5152C546AA3000A9461 /* RadioApp.app */;
@@ -266,7 +266,7 @@
 			);
 			mainGroup = 04B1D50C2C546AA3000A9461;
 			packageReferences = (
-				79922C0C2C56A0080041F8BB /* XCRemoteSwiftPackageReference "SnapKit" */,
+				0F204ABD2C5C12E6009CC358 /* XCRemoteSwiftPackageReference "SnapKit" */,
 			);
 			productRefGroup = 04B1D5162C546AA3000A9461 /* Products */;
 			projectDirPath = "";
@@ -463,10 +463,12 @@
 				DEVELOPMENT_TEAM = 723HTEFHBA;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = RadioApp/Info.plist;
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "To save pictures in your profile";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_UIUserInterfaceStyle = Dark;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -491,10 +493,12 @@
 				DEVELOPMENT_TEAM = 723HTEFHBA;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = RadioApp/Info.plist;
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "To save pictures in your profile";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_UIUserInterfaceStyle = Dark;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -533,9 +537,9 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		79922C0C2C56A0080041F8BB /* XCRemoteSwiftPackageReference "SnapKit" */ = {
+		0F204ABD2C5C12E6009CC358 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/SnapKit/SnapKit";
+			repositoryURL = "https://github.com/SnapKit/SnapKit.git";
 			requirement = {
 				kind = upToNextMajorVersion;
 				minimumVersion = 5.7.1;
@@ -544,9 +548,9 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		79922C0D2C56A0080041F8BB /* SnapKit */ = {
+		0F204ABE2C5C12E6009CC358 /* SnapKit */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 79922C0C2C56A0080041F8BB /* XCRemoteSwiftPackageReference "SnapKit" */;
+			package = 0F204ABD2C5C12E6009CC358 /* XCRemoteSwiftPackageReference "SnapKit" */;
 			productName = SnapKit;
 		};
 /* End XCSwiftPackageProductDependency section */

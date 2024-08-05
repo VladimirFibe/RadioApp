@@ -30,6 +30,7 @@ class ProfileViewController: UIViewController {
         assignBackground()
         setNavBar()
         setupView()
+        settingButton()
         setNameLabel()
         setEmailLabel()
         setGeneralLabel()
@@ -67,7 +68,6 @@ class ProfileViewController: UIViewController {
         imageView.clipsToBounds = true
         imageView.image = UIImage(named: "AppIcon")
         imageView.layer.cornerRadius = 27
-        //imageView.tintColor = .white
         imageView.backgroundColor = .white
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
@@ -78,7 +78,6 @@ class ProfileViewController: UIViewController {
         nameLabel.textColor = .white
         nameLabel.textAlignment = .left
         nameLabel.font = .boldSystemFont(ofSize: 16)
-//      nameLabellayer.masksToBounds = true
         nameLabel.translatesAutoresizingMaskIntoConstraints = false
     }
     private func setEmailLabel() {
@@ -86,13 +85,13 @@ class ProfileViewController: UIViewController {
         emailLabel.textColor = UIColor(named: "colorGray")
         emailLabel.textAlignment = .left
         emailLabel.font = .boldSystemFont(ofSize: 14)
-//        emailLabel.layer.masksToBounds = true
         emailLabel.translatesAutoresizingMaskIntoConstraints = false
     }
     
     private lazy var profileEditButton: UIButton = {
         let button = UIButton(primaryAction: profileEditAction)
         button.setImage(UIImage(named: "Icon - Edit"), for: .normal)
+        button.tintColor = .colorButton
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
@@ -125,9 +124,6 @@ class ProfileViewController: UIViewController {
         moreLabel.textColor = .white
         moreLabel.textAlignment = .left
         moreLabel.font = .boldSystemFont(ofSize: 18)
-       //moreLabelel.backgroundColor = UIColor(named: "lightGreyApp")
-        //moreLabel.layer.masksToBounds = true
-       // moreLabelyer.cornerRadius = 12
         moreLabel.translatesAutoresizingMaskIntoConstraints = false
     }
     
@@ -185,7 +181,14 @@ class ProfileViewController: UIViewController {
             ])
         
     }
-    private func setupView() {
+    private func art (){
+        if generalCellView.button2.currentImage == UIImage(named: "left-arrow"){
+            generalCellView.button2.setImage(UIImage(named: "right-arrow"), for: .normal)
+        } else {
+            generalCellView.button2.setImage(UIImage(named: "left-arrow"), for: .normal)
+        }
+    }
+    private func settingButton(){
         
         generalCellView.onTap1 = { isOn in
             guard let isOn else { return }
@@ -195,9 +198,11 @@ class ProfileViewController: UIViewController {
                 print("Выключить уведомления")
             }
         }
-        generalCellView.onTap2 = {
+        generalCellView.onTap2 = { [weak self] in
             print("language")
+            self?.art()
         }
+        
         moreCellView.onTap1 = {_ in
             let policiesVC = PoliciesView()
             self.navigationController?.pushViewController(policiesVC, animated: true)
@@ -213,6 +218,10 @@ class ProfileViewController: UIViewController {
               .font: UIFont.systemFont(ofSize: 20), .foregroundColor: UIColor.white]
         }
         
+    }
+    
+    private func setupView() {
+       
         view.addSubview(profileView)
         view.addSubview(generalCellView)
         view.addSubview(moreCellView)
@@ -229,15 +238,12 @@ class ProfileViewController: UIViewController {
 extension UIView {
     convenience init(height: Int) {
         self.init()
-        self.frame = CGRect(x: 0, y: 0, width: 0, height: height)
+        frame = CGRect(x: 0, y: 0, width: 0, height: height)
         
-        //backgroundColor = .white
         layer.cornerRadius = 20
         layer.borderWidth = 2
         layer.borderColor = UIColor(named: "ColorBorder")?.cgColor
-//                self.contentMode = .scaleAspectFit
-//                self.isUserInteractionEnabled = true
-        self.translatesAutoresizingMaskIntoConstraints = false
+        translatesAutoresizingMaskIntoConstraints = false
     }
 }
 
