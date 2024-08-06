@@ -217,11 +217,17 @@ private extension SignInViewController {
             make.height.equalTo(62)
         }
     }
-    
+
     func addTargets() {
         showPasswordButton.addTarget(
             self,
             action: #selector(togglePasswordVisibility),
+            for: .touchUpInside
+        )
+        
+        forgotPasswordButton.addTarget(
+            self,
+            action: #selector(forgotPasswordButtonPressed),
             for: .touchUpInside
         )
         
@@ -309,6 +315,10 @@ private extension SignInViewController {
                 }
             }
         }
+    }
+    
+    @objc func forgotPasswordButtonPressed() {
+        navigationController?.pushViewController(ForgotPasswordViewController(), animated: true)
     }
     
     @objc func loginButtonPressed() {
