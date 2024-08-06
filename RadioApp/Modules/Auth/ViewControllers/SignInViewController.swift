@@ -8,7 +8,9 @@
 import UIKit
 import SwiftUI
 import SnapKit
+import FirebaseCore
 import FirebaseAuth
+import GoogleSignIn
 
 final class SignInViewController: UIViewController {
     
@@ -97,7 +99,7 @@ final class SignInViewController: UIViewController {
         return button
     }()
     
-    private let connectGoogleButton: UIButton = {
+    private let googleSignInButton: UIButton = {
        let button = UIButton()
         button.setImage(UIImage(named: "google-plus"), for: .normal)
         return button
@@ -165,7 +167,7 @@ private extension SignInViewController {
         authStackView.addArrangedSubview(connectWithGoogleStackView)
         
         connectWithGoogleStackView.addArrangedSubview(ConnectWithGoogleView())
-        connectWithGoogleStackView.addArrangedSubview(connectGoogleButton)
+        connectWithGoogleStackView.addArrangedSubview(googleSignInButton)
         
         contentView.addSubview(loginButtonsStackView)
         loginButtonsStackView.addArrangedSubview(loginButton)
@@ -196,7 +198,7 @@ private extension SignInViewController {
             make.trailing.equalToSuperview().offset(-16)
         }
         
-        connectGoogleButton.snp.makeConstraints { make in
+        googleSignInButton.snp.makeConstraints { make in
             make.height.width.equalTo(40)
         }
         
@@ -228,6 +230,12 @@ private extension SignInViewController {
         loginButton.addTarget(
             self,
             action: #selector(loginButtonPressed),
+            for: .touchUpInside
+        )
+        
+        googleSignInButton.addTarget(
+            self,
+            action: #selector(googleSignInButtonPressed),
             for: .touchUpInside
         )
     }
@@ -331,6 +339,42 @@ extension SignInViewController: UITextFieldDelegate {
     func textFieldDidBeginEditing(_ textField: UITextField) {
         if !isLogin {
             scrollView.scrollToBottom(animated: true)
+        }
+    }
+    
+    @objc func googleSignInButtonPressed() {
+        guard let clientID = FirebaseApp.app()?.options.clientID else { return }
+        
+        let config = GIDConfiguration(clientID: clientID)
+        GIDSignIn.sharedInstance.configuration = config
+        
+        GIDSignIn.sharedInstance.signIn(withPresenting: self) {
+            [weak self] result,
+            error in
+            guard error == nil else {
+                self?.showAlert(title: "Oops..", message: "\(error!.localizedDescription)")
+                return
+            }
+            
+            guard let user = result?.user,
+                  let idToken = user.idToken?.tokenString
+            else {
+                return
+            }
+            
+            let credential = GoogleAuthProvider.credential(
+                withIDToken: idToken,
+                accessToken: user.accessToken.tokenString
+            )
+            
+            Auth.auth().signIn(with: credential) { authResult, error in
+                if let error = error {
+                    self?.showAlert(title: "Oops..", message: "\(error.localizedDescription)")
+                    return
+                }
+                
+                self?.navigationController?.pushViewController(TabBarController(), animated: true)
+            }
         }
     }
 }
