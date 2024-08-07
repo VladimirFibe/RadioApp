@@ -16,6 +16,7 @@
 		04CFD7782C5D58EE005DCBB7 /* FavoriteCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04CFD7742C5D58EE005DCBB7 /* FavoriteCell.swift */; };
 		04CFD7792C5D58EE005DCBB7 /* FavoritesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04CFD7752C5D58EE005DCBB7 /* FavoritesView.swift */; };
 		04CFD77A2C5D58EE005DCBB7 /* FavoritesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04CFD7762C5D58EE005DCBB7 /* FavoritesViewController.swift */; };
+		4D3278DB2C63715000905D6B /* RadioPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D3278DA2C63715000905D6B /* RadioPlayer.swift */; };
 		4D84737E2C60D57100977BA6 /* CustomNavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D84737D2C60D57100977BA6 /* CustomNavigationView.swift */; };
 		4D8473822C60D8D300977BA6 /* UILabel+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D8473812C60D8D300977BA6 /* UILabel+Extension.swift */; };
 		4DD92DD82C5D10AB00ABCF0B /* PopularViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DD92DD72C5D10AB00ABCF0B /* PopularViewController.swift */; };
@@ -37,6 +38,7 @@
 		04CFD7742C5D58EE005DCBB7 /* FavoriteCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoriteCell.swift; sourceTree = "<group>"; };
 		04CFD7752C5D58EE005DCBB7 /* FavoritesView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoritesView.swift; sourceTree = "<group>"; };
 		04CFD7762C5D58EE005DCBB7 /* FavoritesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoritesViewController.swift; sourceTree = "<group>"; };
+		4D3278DA2C63715000905D6B /* RadioPlayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RadioPlayer.swift; sourceTree = "<group>"; };
 		4D84737D2C60D57100977BA6 /* CustomNavigationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomNavigationView.swift; sourceTree = "<group>"; };
 		4D8473812C60D8D300977BA6 /* UILabel+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+Extension.swift"; sourceTree = "<group>"; };
 		4DD92DD72C5D10AB00ABCF0B /* PopularViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopularViewController.swift; sourceTree = "<group>"; };
@@ -77,6 +79,7 @@
 		04B1D5172C546AA3000A9461 /* RadioApp */ = {
 			isa = PBXGroup;
 			children = (
+				4D3278D92C63715000905D6B /* Service */,
 				04B1D5342C56C790000A9461 /* Supporting Files */,
 				04B1D5312C56C76F000A9461 /* Modules */,
 				04B1D5302C56C763000A9461 /* App */,
@@ -138,6 +141,14 @@
 				04CFD7762C5D58EE005DCBB7 /* FavoritesViewController.swift */,
 			);
 			path = Favorites;
+			sourceTree = "<group>";
+		};
+		4D3278D92C63715000905D6B /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				4D3278DA2C63715000905D6B /* RadioPlayer.swift */,
+			);
+			path = Service;
 			sourceTree = "<group>";
 		};
 		4DD92DD62C5D109200ABCF0B /* Popular */ = {
@@ -229,6 +240,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4D3278DB2C63715000905D6B /* RadioPlayer.swift in Sources */,
 				04B1D52D2C56B08F000A9461 /* WelcomeViewController.swift in Sources */,
 				4DD92DD82C5D10AB00ABCF0B /* PopularViewController.swift in Sources */,
 				04B1D5192C546AA3000A9461 /* AppDelegate.swift in Sources */,
