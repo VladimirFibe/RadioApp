@@ -1,0 +1,16 @@
+# Xcode
+#
+# gitignore contributors: remember to update Global/Xcode.gitignore, Objective-C.gitignore & Swift.gitignore
+
+## APIKeys
+APIKey.json
+
+## User settings
+xcuserdata/
+*.xcuserstate
+
+## App packaging
+*.DS_Store
+
+## Configuration files
+GoogleService-Info.plist
