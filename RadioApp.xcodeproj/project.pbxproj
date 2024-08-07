@@ -32,7 +32,6 @@
 		04CFD7732C5D548B005DCBB7 /* ChangePasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04CFD76F2C5D548B005DCBB7 /* ChangePasswordViewController.swift */; };
 		4D3278E22C6383C900905D6B /* UILabel+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D3278DD2C6383C900905D6B /* UILabel+Extension.swift */; };
 		4D3278E32C6383C900905D6B /* PopularCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D3278DE2C6383C900905D6B /* PopularCell.swift */; };
-		4D3278E42C6383C900905D6B /* CustomNavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D3278DF2C6383C900905D6B /* CustomNavigationView.swift */; };
 		4D3278E52C6383C900905D6B /* PopularView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D3278E02C6383C900905D6B /* PopularView.swift */; };
 		4D3278E62C6383C900905D6B /* PopularViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D3278E12C6383C900905D6B /* PopularViewController.swift */; };
 		4D3278EB2C6383F100905D6B /* FavoriteCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D3278E82C6383F100905D6B /* FavoriteCell.swift */; };
@@ -83,7 +82,6 @@
 		04CFD76F2C5D548B005DCBB7 /* ChangePasswordViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChangePasswordViewController.swift; sourceTree = "<group>"; };
 		4D3278DD2C6383C900905D6B /* UILabel+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UILabel+Extension.swift"; sourceTree = "<group>"; };
 		4D3278DE2C6383C900905D6B /* PopularCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopularCell.swift; sourceTree = "<group>"; };
-		4D3278DF2C6383C900905D6B /* CustomNavigationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomNavigationView.swift; sourceTree = "<group>"; };
 		4D3278E02C6383C900905D6B /* PopularView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopularView.swift; sourceTree = "<group>"; };
 		4D3278E12C6383C900905D6B /* PopularViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopularViewController.swift; sourceTree = "<group>"; };
 		4D3278E82C6383F100905D6B /* FavoriteCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoriteCell.swift; sourceTree = "<group>"; };
@@ -122,7 +120,6 @@
 		048918BC2C59620600B677CC /* View */ = {
 			isa = PBXGroup;
 			children = (
-				4D3278DF2C6383C900905D6B /* CustomNavigationView.swift */,
 				048918BA2C59620600B677CC /* CustomTabBarItemView.swift */,
 				048918BB2C59620600B677CC /* TabBarController.swift */,
 			);
@@ -461,7 +458,6 @@
 				04B2BA452C5C0F6E00B1A3C4 /* PoliciesView.swift in Sources */,
 				DC9E90652C5E8EC90053D2A0 /* DetailsViewController.swift in Sources */,
 				04CFD7722C5D548B005DCBB7 /* ChangePasswordView.swift in Sources */,
-				4D3278E42C6383C900905D6B /* CustomNavigationView.swift in Sources */,
 				048918C22C5962A200B677CC /* CustomFont.swift in Sources */,
 				7974F68C2C5A83B0009D5565 /* BackgroundView.swift in Sources */,
 				4D3279082C63C08400905D6B /* CoreManager.swift in Sources */,
