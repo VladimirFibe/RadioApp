@@ -15,13 +15,6 @@ class ViewController: UIViewController {
     }
 }
 
-class PopularViewController: UIViewController {
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        view.backgroundColor = .darkGray
-    }
-}
-
 
 final class TabBarController: UITabBarController {
     
@@ -46,8 +39,6 @@ final class TabBarController: UITabBarController {
         setupCustomTabBar()
         updateTabBarItem(selectedIndex: 0)
         setupConstraints()
-         
-        
     }
     
     
@@ -56,8 +47,7 @@ final class TabBarController: UITabBarController {
         let popularVC = PopularViewController()
         popularVC.tabBarItem = UITabBarItem(title: "Popular", image: UIImage(named: "ellipse"), tag: 0)
         
-        let favoriteVC = ViewController()
-        favoriteVC.view.backgroundColor = .green
+        let favoriteVC = FavoritesViewController()
         favoriteVC.tabBarItem = UITabBarItem(title: "Favorite", image: UIImage(named: "ellipse"), tag: 1)
         
         let allStationVC = ViewController()
