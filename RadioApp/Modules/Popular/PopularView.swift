@@ -15,7 +15,7 @@ protocol PopularViewDelegate: AnyObject {
 }
 
 final class PopularView: UIView {
-    
+
     weak var delegate: PopularViewDelegate?
     
     private lazy var topView: CustomNavigationView = {
@@ -56,7 +56,6 @@ final class PopularView: UIView {
         collectionView.backgroundColor = .clear
         collectionView.showsVerticalScrollIndicator = false
         collectionView.register(PopularCell.self, forCellWithReuseIdentifier: PopularCell.identifier)
-        collectionView.bounces = false
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         return collectionView
     }()
@@ -110,6 +109,7 @@ final class PopularView: UIView {
         return imageView
     }()
     
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupViews()
@@ -117,7 +117,7 @@ final class PopularView: UIView {
     }
     
     required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        fatalError("PopularView not initialised ")
     }
     
     @objc func sliderTapped(_ sender: UISlider) {
@@ -163,7 +163,7 @@ final class PopularView: UIView {
         addSubview(backButton)
     }
     
-    func setConstraints() {
+    private func setConstraints() {
         NSLayoutConstraint.activate([
             topView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 0),
             topView.heightAnchor.constraint(equalToConstant: 45),
@@ -194,7 +194,7 @@ final class PopularView: UIView {
             
             nextButton.centerYAnchor.constraint(equalTo: playPauseButton.centerYAnchor),
             nextButton.leadingAnchor.constraint(equalTo: playPauseButton.trailingAnchor, constant: 35),
-
+            
             backButton.centerYAnchor.constraint(equalTo: playPauseButton.centerYAnchor),
             backButton.trailingAnchor.constraint(equalTo: playPauseButton.leadingAnchor, constant: -35),
             

@@ -6,14 +6,17 @@
 //
 
 import UIKit
+import CoreData
 
 final class PopularViewController: UIViewController {
+    
+    private var offset: Int = 0
+    private var hasMoreRadio = true
     
     private let popularView = PopularView()
     private var radioStations = [RadioStation]()
     private let radioPlayer = RadioPlayer.shared
-    private var offset: Int = 0
-    private var hasMoreRadio = true
+
     
     var selectedIndex = 0 {
         didSet {
@@ -34,18 +37,10 @@ final class PopularViewController: UIViewController {
         popularView.setDelegate(viewController: self)
         popularView.delegate = self
         updateButtonImage(isPlay: true)
-        setupNavBar()
         fetchRadio(offset: offset)
-    }
-    
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
-        radioPlayer.stopMusic()
-    }
-    
-    private func setupNavBar() {
         navigationController?.navigationBar.isHidden = true
     }
+
     
     func selectStation(at position: Int) {
         radioPlayer.changeCurrentURL(radioStations[selectedIndex].url_resolved)
@@ -55,6 +50,11 @@ final class PopularViewController: UIViewController {
     func updateButtonImage(isPlay: Bool) {
         let image = isPlay ? UIImage(named: "playButton") : UIImage(named: "pauseButton")
         popularView.playPauseButton.setBackgroundImage(image, for: .normal)
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        radioPlayer.stopMusic()
     }
 }
 
@@ -69,13 +69,31 @@ extension PopularViewController: UICollectionViewDataSource, UICollectionViewDel
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PopularCell.identifier, for: indexPath) as? PopularCell else { return UICollectionViewCell() }
+
         let radio = radioStations[indexPath.row]
-        cell.configure(with: radio, indexPath: indexPath)
+        let isFavorite = CoreManager.shared.updateLike(id: radio.stationuuid)
+
+        
+        //MARK: - Save to CoreData
+        cell.likeCompletion = {
+            cell.downloadRadioAt(indexPath: indexPath, radio: radio)
+        }
+        
+        cell.deleteCompletion = {
+            cell.deleteRadioAt(id: radio.stationuuid)
+        }
+        
+        cell.updateLikeCompletion = {
+            DispatchQueue.main.async {
+                self.popularView.popularCollectionView.reloadData()
+            }
+        }
+
+        cell.configure(with: radio, indexPath: indexPath, isFavorite: isFavorite)
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        print(indexPath.row)
         selectedIndex = indexPath.row
     }
     
@@ -93,6 +111,7 @@ extension PopularViewController: UICollectionViewDataSource, UICollectionViewDel
 }
 
 
+//MARK: - PopularViewDelegate
 extension PopularViewController: PopularViewDelegate {
     func didSlideSlider(_ value: Float) {
         radioPlayer.volume = value

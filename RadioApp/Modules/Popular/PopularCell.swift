@@ -11,6 +11,15 @@ final class PopularCell: UICollectionViewCell {
     
     static let identifier = "PopularCell"
     
+    private var liked: Bool = false
+    private var votes: Int = 0
+    private var indexPath: IndexPath!
+
+    var likeCompletion: (() -> Void)?
+    var deleteCompletion: (() -> Void)?
+    var updateLikeCompletion: (() -> Void)?
+
+    
     private lazy var genreLabel: UILabel = {
         let label = UILabel()
         label.textColor = #colorLiteral(red: 0.2032947838, green: 0.204798311, blue: 0.3333529532, alpha: 1)
@@ -84,10 +93,12 @@ final class PopularCell: UICollectionViewCell {
         return view
     }()
     
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupViews()
         setConstraint()
+        NotificationCenter.default.addObserver(self, selector: #selector(updateLike), name: NSNotification.Name("deleteFavoriteFromFavoriteScreen"), object: nil)
     }
     
     required init?(coder: NSCoder) {
@@ -96,8 +107,8 @@ final class PopularCell: UICollectionViewCell {
     
     func setupViews() {
         layer.cornerRadius = 15
-        layer.borderWidth = 1
-        layer.borderColor = UIColor.gray.cgColor
+        layer.borderWidth = 2
+        layer.borderColor = #colorLiteral(red: 0.2032947838, green: 0.204798311, blue: 0.3333529532, alpha: 1).cgColor
         addSubview(genreLabel)
         addSubview(votesLabel)
         addSubview(likeButton)
@@ -106,6 +117,10 @@ final class PopularCell: UICollectionViewCell {
         addSubview(curvedLineImageView)
         curvedLineImageView.addSubview(rightPointView)
         curvedLineImageView.addSubview(leftPointView)
+    }
+    
+    @objc func updateLike() {
+        updateLikeCompletion?()
     }
     
     override var isSelected: Bool {
@@ -133,40 +148,62 @@ final class PopularCell: UICollectionViewCell {
         }
     }
     
-    @objc func likeButtonTapped(_sender: UIButton) {
-        likeButton.setBackgroundImage(UIImage(named: "likeButton"), for: .normal)
-    }
-    
     override func prepareForReuse() {
         super.prepareForReuse()
+        genreLabel.text = nil
         titleLabel.text = nil
         votesLabel.text = nil
     }
     
-    public func configure(with radio: RadioStation, indexPath: IndexPath) {
-        if radio.tag == "" {
-            genreLabel.text = "Online"
-        } else {
-            genreLabel.text = radio.tag
-        }
+    public func configure(with radio: RadioStation, indexPath: IndexPath, isFavorite: Bool) {
+        genreLabel.text = (radio.tag == "") ? "Online" : radio.tag
         titleLabel.text = radio.name
         votesLabel.text = "votes \(radio.votes)"
-        updateFavoriteButtonAppearance(isFavorite: true)
-        addPointColors(indexPath)
+        
+        self.liked = isFavorite
+        self.indexPath = indexPath
+        self.votes = radio.votes
+
+        updateFavoriteButtonAppearance(isFavorite: liked)
+        addPointColors(with: indexPath)
     }
     
-    private func addPointColors(_ indexPath: IndexPath) {
+    private func updateFavoriteButtonAppearance(isFavorite: Bool) {
+        let bigActiveIcon = UIImage(named: "likeButton")
+        let bigInactiveIcon = UIImage(named: "dontLikeButton")
+        let image = isFavorite ? bigActiveIcon : bigInactiveIcon
+        likeButton.setBackgroundImage(image, for: .normal)
+    }
+    
+    private func addPointColors(with indexPath: IndexPath) {
         let arrayPointColors = [#colorLiteral(red: 0.6901960784, green: 0.1568627451, blue: 0.3294117647, alpha: 1), #colorLiteral(red: 0.09019607843, green: 0.5411764706, blue: 0.8666666667, alpha: 1), #colorLiteral(red: 0.5294117647, green: 0.08235294118, blue: 0.8, alpha: 1), #colorLiteral(red: 0.1568627451, green: 0.6901960784, blue: 0.4352941176, alpha: 1), #colorLiteral(red: 0.8901960784, green: 0.6588235294, blue: 0.06274509804, alpha: 1), #colorLiteral(red: 0.9098039216, green: 0.07058823529, blue: 0.07058823529, alpha: 1)]
         let color = arrayPointColors[indexPath.row % arrayPointColors.count]
         leftPointView.backgroundColor = color
         rightPointView.backgroundColor = color
     }
     
-    private func updateFavoriteButtonAppearance(isFavorite: Bool) {
-        let likeButtonActive = UIImage(named: "likeButton")
-        let likeButtonInactive = UIImage(named: "dontLikeButton")
-        let image = isFavorite ? likeButtonActive : likeButtonInactive
-        likeButton.setBackgroundImage(image, for: .normal)
+    public func downloadRadioAt(indexPath: IndexPath, radio: RadioStation) {
+        CoreManager.shared.downloadRadioWith(model: radio) { result in
+            switch result {
+            case .success():
+                print("downloaded to Database")
+                NotificationCenter.default.post(name: NSNotification.Name("downloaded"), object: nil)
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+        }
+    }
+
+    public func deleteRadioAt(id: String) {
+        CoreManager.shared.deleteRadioFromFavorites(id: id) { result in
+            switch result {
+            case .success():
+                print("deleted from Database")
+                NotificationCenter.default.post(name: NSNotification.Name("radioDeleted"), object: nil)
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+        }
     }
     
     private func setConstraint() {
@@ -209,5 +246,35 @@ final class PopularCell: UICollectionViewCell {
             rightPointView.heightAnchor.constraint(equalToConstant: 8.26),
             rightPointView.widthAnchor.constraint(equalToConstant: 8.26),
         ])
+    }
+}
+
+extension PopularCell {
+    
+    public func addStationVotes(isAddVote: Bool) {
+        updateVote(isAddVote: isAddVote)
+    }
+
+    private func updateVote(isAddVote: Bool) {
+        if isAddVote == true {
+            votes = votes + 1
+        } else {
+            return
+        }
+        UIView.transition(with: votesLabel, duration: 0.2, options: .transitionCrossDissolve) {
+            self.votesLabel.text = "votes \(self.votes)"
+        }
+    }
+}
+
+private extension PopularCell {
+    @objc func likeButtonTapped(_ sender: UIButton) {
+        liked.toggle()
+        updateFavoriteButtonAppearance(isFavorite: liked)
+        if liked {
+            likeCompletion?()
+        } else {
+            deleteCompletion?()
+        }
     }
 }

@@ -10,11 +10,13 @@ import UIKit
 class FavoriteCell: UICollectionViewCell {
     
     static let identifier = "FavoriteCell"
-    
+
+    var dontLikeButtonTapped: (() -> Void)?
+   
     private lazy var stackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
-        stackView.spacing = 1
+        stackView.spacing = 0
         stackView.distribution = .fillEqually
         stackView.translatesAutoresizingMaskIntoConstraints = false
         return stackView
@@ -74,8 +76,6 @@ class FavoriteCell: UICollectionViewCell {
         return view
     }()
     
-    let arrayPointColors: [UIColor] = [#colorLiteral(red: 0.6901960784, green: 0.1568627451, blue: 0.3294117647, alpha: 1), #colorLiteral(red: 0.09019607843, green: 0.5411764706, blue: 0.8666666667, alpha: 1), #colorLiteral(red: 0.5294117647, green: 0.08235294118, blue: 0.8, alpha: 1), #colorLiteral(red: 0.1568627451, green: 0.6901960784, blue: 0.4352941176, alpha: 1), #colorLiteral(red: 0.8901960784, green: 0.6588235294, blue: 0.06274509804, alpha: 1), #colorLiteral(red: 0.9098039216, green: 0.07058823529, blue: 0.07058823529, alpha: 1)]
-    
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupViews()
@@ -87,11 +87,8 @@ class FavoriteCell: UICollectionViewCell {
     }
     
     @objc func likeButtonPressed(sender: UIButton) {
-        sender.alpha = 0.45
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
-            sender.alpha = 1
-        }
-        print("likeButtonPressed")
+        dontLikeButtonTapped?()
+        print("dontLikeButtonPressed")
     }
     
     override func prepareForReuse() {
@@ -100,17 +97,32 @@ class FavoriteCell: UICollectionViewCell {
         radioNameLabel.text = nil
     }
     
-    public func configureCell(with radio: RadioStation) {
-        if radio.tags == "" {
-            genreLabel.text = "Online"
-        } else {
-            genreLabel.text = radio.tags
+    public func configureCell(with radio: RadioStations, indexPath: IndexPath) {
+        var tag: String {
+            guard let stroke = radio.tags?.components(separatedBy: CharacterSet(charactersIn: " ,")).first else { return "" }
+            return stroke.capitalized
         }
+        genreLabel.text = (radio.tags == "") ? "Online" : tag
         radioNameLabel.text = radio.name
-        let color = arrayPointColors.randomElement()
+        addPointColors(with: indexPath)
+    }
+    
+    private func addPointColors(with indexPath: IndexPath) {
+        let arrayPointColors = [#colorLiteral(red: 0.6901960784, green: 0.1568627451, blue: 0.3294117647, alpha: 1), #colorLiteral(red: 0.09019607843, green: 0.5411764706, blue: 0.8666666667, alpha: 1), #colorLiteral(red: 0.5294117647, green: 0.08235294118, blue: 0.8, alpha: 1), #colorLiteral(red: 0.1568627451, green: 0.6901960784, blue: 0.4352941176, alpha: 1), #colorLiteral(red: 0.8901960784, green: 0.6588235294, blue: 0.06274509804, alpha: 1), #colorLiteral(red: 0.9098039216, green: 0.07058823529, blue: 0.07058823529, alpha: 1)]
+        let color = arrayPointColors[indexPath.row % arrayPointColors.count]
         leftPointView.backgroundColor = color
         rightPointView.backgroundColor = color
-
+    }
+    
+    public func deleteFavoriteRadio(indexPath: IndexPath, radio: RadioStations) {
+        CoreManager.shared.deleteRadioWith(model: radio) { result in
+            switch result {
+            case .success():
+                NotificationCenter.default.post(name: NSNotification.Name("deleteFavoriteFromFavoriteScreen"), object: nil)
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+        }
     }
     
     private func setupViews() {
@@ -141,10 +153,10 @@ class FavoriteCell: UICollectionViewCell {
 extension FavoriteCell {
     func setConstraint() {
         NSLayoutConstraint.activate([
-            stackView.topAnchor.constraint(equalTo: topAnchor, constant: 16),
+            stackView.topAnchor.constraint(equalTo: topAnchor, constant: 10),
             stackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
             stackView.trailingAnchor.constraint(equalTo: likeButton.leadingAnchor, constant: 0),
-            stackView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -16),
+            stackView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -12),
             
             leftPointView.leadingAnchor.constraint(equalTo: curvedLineImageView.leadingAnchor),
             leftPointView.centerYAnchor.constraint(equalTo: curvedLineImageView.centerYAnchor, constant: -5),

@@ -104,6 +104,12 @@ final class FavoritesView: UIView {
         return imageView
     }()
     
+    private lazy var topView: CustomNavigationView = {
+        let view = CustomNavigationView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupViews()
@@ -147,6 +153,7 @@ final class FavoritesView: UIView {
         addSubview(nextButton)
         addSubview(backButton)
         addSubview(collectionView)
+        addSubview(topView)
     }
     
     func setupFlowLayout() -> UICollectionViewFlowLayout {
@@ -158,7 +165,12 @@ final class FavoritesView: UIView {
     
     func setConstraints() {
         NSLayoutConstraint.activate([
-            titleLabel.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 45),
+            topView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 0),
+            topView.heightAnchor.constraint(equalToConstant: 45),
+            topView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            topView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            
+            titleLabel.topAnchor.constraint(equalTo: topView.bottomAnchor, constant: 10),
             titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 62.79),
             titleLabel.heightAnchor.constraint(equalToConstant: 36),
             
