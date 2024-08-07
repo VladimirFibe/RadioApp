@@ -12,6 +12,8 @@ final class PopularViewController: UIViewController {
     private let popularView = PopularView()
     private var radioStations = [RadioStation]()
     private let radioPlayer = RadioPlayer.shared
+    private var offset: Int = 0
+    private var hasMoreRadio = true
     
     var selectedIndex = 0 {
         didSet {
@@ -33,7 +35,7 @@ final class PopularViewController: UIViewController {
         popularView.delegate = self
         updateButtonImage(isPlay: true)
         setupNavBar()
-        fetchRadio()
+        fetchRadio(offset: offset)
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -76,6 +78,18 @@ extension PopularViewController: UICollectionViewDataSource, UICollectionViewDel
         print(indexPath.row)
         selectedIndex = indexPath.row
     }
+    
+    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        let offsetY = scrollView.contentOffset.y
+        let contentHeight = scrollView.contentSize.height
+        let height = scrollView.frame.size.height
+        
+        if offsetY >= (contentHeight - height) {
+            guard hasMoreRadio == true else { return }
+            offset += 8
+            fetchRadio(offset: offset)
+        }
+    }
 }
 
 
@@ -116,14 +130,17 @@ extension PopularViewController: PopularViewDelegate {
 
 extension PopularViewController {
     //Сетевой запрос популярных станций
-    private func fetchRadio() {
-        guard let url = URL(string: "https://de1.api.radio-browser.info/json/stations/topvote?limit=12") else { return }
+    private func fetchRadio(offset: Int) {
+        guard let url = URL(string: "https://de1.api.radio-browser.info/json/stations/topvote?limit=8&offset=\(offset)") else { return }
         let session = URLSession.shared
         session.dataTask(with: url) { data, response, error in
             guard let data = data else { return }
             
             do {
-                self.radioStations = try JSONDecoder().decode([RadioStation].self, from: data)
+                let popular = try JSONDecoder().decode([RadioStation].self, from: data)
+                self.radioStations = popular
+                if popular.count < 8 { self.hasMoreRadio = false }
+                self.radioStations.append(contentsOf: popular)
                 DispatchQueue.main.async {
                     self.popularView.popularCollectionView.reloadData()
                 }
