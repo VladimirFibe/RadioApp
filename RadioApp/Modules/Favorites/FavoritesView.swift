@@ -104,8 +104,8 @@ final class FavoritesView: UIView {
         return imageView
     }()
     
-    private lazy var topView: CustomNavigationView = {
-        let view = CustomNavigationView()
+    private lazy var topView: CustomNavigationBar = {
+        let view = CustomNavigationBar()
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()

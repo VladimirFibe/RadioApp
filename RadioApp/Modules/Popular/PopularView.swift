@@ -18,8 +18,8 @@ final class PopularView: UIView {
 
     weak var delegate: PopularViewDelegate?
     
-    private lazy var topView: CustomNavigationView = {
-        let view = CustomNavigationView()
+    private lazy var topView: CustomNavigationBar = {
+        let view = CustomNavigationBar()
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
