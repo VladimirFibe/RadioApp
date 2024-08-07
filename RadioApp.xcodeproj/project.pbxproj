@@ -118,6 +118,7 @@
 		048918BC2C59620600B677CC /* View */ = {
 			isa = PBXGroup;
 			children = (
+				4D3278DF2C6383C900905D6B /* CustomNavigationView.swift */,
 				048918BA2C59620600B677CC /* CustomTabBarItemView.swift */,
 				048918BB2C59620600B677CC /* TabBarController.swift */,
 			);
@@ -286,7 +287,6 @@
 			children = (
 				4D3278DD2C6383C900905D6B /* UILabel+Extension.swift */,
 				4D3278DE2C6383C900905D6B /* PopularCell.swift */,
-				4D3278DF2C6383C900905D6B /* CustomNavigationView.swift */,
 				4D3278E02C6383C900905D6B /* PopularView.swift */,
 				4D3278E12C6383C900905D6B /* PopularViewController.swift */,
 			);
