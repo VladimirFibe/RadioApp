@@ -96,9 +96,6 @@ extension PopularViewController: UICollectionViewDataSource, UICollectionViewDel
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         selectedIndex = indexPath.row
-        let radio = popularRadioStations[indexPath.row]
-        let detailVC = DetailsViewController(currentRadio: radio)
-        navigationController?.pushViewController(detailVC, animated: true)
     }
     
     func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
