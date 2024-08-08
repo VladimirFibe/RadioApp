@@ -8,24 +8,6 @@
 import UIKit
 import AVFoundation
 
-struct RadioStation: Decodable {
-    let stationuuid: String
-    let name: String
-    let votes: Int
-    let url_resolved: String
-    let tags: String
-    var isFavorite: Bool?
-    
-    var capitalizedName: String {
-        name.capitalized
-    }
-    
-    var tag: String {
-        guard let stroke = tags.components(separatedBy: CharacterSet(charactersIn: " ,")).first else { return "" }
-        return stroke.capitalized
-    }
-}
-
 final class FavoritesViewController: UIViewController {
 
     private var favoritesRadioStation: [RadioStations] = []
