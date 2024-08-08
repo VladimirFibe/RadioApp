@@ -11,20 +11,21 @@ import CoreData
 final class PopularViewController: UIViewController {
     
     private var offset: Int = 0
+    private var limit: Int = 8
     private var hasMoreRadio = true
     
     private let popularView = PopularView()
-    private var radioStations = [RadioStation]()
-    private let radioPlayer = RadioPlayer.shared
-
+    private var popularRadioStations = [RadioStation]()
+    private let radioPlayer = Player.shared
+    private let networkManager = NetworkManager.shared
     
     var selectedIndex = 0 {
         didSet {
             defer {
                 selectStation(at: selectedIndex)
             }
-            guard 0..<radioStations.endIndex ~= selectedIndex else {
-                selectedIndex = selectedIndex < 0 ? radioStations.count - 1 : 0
+            guard 0..<popularRadioStations.endIndex ~= selectedIndex else {
+                selectedIndex = selectedIndex < 0 ? popularRadioStations.count - 1 : 0
                 return
             }
         }
@@ -37,13 +38,13 @@ final class PopularViewController: UIViewController {
         popularView.setDelegate(viewController: self)
         popularView.delegate = self
         updateButtonImage(isPlay: true)
-        fetchRadio(offset: offset)
+        fetchPopularRadio(typeURL: .popularRadioURL(limit: limit, offset: offset))
         navigationController?.navigationBar.isHidden = true
     }
 
     
     func selectStation(at position: Int) {
-        radioPlayer.changeCurrentURL(radioStations[selectedIndex].url_resolved)
+        radioPlayer.changeCurrentURL(popularRadioStations[selectedIndex].url_resolved)
         popularView.popularCollectionView.selectItem(at: IndexPath(item: position, section: 0), animated: true, scrollPosition: .top)
     }
     
@@ -64,13 +65,13 @@ final class PopularViewController: UIViewController {
 extension PopularViewController: UICollectionViewDataSource, UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        radioStations.count
+        popularRadioStations.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PopularCell.identifier, for: indexPath) as? PopularCell else { return UICollectionViewCell() }
 
-        let radio = radioStations[indexPath.row]
+        let radio = popularRadioStations[indexPath.row]
         let isFavorite = CoreManager.shared.updateLike(id: radio.stationuuid)
 
         
@@ -95,6 +96,9 @@ extension PopularViewController: UICollectionViewDataSource, UICollectionViewDel
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         selectedIndex = indexPath.row
+        let radio = popularRadioStations[indexPath.row]
+        let detailVC = DetailsViewController(currentRadio: radio)
+        navigationController?.pushViewController(detailVC, animated: true)
     }
     
     func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
@@ -105,7 +109,7 @@ extension PopularViewController: UICollectionViewDataSource, UICollectionViewDel
         if offsetY >= (contentHeight - height) {
             guard hasMoreRadio == true else { return }
             offset += 8
-            fetchRadio(offset: offset)
+            fetchPopularRadio(typeURL: .popularRadioURL(limit: limit, offset: offset))
         }
     }
 }
@@ -118,7 +122,7 @@ extension PopularViewController: PopularViewDelegate {
     }
     
     func playButtonPressed() {
-        let currentRadioStation = radioStations[selectedIndex]
+        let currentRadioStation = popularRadioStations[selectedIndex]
         if radioPlayer.isPlayerPerforming() {
             radioPlayer.pauseMusic()
             updateButtonImage(isPlay: true)
@@ -132,7 +136,7 @@ extension PopularViewController: PopularViewDelegate {
     
     func backButtonPressed() {
         selectedIndex -= 1
-        radioPlayer.configurePlayer(from: radioStations[selectedIndex])
+        radioPlayer.configurePlayer(from: popularRadioStations[selectedIndex])
         DispatchQueue.main.async {
             self.updateButtonImage(isPlay: self.radioPlayer.isPlayerPerforming())
         }
@@ -140,7 +144,7 @@ extension PopularViewController: PopularViewDelegate {
     
     func nextButtonPressed() {
         selectedIndex += 1
-        radioPlayer.configurePlayer(from: radioStations[selectedIndex])
+        radioPlayer.configurePlayer(from: popularRadioStations[selectedIndex])
         DispatchQueue.main.async {
             self.updateButtonImage(isPlay: self.radioPlayer.isPlayerPerforming())
         }
@@ -149,23 +153,20 @@ extension PopularViewController: PopularViewDelegate {
 
 extension PopularViewController {
     //Сетевой запрос популярных станций
-    private func fetchRadio(offset: Int) {
-        guard let url = URL(string: "https://de1.api.radio-browser.info/json/stations/topvote?limit=8&offset=\(offset)") else { return }
-        let session = URLSession.shared
-        session.dataTask(with: url) { data, response, error in
-            guard let data = data else { return }
-            
-            do {
-                let popular = try JSONDecoder().decode([RadioStation].self, from: data)
-                self.radioStations = popular
+    private func fetchPopularRadio(typeURL: APIEndpoint) {
+        let url = typeURL.url
+        self.networkManager.fetch([RadioStation].self, from: url) { [weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case .success(let popular):
                 if popular.count < 8 { self.hasMoreRadio = false }
-                self.radioStations.append(contentsOf: popular)
+                self.popularRadioStations.append(contentsOf: popular)
                 DispatchQueue.main.async {
                     self.popularView.popularCollectionView.reloadData()
                 }
-            } catch let error {
-                print(error)
+            case .failure(let error):
+                print(error.localizedDescription)
             }
-        }.resume()
+        }
     }
 }
