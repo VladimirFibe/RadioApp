@@ -12,7 +12,7 @@ final class FavoritesViewController: UIViewController {
 
     private var favoritesRadioStation: [RadioStations] = []
     private let favoritesView = FavoritesView()
-    private let radioPlayer = Player.shared
+    private let radioPlayer = RadioPlayer.shared
     
     
     var selectedIndex = 0 {

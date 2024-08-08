@@ -16,7 +16,7 @@ final class PopularViewController: UIViewController {
     
     private let popularView = PopularView()
     private var popularRadioStations = [RadioStation]()
-    private let radioPlayer = Player.shared
+    private let radioPlayer = RadioPlayer.shared
     private let networkManager = NetworkManager.shared
     
     var selectedIndex = 0 {
