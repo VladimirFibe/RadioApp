@@ -30,6 +30,7 @@
 		04CFD76C2C5D547B005DCBB7 /* ForgotPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04CFD7682C5D547B005DCBB7 /* ForgotPasswordViewController.swift */; };
 		04CFD7722C5D548B005DCBB7 /* ChangePasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04CFD76D2C5D548B005DCBB7 /* ChangePasswordView.swift */; };
 		04CFD7732C5D548B005DCBB7 /* ChangePasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04CFD76F2C5D548B005DCBB7 /* ChangePasswordViewController.swift */; };
+		4D069C1B2C665249007E1E53 /* CustomSearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D069C1A2C665249007E1E53 /* CustomSearchBar.swift */; };
 		4D3278E22C6383C900905D6B /* UILabel+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D3278DD2C6383C900905D6B /* UILabel+Extension.swift */; };
 		4D3278E32C6383C900905D6B /* PopularCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D3278DE2C6383C900905D6B /* PopularCell.swift */; };
 		4D3278E52C6383C900905D6B /* PopularView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D3278E02C6383C900905D6B /* PopularView.swift */; };
@@ -88,6 +89,7 @@
 		04CFD7682C5D547B005DCBB7 /* ForgotPasswordViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ForgotPasswordViewController.swift; sourceTree = "<group>"; };
 		04CFD76D2C5D548B005DCBB7 /* ChangePasswordView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChangePasswordView.swift; sourceTree = "<group>"; };
 		04CFD76F2C5D548B005DCBB7 /* ChangePasswordViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChangePasswordViewController.swift; sourceTree = "<group>"; };
+		4D069C1A2C665249007E1E53 /* CustomSearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSearchBar.swift; sourceTree = "<group>"; };
 		4D3278DD2C6383C900905D6B /* UILabel+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UILabel+Extension.swift"; sourceTree = "<group>"; };
 		4D3278DE2C6383C900905D6B /* PopularCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopularCell.swift; sourceTree = "<group>"; };
 		4D3278E02C6383C900905D6B /* PopularView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopularView.swift; sourceTree = "<group>"; };
@@ -137,6 +139,7 @@
 			isa = PBXGroup;
 			children = (
 				048918BA2C59620600B677CC /* CustomTabBarItemView.swift */,
+				4D069C1A2C665249007E1E53 /* CustomSearchBar.swift */,
 				4D32790E2C63CBAE00905D6B /* CustomNavigationBar.swift */,
 				048918BB2C59620600B677CC /* TabBarController.swift */,
 			);
@@ -509,6 +512,7 @@
 				4D3278ED2C6383F100905D6B /* FavoritesViewController.swift in Sources */,
 				04B2BA472C5C0F6E00B1A3C4 /* ProfileViewController.swift in Sources */,
 				4D32790F2C63CBAE00905D6B /* CustomNavigationBar.swift in Sources */,
+				4D069C1B2C665249007E1E53 /* CustomSearchBar.swift in Sources */,
 				04B1D5192C546AA3000A9461 /* AppDelegate.swift in Sources */,
 				048918C42C5962DE00B677CC /* WelcomeView.swift in Sources */,
 				04B1D51B2C546AA3000A9461 /* SceneDelegate.swift in Sources */,
