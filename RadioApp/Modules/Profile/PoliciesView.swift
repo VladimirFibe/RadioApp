@@ -12,6 +12,7 @@ class PoliciesView: UIViewController {
     
     
     override func viewDidLoad() {
+        navigationController?.navigationBar.isHidden = false
         super.viewDidLoad()
         setNavBar()
         assignBackground()

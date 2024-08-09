@@ -13,6 +13,7 @@ class AboutUs: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        navigationController?.navigationBar.isHidden = false
         setNavBar()
         assignBackground()
         view.addSubview(privacyText)

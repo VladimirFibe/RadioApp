@@ -11,7 +11,10 @@ class CellView: UIView {
     
     var onTap1:((_ isOn: Bool?) -> Void)?
     var onTap2:(() -> Void)?
-
+    
+    var onMenuTap1:(() -> Void)?
+    var onMenuTap2:(() -> Void)?
+    
     let titleLabel = UILabel()
     let imageLabel1 = UIImageView()
     let textLabel1 = UILabel()
@@ -20,8 +23,10 @@ class CellView: UIView {
     let imageLabel2 = UIImageView()
     let textLabel2 = UILabel()
     let button2 = UIButton()
+    let isMenu: Bool
     
-    init(title: String, image1: String, text1: String, btn1: String?, image2: String, text2: String, btn2: String){
+    init(title: String, image1: String, text1: String, btn1: String?, image2: String, text2: String, btn2: String, isMenu: Bool = false){
+        self.isMenu = isMenu
         super.init(frame: .zero)
         
         if let btn1 {
@@ -31,7 +36,7 @@ class CellView: UIView {
             btn!.imageView?.contentMode = .scaleAspectFit
             btn!.clipsToBounds = true
         } else {
-             button1 = UISwitch()
+            button1 = UISwitch()
         }
         
         titleLabel.text = title
@@ -43,11 +48,11 @@ class CellView: UIView {
         button2.setImage(UIImage(named: btn2), for: .normal)
         
         createView()
-        configeration()
+        configuration()
         setupSubview()
         createView1()
         setConstraints()
-      
+        
     }
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -79,11 +84,10 @@ class CellView: UIView {
     
     private func setConstraints(){
         let btn = button1 as? UIButton
-
+        
         NSLayoutConstraint.activate([
             titleLabel.topAnchor.constraint(equalTo: topAnchor, constant: 20),
             titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
-            
             
             imageLabel1.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 28),
             imageLabel1.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
@@ -92,10 +96,10 @@ class CellView: UIView {
             
             textLabel1.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 32),
             textLabel1.leadingAnchor.constraint(equalTo: imageLabel1.leadingAnchor, constant: 40),
-//
-                button1!.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 25),
-                button1!.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -22),
-             
+            //
+            button1!.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 25),
+            button1!.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -22),
+            
             line.widthAnchor.constraint(equalToConstant: 266),
             line.heightAnchor.constraint(equalToConstant: 1),
             
@@ -125,7 +129,7 @@ class CellView: UIView {
             
         }
     }
-    private func configeration() {
+    private func configuration() {
         titleLabel.textColor = .white
         titleLabel.textAlignment = .left
         titleLabel.font = .boldSystemFont(ofSize: 18)
@@ -147,7 +151,7 @@ class CellView: UIView {
             btn.translatesAutoresizingMaskIntoConstraints = false
             btn.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
             btn.tag = 1
-
+            
         } else {
             let switchButton1 = button1 as? UISwitch
             switchButton1!.thumbTintColor = UIColor(named: "ColorSwichBtn")
@@ -155,7 +159,7 @@ class CellView: UIView {
             switchButton1!.translatesAutoresizingMaskIntoConstraints = false
             switchButton1!.addTarget(self, action: #selector(switchAction), for: .valueChanged)
         }
-
+        
         imageLabel2.contentMode = .scaleAspectFill
         imageLabel2.backgroundColor = UIColor(named: "softDarkBlue")
         imageLabel2.layer.cornerRadius = 12
@@ -172,15 +176,26 @@ class CellView: UIView {
         button2.translatesAutoresizingMaskIntoConstraints = false
         button2.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
         
+        if isMenu {
+            button2.showsMenuAsPrimaryAction = true
+            
+            let action1 = UIAction(title: "English") { _ in
+                self.onMenuTap1?()
+            }
+            let action2 = UIAction(title: "Russian") { _ in
+                self.onMenuTap2?()
+            }
+            let menu = UIMenu (title: "Language", children: [action1, action2])
+            button2.menu = menu
+        }
+        
     }
     
     @objc private func buttonTapped(_ sender: UIButton) {
         switch sender.tag {
         case 1:
-            print("верхняя")
             onTap1?(nil)
         default:
-            print("нижняя")
             onTap2?()
         }
     }

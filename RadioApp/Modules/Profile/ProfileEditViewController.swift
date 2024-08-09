@@ -26,6 +26,7 @@ class ProfileEditViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        navigationController?.navigationBar.isHidden = false
         assignBackground()
         setNavBar()
         setupView()
@@ -80,16 +81,16 @@ class ProfileEditViewController: UIViewController {
     }()
     
     @objc private func editImageAction() {
-//        let blurView = UIView(frame: view.bounds)
-//        blurView.backgroundColor = UIColor.black.withAlphaComponent(0.0)
-//         view.addSubview(blurView)
-//
-//        
-//        let blurEffect = UIBlurEffect(style: .dark)
-//        let blurViewEffect = UIVisualEffectView(effect: blurEffect)
-//        blurViewEffect.frame = blurView.bounds
-//        blurView.addSubview(blurViewEffect)
-//        
+        //        let blurView = UIView(frame: view.bounds)
+        //        blurView.backgroundColor = UIColor.black.withAlphaComponent(0.0)
+        //         view.addSubview(blurView)
+        //
+        //        
+        //        let blurEffect = UIBlurEffect(style: .dark)
+        //        let blurViewEffect = UIVisualEffectView(effect: blurEffect)
+        //        blurViewEffect.frame = blurView.bounds
+        //        blurView.addSubview(blurViewEffect)
+        //        
         
         imagePicker.delegate = self
         imagePicker.allowsEditing = true
@@ -155,16 +156,16 @@ class ProfileEditViewController: UIViewController {
     private lazy var saveChangesAction = UIAction { [self] _ in
         print("Save Profile")
         self.navigationController?.popViewController(animated: true)
-//        if nameRow.text == "12"{
-//            helperName.text = "* Name already exist"
-//        } else {
-//            helperName.text = ""
-//        }
-//        if emailRow.text == ""{
-//            helperEmail.text = "* Email already exist"
-//        } else {
-//            helperEmail.text = ""
-//        }
+        //        if nameRow.text == "12"{
+        //            helperName.text = "* Name already exist"
+        //        } else {
+        //            helperName.text = ""
+        //        }
+        //        if emailRow.text == ""{
+        //            helperEmail.text = "* Email already exist"
+        //        } else {
+        //            helperEmail.text = ""
+        //        }
     }
     private func setupView(){
         view.addSubview(imageView)
@@ -273,8 +274,7 @@ extension ProfileEditViewController: UIImagePickerControllerDelegate & UINavigat
     private func bestMetadataCollectionMethod(with url: URL) -> CFDictionary? {
         let options = [kCGImageSourceShouldCache as String: kCFBooleanFalse]
         guard let data = NSData(contentsOf: url) else { return nil }
-        guard let imgSrc = CGImageSourceCreateWithData(data, options as CFDictionary) else {
-            return nil }
+        guard let imgSrc = CGImageSourceCreateWithData(data, options as CFDictionary) else { return nil }
         let metadata = CGImageSourceCopyPropertiesAtIndex(imgSrc, 0, options as CFDictionary)
         return metadata
     }
