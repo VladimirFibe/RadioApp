@@ -157,10 +157,6 @@ extension AllStationsViewController {
     }
 }
 
-extension AllStationsViewController: UISearchBarDelegate {
-    
-}
-
 extension AllStationsViewController: AllStationsViewControllerDelegate {
     func startSearch() {
         gestureRecognizer.isEnabled = true
