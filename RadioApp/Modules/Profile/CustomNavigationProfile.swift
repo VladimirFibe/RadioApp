@@ -32,6 +32,7 @@ class CustomNavigationProfile: UIView{
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.textAlignment = .center
+        label.textColor = .white
         label.font = .systemFont(ofSize: 20, weight: .regular)
         label.text = "Setting"
         label.translatesAutoresizingMaskIntoConstraints = false

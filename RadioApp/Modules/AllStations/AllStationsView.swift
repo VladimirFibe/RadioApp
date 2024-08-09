@@ -1,29 +1,30 @@
 //
-//  FavoritesView.swift
+//  AllStationsView.swift
 //  RadioApp
 //
-//  Created by Елена Логинова on 31.07.2024.
+//  Created by Елена Логинова on 09.08.2024.
 //
 
 import UIKit
+import AVFoundation
 
-protocol FavoritesViewDelegate: AnyObject {
+protocol AllStationsViewDelegate: AnyObject {
     func nextButtonPressed()
     func backButtonPressed()
     func playButtonPressed()
     func didSlideSlider(_ volume: Float)
+    func searchButtonPressed()
 }
 
-final class FavoritesView: UIView {
+final class AllStationsView: UIView {
+
+    weak var delegate: AllStationsViewDelegate?
     
-    weak var delegate: FavoritesViewDelegate?
-    
-    lazy var collectionView: UICollectionView = {
+   lazy var allStationsCollectionView: UICollectionView = {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: setupFlowLayout())
         collectionView.backgroundColor = .clear
         collectionView.showsVerticalScrollIndicator = false
-        collectionView.bounces = false
-        collectionView.register(FavoriteCell.self, forCellWithReuseIdentifier: FavoriteCell.identifier)
+        collectionView.register(AllStationsCell.self, forCellWithReuseIdentifier: AllStationsCell.identifier)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         return collectionView
     }()
@@ -46,11 +47,11 @@ final class FavoritesView: UIView {
         return label
     }()
     
-    private lazy var titleLabel: UILabel = {
+    private lazy var allStationsLabel: UILabel = {
         let label = UILabel()
         label.font = .custom(font: .regular, size: 30)
         label.textColor = .white
-        label.text = "Favorites"
+        label.text = "All Stations"
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -110,50 +111,65 @@ final class FavoritesView: UIView {
         return view
     }()
     
+    lazy var searchBar: CustomSearchBar = {
+        let searchBar = CustomSearchBar()
+        searchBar.addTarget(self, action: #selector(searchButtonTapped), for: .touchUpInside)
+        searchBar.translatesAutoresizingMaskIntoConstraints = false
+        return searchBar
+    }()
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupViews()
         setConstraints()
+        
     }
     
     required init?(coder: NSCoder) {
-        fatalError("FavoritesView not initialised")
+        fatalError("AllStationsView not initialised")
     }
     
-    @objc func buttonPressed(_ sender: UIButton) {
+    @objc func searchButtonTapped() {
+        delegate?.searchButtonPressed()
+    }
+    
+    @objc private func buttonPressed(_ sender: UIButton) {
         delegate?.nextButtonPressed()
     }
     
-    @objc func backButtonTapped(_ sender: UIButton) {
+    @objc private func backButtonTapped(_ sender: UIButton) {
         delegate?.backButtonPressed()
     }
     
-    @objc func playPauseButtonTapped(_ sender: UIButton) {
+    @objc private func playPauseButtonTapped(_ sender: UIButton) {
         delegate?.playButtonPressed()
     }
     
-    @objc func sliderTapped(_ sender: UISlider) {
+    @objc private func sliderTapped(_ sender: UISlider) {
         volumeLabel.text = "\(Int(sender.value * 100))%"
         delegate?.didSlideSlider(sender.value)
     }
     
-    func setDelegate(viewController: FavoritesViewController) {
-        collectionView.delegate = viewController
-        collectionView.dataSource = viewController
+    func setDelegate(viewController: AllStationsViewController) {
+        searchBar.delegate = viewController
+        allStationsCollectionView.delegate = viewController
+        allStationsCollectionView.dataSource = viewController
     }
     
     func setupViews() {
         backgroundColor = #colorLiteral(red: 0.002947255969, green: 0.002675811062, blue: 0.1643544436, alpha: 1)
         addSubview(volumeImageView)
         addSubview(volumeLabel)
-        addSubview(titleLabel)
+        addSubview(allStationsLabel)
+        addSubview(topView)
         addSubview(volumeSlider)
         addSubview(lineImageView)
         addSubview(playPauseButton)
         addSubview(nextButton)
         addSubview(backButton)
-        addSubview(collectionView)
-        addSubview(topView)
+        addSubview(allStationsCollectionView)
+        addSubview(searchBar)
+       
     }
     
     func setupFlowLayout() -> UICollectionViewFlowLayout {
@@ -170,9 +186,14 @@ final class FavoritesView: UIView {
             topView.trailingAnchor.constraint(equalTo: trailingAnchor),
             topView.leadingAnchor.constraint(equalTo: leadingAnchor),
             
-            titleLabel.topAnchor.constraint(equalTo: topView.bottomAnchor, constant: 26),
-            titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 62.79),
-            titleLabel.heightAnchor.constraint(equalToConstant: 36),
+            searchBar.topAnchor.constraint(equalTo: allStationsLabel.bottomAnchor, constant: 10),
+            searchBar.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 12),
+            searchBar.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -12),
+            searchBar.heightAnchor.constraint(equalToConstant: 56),
+            
+            allStationsLabel.topAnchor.constraint(equalTo: topView.bottomAnchor, constant: 26),
+            allStationsLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 62.79),
+            allStationsLabel.heightAnchor.constraint(equalToConstant: 36),
             
             volumeSlider.centerYAnchor.constraint(equalTo: centerYAnchor, constant: -20),
             volumeSlider.centerXAnchor.constraint(equalTo: centerXAnchor, constant: -178),
@@ -198,10 +219,10 @@ final class FavoritesView: UIView {
             backButton.centerYAnchor.constraint(equalTo: playPauseButton.centerYAnchor),
             backButton.trailingAnchor.constraint(equalTo: playPauseButton.leadingAnchor, constant: -35),
             
-            collectionView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 26),
-            collectionView.bottomAnchor.constraint(equalTo: playPauseButton.topAnchor, constant: -110),
-            collectionView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 60.5),
-            collectionView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -60.5),
+            allStationsCollectionView.topAnchor.constraint(equalTo: searchBar.bottomAnchor, constant: 16),
+            allStationsCollectionView.bottomAnchor.constraint(equalTo: playPauseButton.topAnchor, constant: -59),
+            allStationsCollectionView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 60.5),
+            allStationsCollectionView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -60.5),
         ])
     }
 }
