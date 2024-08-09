@@ -6,8 +6,6 @@
 //
 
 import UIKit
-
-import UIKit
 import AVFoundation
 
 protocol AllStationsViewDelegate: AnyObject {
@@ -15,6 +13,7 @@ protocol AllStationsViewDelegate: AnyObject {
     func backButtonPressed()
     func playButtonPressed()
     func didSlideSlider(_ volume: Float)
+    func searchButtonPressed()
 }
 
 final class AllStationsView: UIView {
@@ -25,7 +24,6 @@ final class AllStationsView: UIView {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: setupFlowLayout())
         collectionView.backgroundColor = .clear
         collectionView.showsVerticalScrollIndicator = false
-       // collectionView.bounces = false
         collectionView.register(AllStationsCell.self, forCellWithReuseIdentifier: AllStationsCell.identifier)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         return collectionView
@@ -44,7 +42,7 @@ final class AllStationsView: UIView {
         let label = UILabel()
         label.textColor = .white
         label.text = "50%"
-        label.font = .systemFont(ofSize: 15, weight: .regular)
+        label.font = .custom(font: .regular, size: 15)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -112,6 +110,13 @@ final class AllStationsView: UIView {
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
+    
+    lazy var searchBar: CustomSearchBar = {
+        let searchBar = CustomSearchBar()
+        searchBar.addTarget(self, action: #selector(searchButtonTapped), for: .touchUpInside)
+        searchBar.translatesAutoresizingMaskIntoConstraints = false
+        return searchBar
+    }()
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -122,6 +127,10 @@ final class AllStationsView: UIView {
     
     required init?(coder: NSCoder) {
         fatalError("AllStationsView not initialised")
+    }
+    
+    @objc func searchButtonTapped() {
+        delegate?.searchButtonPressed()
     }
     
     @objc private func buttonPressed(_ sender: UIButton) {
@@ -142,6 +151,7 @@ final class AllStationsView: UIView {
     }
     
     func setDelegate(viewController: AllStationsViewController) {
+        searchBar.delegate = viewController
         allStationsCollectionView.delegate = viewController
         allStationsCollectionView.dataSource = viewController
     }
@@ -158,6 +168,8 @@ final class AllStationsView: UIView {
         addSubview(nextButton)
         addSubview(backButton)
         addSubview(allStationsCollectionView)
+        addSubview(searchBar)
+       
     }
     
     func setupFlowLayout() -> UICollectionViewFlowLayout {
@@ -174,7 +186,12 @@ final class AllStationsView: UIView {
             topView.trailingAnchor.constraint(equalTo: trailingAnchor),
             topView.leadingAnchor.constraint(equalTo: leadingAnchor),
             
-            allStationsLabel.topAnchor.constraint(equalTo: topView.bottomAnchor, constant: 10),
+            searchBar.topAnchor.constraint(equalTo: allStationsLabel.bottomAnchor, constant: 10),
+            searchBar.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 12),
+            searchBar.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -12),
+            searchBar.heightAnchor.constraint(equalToConstant: 56),
+            
+            allStationsLabel.topAnchor.constraint(equalTo: topView.bottomAnchor, constant: 26),
             allStationsLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 62.79),
             allStationsLabel.heightAnchor.constraint(equalToConstant: 36),
             
@@ -202,8 +219,8 @@ final class AllStationsView: UIView {
             backButton.centerYAnchor.constraint(equalTo: playPauseButton.centerYAnchor),
             backButton.trailingAnchor.constraint(equalTo: playPauseButton.leadingAnchor, constant: -35),
             
-            allStationsCollectionView.topAnchor.constraint(equalTo: topAnchor, constant: 200),
-            allStationsCollectionView.bottomAnchor.constraint(equalTo: playPauseButton.topAnchor, constant: -100),
+            allStationsCollectionView.topAnchor.constraint(equalTo: searchBar.bottomAnchor, constant: 16),
+            allStationsCollectionView.bottomAnchor.constraint(equalTo: playPauseButton.topAnchor, constant: -59),
             allStationsCollectionView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 60.5),
             allStationsCollectionView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -60.5),
         ])

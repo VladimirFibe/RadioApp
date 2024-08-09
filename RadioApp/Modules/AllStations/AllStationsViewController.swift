@@ -8,7 +8,14 @@
 import UIKit
 import AVFoundation
 
+protocol AllStationsViewControllerDelegate {
+    func startSearch()
+    func endSearch()
+}
+
 final class AllStationsViewController: UIViewController {
+    
+    var gestureRecognizer = UITapGestureRecognizer()
 
     private var offset: Int = 0
     private var limit: Int = 4
@@ -38,8 +45,18 @@ final class AllStationsViewController: UIViewController {
          allStationsView.delegate = self
          updateButtonImage(isPlay: true)
          fetchAllRadioStations(typeURL: .allRadioStations(limit: limit, offset: offset))
+         addGestureRecognizer()
      }
-
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        allStationsView.searchBar.textField.text?.removeAll()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.navigationBar.isHidden = true
+    }
 
      private func selectStation(at position: Int) {
          //radioPlayer.changeCurrentURL(radioStations[selectedIndex].url_resolved)
@@ -49,6 +66,12 @@ final class AllStationsViewController: UIViewController {
     private func updateButtonImage(isPlay: Bool) {
         let image = isPlay ? UIImage(named: "playButton") : UIImage(named: "pauseButton")
         allStationsView.playPauseButton.setBackgroundImage(image, for: .normal)
+    }
+    
+    private func addGestureRecognizer() {
+        gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(endSearch))
+        gestureRecognizer.isEnabled = false
+        view.addGestureRecognizer(gestureRecognizer)
     }
  }
 
@@ -79,14 +102,22 @@ final class AllStationsViewController: UIViewController {
          if offsetY >= (contentHeight - height) {
              guard hasMoreRadio == true else { return }
              offset += limit
-             fetchAllRadioStations(typeURL: .popularRadioURL(limit: limit, offset: offset))
+             fetchAllRadioStations(typeURL: .allRadioStations(limit: limit, offset: offset))
          }
      }
-     
  }
 
 //MARK: - AllStationsViewDelegate
 extension AllStationsViewController: AllStationsViewDelegate {
+    func searchButtonPressed() {
+        endSearch()
+        guard let text = allStationsView.searchBar.textField.text else { return }
+        if text != "" {
+            let resultVC = SearchViewController(text: text)
+            navigationController?.pushViewController(resultVC, animated: true)
+        }
+    }
+    
     func didSlideSlider(_ volume: Float) {
         //radioPlayer.volume = volume
     }
@@ -123,5 +154,20 @@ extension AllStationsViewController {
                 print(error.localizedDescription)
             }
         }
+    }
+}
+
+extension AllStationsViewController: UISearchBarDelegate {
+    
+}
+
+extension AllStationsViewController: AllStationsViewControllerDelegate {
+    func startSearch() {
+        gestureRecognizer.isEnabled = true
+    }
+    
+    @objc func endSearch() {
+        gestureRecognizer.isEnabled = false
+        _ = allStationsView.searchBar.resignFirstResponder()
     }
 }

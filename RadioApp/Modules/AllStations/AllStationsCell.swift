@@ -104,7 +104,6 @@ final class AllStationsCell: UICollectionViewCell {
     }
     
     @objc func likeButtonTapped(_ sender: UIButton) {
-        print("likeRadio")
         isFavorite.toggle()
         updateFavoriteButtonAppearance(isFavorite: isFavorite)
     }
