@@ -47,6 +47,7 @@ final class FavoritesViewController: UIViewController {
         favoritesView.delegate = self
         updateButtonImage(isPlay: true)
         fetchLocalStorageForDownloads()
+        goToProfileScreen()
         NotificationCenter.default.addObserver(forName: NSNotification.Name("downloaded"), object: nil, queue: nil) { _ in
             self.fetchLocalStorageForDownloads()
         }
@@ -62,6 +63,11 @@ final class FavoritesViewController: UIViewController {
         favoritesView.collectionView.reloadData()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.navigationBar.isHidden = true
+    }
+    
     func updateButtonImage(isPlay: Bool) {
         let image = isPlay ? UIImage(named: "playButton") : UIImage(named: "pauseButton")
         favoritesView.playPauseButton.setBackgroundImage(image, for: .normal)
@@ -70,6 +76,13 @@ final class FavoritesViewController: UIViewController {
     func selectStation(at position: Int) {
         radioPlayer.changeCurrentURL(radioStations[selectedIndex].url_resolved)
         favoritesView.collectionView.selectItem(at: IndexPath(item: position, section: 0), animated: true, scrollPosition: .top)
+    }
+    
+    func goToProfileScreen() {
+        favoritesView.topView.profileButtonPressed = {
+            let profileVC = ProfileViewController()
+            self.navigationController?.pushViewController(profileVC, animated: true)
+        }
     }
     
     private func fetchLocalStorageForDownloads() {

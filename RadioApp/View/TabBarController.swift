@@ -50,8 +50,7 @@ final class TabBarController: UITabBarController {
         let favoriteVC = FavoritesViewController()
         favoriteVC.tabBarItem = UITabBarItem(title: "Favorite", image: UIImage(named: "ellipse"), tag: 1)
         
-        let allStationVC = ViewController()
-        allStationVC.view.backgroundColor = .blue
+        let allStationVC = AllStationsViewController()
         allStationVC.tabBarItem = UITabBarItem(title: "AllStation", image: UIImage(named: "ellipse"), tag: 2)
         
         viewControllers = [popularVC, favoriteVC, allStationVC]
