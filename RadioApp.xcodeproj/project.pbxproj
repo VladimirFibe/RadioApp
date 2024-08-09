@@ -30,6 +30,7 @@
 		04CFD76C2C5D547B005DCBB7 /* ForgotPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04CFD7682C5D547B005DCBB7 /* ForgotPasswordViewController.swift */; };
 		04CFD7722C5D548B005DCBB7 /* ChangePasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04CFD76D2C5D548B005DCBB7 /* ChangePasswordView.swift */; };
 		04CFD7732C5D548B005DCBB7 /* ChangePasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04CFD76F2C5D548B005DCBB7 /* ChangePasswordViewController.swift */; };
+		0F73A0CA2C66615D00CE28DC /* CustomNavigationProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F73A0C92C66615D00CE28DC /* CustomNavigationProfile.swift */; };
 		4D3278E22C6383C900905D6B /* UILabel+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D3278DD2C6383C900905D6B /* UILabel+Extension.swift */; };
 		4D3278E32C6383C900905D6B /* PopularCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D3278DE2C6383C900905D6B /* PopularCell.swift */; };
 		4D3278E52C6383C900905D6B /* PopularView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D3278E02C6383C900905D6B /* PopularView.swift */; };
@@ -85,6 +86,7 @@
 		04CFD7682C5D547B005DCBB7 /* ForgotPasswordViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ForgotPasswordViewController.swift; sourceTree = "<group>"; };
 		04CFD76D2C5D548B005DCBB7 /* ChangePasswordView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChangePasswordView.swift; sourceTree = "<group>"; };
 		04CFD76F2C5D548B005DCBB7 /* ChangePasswordViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChangePasswordViewController.swift; sourceTree = "<group>"; };
+		0F73A0C92C66615D00CE28DC /* CustomNavigationProfile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomNavigationProfile.swift; sourceTree = "<group>"; };
 		4D3278DD2C6383C900905D6B /* UILabel+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UILabel+Extension.swift"; sourceTree = "<group>"; };
 		4D3278DE2C6383C900905D6B /* PopularCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopularCell.swift; sourceTree = "<group>"; };
 		4D3278E02C6383C900905D6B /* PopularView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopularView.swift; sourceTree = "<group>"; };
@@ -239,6 +241,7 @@
 			children = (
 				04B2BA3D2C5C0F6E00B1A3C4 /* AboutUs.swift */,
 				04B2BA3E2C5C0F6E00B1A3C4 /* CellView.swift */,
+				0F73A0C92C66615D00CE28DC /* CustomNavigationProfile.swift */,
 				04B2BA3F2C5C0F6E00B1A3C4 /* PoliciesView.swift */,
 				04B2BA402C5C0F6E00B1A3C4 /* ProfileEditViewController.swift */,
 				04B2BA412C5C0F6E00B1A3C4 /* ProfileViewController.swift */,
@@ -515,6 +518,7 @@
 				4D3278EB2C6383F100905D6B /* FavoriteCell.swift in Sources */,
 				4D3278E52C6383C900905D6B /* PopularView.swift in Sources */,
 				79E4B83E2C654E5700D8C21A /* RadioPlayer.swift in Sources */,
+				0F73A0CA2C66615D00CE28DC /* CustomNavigationProfile.swift in Sources */,
 				04B2BA432C5C0F6E00B1A3C4 /* AboutUs.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

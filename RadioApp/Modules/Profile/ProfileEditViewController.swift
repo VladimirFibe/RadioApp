@@ -14,21 +14,30 @@ class ProfileEditViewController: UIViewController {
     let nameLabel = UILabel()
     let emailLabel = UILabel()
     
+    let titleRowName = UILabel()
     let nameRow = UITextField(text: "   Name", size: 14, weight: .regular)
+    let helperName = UILabel()
+    let titleRowEmail = UILabel()
     let emailRow = UITextField(text: "   Email", size: 14, weight: .regular)
+    let helperEmail = UILabel()
     
     var imageURLToSave: URL?
     let imagePicker = UIImagePickerController()
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        navigationController?.navigationBar.isHidden = false
         assignBackground()
+        setNavBar()
         setupView()
         setNameLabel()
         setEmaleLabel()
+        setTitleNameRow()
+        setTitleEmailRow()
+        setHelpers()
         setupConstraints()
-        setNavBar()
-    } 
+    }
+    
     func assignBackground(){
         let background = UIImage(named: "Profile-background")
         var imageView : UIImageView!
@@ -38,13 +47,12 @@ class ProfileEditViewController: UIViewController {
         imageView.image = background
         imageView.center = view.center
         view.addSubview(imageView)
-//            view.sendSubviewToBack(imageView)
     }
     
     func setNavBar() {
         navigationItem.title = "Profile"
         navigationController?.navigationBar.titleTextAttributes = [
-          .font: UIFont.systemFont(ofSize: 20), .foregroundColor: UIColor.white]
+            .font: UIFont.systemFont(ofSize: 20), .foregroundColor: UIColor.white]
         
         navigationController?.navigationBar.tintColor = .white
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "Vector"), style: .plain, target: self, action: #selector(backButtonAction))
@@ -59,50 +67,82 @@ class ProfileEditViewController: UIViewController {
         imageView.clipsToBounds = true
         imageView.image = UIImage(named: "AppIcon")
         imageView.layer.cornerRadius = 35
-        //imageView.tintColor = .white
         imageView.backgroundColor = .white
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
     
     private lazy var editImageButton: UIButton = {
-        let button = UIButton(primaryAction: editImageAction)
+        let button = UIButton()
         button.setImage(UIImage(named: "Edit"), for: .normal)
-        //button.setTitle("Log Out", for: .normal)
-//        button.setTitleColor(.white, for: .normal)
-        //button.titleLabel?.font = UIFont(name: "Medium", size: 16)
-        button.layer.cornerRadius = 15
-        button.backgroundColor = UIColor(named: "DarkBlue")
         button.translatesAutoresizingMaskIntoConstraints = false
+        button.addTarget(self, action: #selector(editImageAction), for: .touchUpInside)
         return button
     }()
     
-    private lazy var editImageAction = UIAction { _ in
-        self.imagePicker.delegate = self
-        self.imagePicker.allowsEditing = true
-        self.imagePicker.mediaTypes = ["public.image"]
+    @objc private func editImageAction() {
+        //        let blurView = UIView(frame: view.bounds)
+        //        blurView.backgroundColor = UIColor.black.withAlphaComponent(0.0)
+        //         view.addSubview(blurView)
+        //
+        //        
+        //        let blurEffect = UIBlurEffect(style: .dark)
+        //        let blurViewEffect = UIVisualEffectView(effect: blurEffect)
+        //        blurViewEffect.frame = blurView.bounds
+        //        blurView.addSubview(blurViewEffect)
+        //        
+        
+        imagePicker.delegate = self
+        imagePicker.allowsEditing = true
+        imagePicker.mediaTypes = ["public.image"]
         
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
             self.present(self.imagePicker, animated: true, completion: nil)
         }
     }
+    
     func setNameLabel() {
-       nameLabel.text = "Name"
-       nameLabel.textColor = .white
-       nameLabel.textAlignment = .left
-       nameLabel.font = .boldSystemFont(ofSize: 16)
-//      nameLabellayer.masksToBounds = true
-       nameLabel.translatesAutoresizingMaskIntoConstraints = false
-   }
-   private func setEmaleLabel() {
-       emailLabel.text = "Email"
-       emailLabel.textColor = UIColor(named: "colorGray")
-       emailLabel.textAlignment = .left
-       emailLabel.font = .boldSystemFont(ofSize: 14)
-//        emailLabel.layer.masksToBounds = true
-       emailLabel.translatesAutoresizingMaskIntoConstraints = false
-   }
+        nameLabel.text = "Name"
+        nameLabel.textColor = .white
+        nameLabel.textAlignment = .left
+        nameLabel.font = .boldSystemFont(ofSize: 16)
+        nameLabel.translatesAutoresizingMaskIntoConstraints = false
+    }
+    
+    private func setEmaleLabel() {
+        emailLabel.text = "Email"
+        emailLabel.textColor = UIColor(named: "colorGray")
+        emailLabel.textAlignment = .left
+        emailLabel.font = .boldSystemFont(ofSize: 14)
+        emailLabel.translatesAutoresizingMaskIntoConstraints = false
+    }
+    func setTitleEmailRow() {
+        titleRowEmail.text = "Email"
+        titleRowEmail.textColor = .white
+        titleRowEmail.textAlignment = .left
+        titleRowEmail.font = .boldSystemFont(ofSize: 12)
+        titleRowEmail.backgroundColor = .colorTitle
+        titleRowEmail.translatesAutoresizingMaskIntoConstraints = false
+    }
+    func setTitleNameRow() {
+        titleRowName.text = "Full name"
+        titleRowName.textColor = .white
+        titleRowName.textAlignment = .left
+        titleRowName.font = .boldSystemFont(ofSize: 12)
+        titleRowName.backgroundColor = .colorTitle
+        titleRowName.translatesAutoresizingMaskIntoConstraints = false
+    }
+    private func setHelpers() {
+        helperName.textColor = .colorHelper
+        helperName.textAlignment = .left
+        helperName.font = UIFont(name: "Medium", size: 16)
+        helperName.translatesAutoresizingMaskIntoConstraints = false
+        helperEmail.textColor = .colorHelper
+        helperEmail.textAlignment = .left
+        helperEmail.font = UIFont(name: "Medium", size: 16)
+        helperEmail.translatesAutoresizingMaskIntoConstraints = false
+    }
     private lazy var saveChangesButton: UIButton = {
         let button = UIButton(primaryAction: saveChangesAction)
         button.setTitle("Save Changes", for: .normal)
@@ -113,19 +153,34 @@ class ProfileEditViewController: UIViewController {
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
-  
-    private lazy var saveChangesAction = UIAction { _ in
+    private lazy var saveChangesAction = UIAction { [self] _ in
         print("Save Profile")
         self.navigationController?.popViewController(animated: true)
+        //        if nameRow.text == "12"{
+        //            helperName.text = "* Name already exist"
+        //        } else {
+        //            helperName.text = ""
+        //        }
+        //        if emailRow.text == ""{
+        //            helperEmail.text = "* Email already exist"
+        //        } else {
+        //            helperEmail.text = ""
+        //        }
     }
     private func setupView(){
         view.addSubview(imageView)
         view.addSubview(editImageButton)
         view.addSubview(nameLabel)
         view.addSubview(emailLabel)
+        view.addSubview(titleRowName)
         view.addSubview(nameRow)
+        view.addSubview(titleRowName)
+        view.addSubview(helperName)
         view.addSubview(emailRow)
+        view.addSubview(titleRowEmail)
+        view.addSubview(helperEmail)
         view.addSubview(saveChangesButton)
+        
     }
     private func setupConstraints() {
         NSLayoutConstraint.activate([
@@ -145,25 +200,34 @@ class ProfileEditViewController: UIViewController {
             
             emailLabel.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 6),
             emailLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-
-
+            
             nameRow.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             nameRow.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 55),
             nameRow.heightAnchor.constraint(equalToConstant: 53),
             nameRow.widthAnchor.constraint(equalToConstant: 327),
             
+            titleRowName.leadingAnchor.constraint(equalTo: nameRow.leadingAnchor, constant: 11),
+            titleRowName.topAnchor.constraint(equalTo: nameRow.topAnchor, constant: -6),
+            
+            helperName.leadingAnchor.constraint(equalTo: nameRow.leadingAnchor, constant: 11),
+            helperName.topAnchor.constraint(equalTo: nameRow.bottomAnchor, constant: 8),
             
             emailRow.topAnchor.constraint(equalTo: nameRow.bottomAnchor, constant: 50),
             emailRow.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             emailRow.heightAnchor.constraint(equalToConstant: 53),
             emailRow.widthAnchor.constraint(equalToConstant: 327),
-
+            
+            titleRowEmail.leadingAnchor.constraint(equalTo: emailRow.leadingAnchor, constant: 11),
+            titleRowEmail.topAnchor.constraint(equalTo: emailRow.topAnchor, constant: -6),
+            
+            helperEmail.leadingAnchor.constraint(equalTo: emailRow.leadingAnchor, constant: 11),
+            helperEmail.topAnchor.constraint(equalTo: emailRow.bottomAnchor, constant: 8),
             
             saveChangesButton.topAnchor.constraint(equalTo: emailRow.bottomAnchor, constant: 47),
             saveChangesButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             saveChangesButton.widthAnchor.constraint(equalToConstant: 327),
             saveChangesButton.heightAnchor.constraint(equalToConstant: 56),
-
+            
         ])
     }
 }
@@ -175,7 +239,7 @@ extension UITextField {
         self.layer.borderWidth = 1
         self.textColor = .white
         self.layer.borderColor = UIColor(named: "ColorBorder")?.cgColor
-        self.layer.cornerRadius = 8
+        self.layer.cornerRadius = 24
         self.keyboardType = .default
         self.translatesAutoresizingMaskIntoConstraints = false
     }
@@ -210,8 +274,7 @@ extension ProfileEditViewController: UIImagePickerControllerDelegate & UINavigat
     private func bestMetadataCollectionMethod(with url: URL) -> CFDictionary? {
         let options = [kCGImageSourceShouldCache as String: kCFBooleanFalse]
         guard let data = NSData(contentsOf: url) else { return nil }
-        guard let imgSrc = CGImageSourceCreateWithData(data, options as CFDictionary) else {
-            return nil }
+        guard let imgSrc = CGImageSourceCreateWithData(data, options as CFDictionary) else { return nil }
         let metadata = CGImageSourceCopyPropertiesAtIndex(imgSrc, 0, options as CFDictionary)
         return metadata
     }
