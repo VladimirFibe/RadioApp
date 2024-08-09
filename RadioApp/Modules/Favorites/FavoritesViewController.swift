@@ -62,6 +62,11 @@ final class FavoritesViewController: UIViewController {
         favoritesView.collectionView.reloadData()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.navigationBar.isHidden = true
+    }
+    
     func updateButtonImage(isPlay: Bool) {
         let image = isPlay ? UIImage(named: "playButton") : UIImage(named: "pauseButton")
         favoritesView.playPauseButton.setBackgroundImage(image, for: .normal)
