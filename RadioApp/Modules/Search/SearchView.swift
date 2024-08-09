@@ -103,7 +103,7 @@ final class SearchView: UIView {
         return imageView
     }()
     
-    private lazy var topView: CustomNavigationBar = {
+    lazy var topView: CustomNavigationBar = {
         let view = CustomNavigationBar()
         view.translatesAutoresizingMaskIntoConstraints = false
         return view

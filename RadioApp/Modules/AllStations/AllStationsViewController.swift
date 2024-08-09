@@ -46,6 +46,7 @@ final class AllStationsViewController: UIViewController {
          updateButtonImage(isPlay: true)
          fetchAllRadioStations(typeURL: .allRadioStations(limit: limit, offset: offset))
          addGestureRecognizer()
+         goToProfileScreen()
      }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -73,6 +74,14 @@ final class AllStationsViewController: UIViewController {
         gestureRecognizer.isEnabled = false
         view.addGestureRecognizer(gestureRecognizer)
     }
+    
+    func goToProfileScreen() {
+        allStationsView.topView.profileButtonPressed = {
+            let profileVC = ProfileViewController()
+            self.navigationController?.pushViewController(profileVC, animated: true)
+        }
+    }
+    
  }
 
  //MARK: - UITableViewDelegate, UITableViewDataSource

@@ -39,6 +39,7 @@ final class PopularViewController: UIViewController {
         popularView.delegate = self
         updateButtonImage(isPlay: true)
         fetchPopularRadio(typeURL: .popularRadioURL(limit: limit, offset: offset))
+        goToProfileScreen()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -54,6 +55,13 @@ final class PopularViewController: UIViewController {
     func updateButtonImage(isPlay: Bool) {
         let image = isPlay ? UIImage(named: "playButton") : UIImage(named: "pauseButton")
         popularView.playPauseButton.setBackgroundImage(image, for: .normal)
+    }
+    
+    func goToProfileScreen() {
+        popularView.topView.profileButtonPressed = {
+            let profileVC = ProfileViewController()
+            self.navigationController?.pushViewController(profileVC, animated: true)
+        }
     }
     
     override func viewDidDisappear(_ animated: Bool) {

@@ -51,6 +51,7 @@ final class SearchViewController: UIViewController {
         searchView.delegate = self
         updateButtonImage(isPlay: true)
         searchView.searchBar.changeButton()
+        goToProfileScreen()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -73,6 +74,13 @@ final class SearchViewController: UIViewController {
        let tap = UITapGestureRecognizer(target: view, action: #selector(UIView.endEditing))
        view.addGestureRecognizer(tap)
    }
+    
+    func goToProfileScreen() {
+        searchView.topView.profileButtonPressed = {
+            let profileVC = ProfileViewController()
+            self.navigationController?.pushViewController(profileVC, animated: true)
+        }
+    }
 }
 
 //MARK: - UICollectionViewDelegate, UICollectionViewDataSource

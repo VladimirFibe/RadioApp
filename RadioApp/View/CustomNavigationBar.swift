@@ -9,6 +9,8 @@ import UIKit
 
 final class CustomNavigationBar: UIView {
     
+    var profileButtonPressed:(() -> Void)?
+    
     private lazy var iconImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(named: "iconNavBar")
@@ -70,7 +72,7 @@ final class CustomNavigationBar: UIView {
     }
     
     @objc func goToUserProfile(_ sender: UIButton) {
-        print("goToUserProfile")
+        profileButtonPressed?()
     }
     
 //    func updateUser(with model: Model) {
