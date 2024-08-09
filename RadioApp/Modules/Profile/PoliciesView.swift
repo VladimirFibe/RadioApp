@@ -12,13 +12,12 @@ class PoliciesView: UIViewController {
     
     
     override func viewDidLoad() {
+        navigationController?.navigationBar.isHidden = false
         super.viewDidLoad()
         setNavBar()
         assignBackground()
         view.addSubview(privacyText)
         setConstraint()
-        //        view.backgroundColor = .red
-        
     }
     
     func assignBackground(){
@@ -30,7 +29,6 @@ class PoliciesView: UIViewController {
         imageView.image = background
         imageView.center = view.center
         view.addSubview(imageView)
-        //            view.sendSubviewToBack(imageView)
     }
     
     func setNavBar() {
@@ -66,17 +64,15 @@ class PoliciesView: UIViewController {
         
         attributedText.append(titleText2)
         
-        let ruleText2 = NSMutableAttributedString(string:"\nLorem ipsum dolor sit amet, consectetur adipiscing elit. Eget ornare quam vel facilisis feugiat amet sagittis arcu, tortor. Sapien, consequat ultrices morbi orci semper sit nulla. Leo auctor ut etiam est, amet aliquet ut vivamus. Odio vulputate est id tincidunt fames.\nLorem ipsum dolor sit amet, consectetur adipiscing elit. Eget ornare quam vel facilisis feugiat amet sagittis arcu, tortor. Sapien, consequat ultrices morbi orci semper sit nulla. Leo auctor ut etiam est, amet aliquet ut vivamus. Odio vulputate est id tincidunt fames.\n", attributes: [.font: UIFont.systemFont(ofSize: 14),.foregroundColor: UIColor.gray])
+        let ruleText2 = NSMutableAttributedString(string:"\nLorem ipsum dolor sit amet, consectetur adipiscing elit. Eget ornare quam vel facilisis feugiat amet sagittis arcu, tortor. Sapien, consequat ultrices morbi orci semper sit nulla. Leo auctor ut etiam est, amet aliquet ut vivamus. Odio vulputate est id tincidunt fames.\nLorem ipsum dolor sit amet, consectetur adipiscing elit. Eget ornare quam vel facilisis feugiat amet sagittis arcu, tortor. Sapien, consequat ultrices morbi orci semper sit nulla. Leo auctor ut etiam est, amet aliquet ut vivamus. Odio vulputate est id tincidunt fames.\n", attributes: [.font: UIFont.systemFont(ofSize: 14),.foregroundColor: UIColor.gray,])
         
         attributedText.append(ruleText2)
         privacyText.attributedText = attributedText
         
         
-        //privacyText.textColor = .white
         privacyText.backgroundColor = .clear
-        privacyText.textAlignment = .left
+        privacyText.textAlignment = .justified
         privacyText.font = .boldSystemFont(ofSize: 16)
-        //      privacyText.masksToBounds = true
         privacyText.isEditable = false
         privacyText.translatesAutoresizingMaskIntoConstraints = false
         return privacyText
@@ -85,12 +81,10 @@ class PoliciesView: UIViewController {
     func setConstraint() {
         NSLayoutConstraint.activate([
             privacyText.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 50),
-            // privacyText.centerYAnchor.constraint(equalTo: view.centerYAnchor),
             privacyText.topAnchor.constraint(equalTo: view.topAnchor, constant: 100),
             privacyText.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -100),
             privacyText.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             privacyText.widthAnchor.constraint(equalToConstant: 357),
-            //privacyText.heightAnchor.constraint(equalToConstant: )
             
             
         ])
