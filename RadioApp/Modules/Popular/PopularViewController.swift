@@ -39,9 +39,12 @@ final class PopularViewController: UIViewController {
         popularView.delegate = self
         updateButtonImage(isPlay: true)
         fetchPopularRadio(typeURL: .popularRadioURL(limit: limit, offset: offset))
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         navigationController?.navigationBar.isHidden = true
     }
-
     
     func selectStation(at position: Int) {
         radioPlayer.changeCurrentURL(popularRadioStations[selectedIndex].url_resolved)

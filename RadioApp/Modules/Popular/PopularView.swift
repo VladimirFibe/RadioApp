@@ -170,7 +170,7 @@ final class PopularView: UIView {
             topView.trailingAnchor.constraint(equalTo: trailingAnchor),
             topView.leadingAnchor.constraint(equalTo: leadingAnchor),
             
-            popularLabel.topAnchor.constraint(equalTo: topView.bottomAnchor, constant: 10),
+            popularLabel.topAnchor.constraint(equalTo: topView.bottomAnchor, constant: 26),
             popularLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 62.79),
             popularLabel.heightAnchor.constraint(equalToConstant: 36),
             
@@ -198,8 +198,8 @@ final class PopularView: UIView {
             backButton.centerYAnchor.constraint(equalTo: playPauseButton.centerYAnchor),
             backButton.trailingAnchor.constraint(equalTo: playPauseButton.leadingAnchor, constant: -35),
             
-            popularCollectionView.topAnchor.constraint(equalTo: topAnchor, constant: 200),
-            popularCollectionView.bottomAnchor.constraint(equalTo: playPauseButton.topAnchor, constant: -50),
+            popularCollectionView.topAnchor.constraint(equalTo: popularLabel.bottomAnchor, constant: 26),
+            popularCollectionView.bottomAnchor.constraint(equalTo: playPauseButton.topAnchor, constant: -70),
             popularCollectionView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 60.5),
             popularCollectionView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -60.5),
         ])
