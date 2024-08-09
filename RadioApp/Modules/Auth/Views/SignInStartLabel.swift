@@ -41,6 +41,10 @@ final class SignInStartLabel: UIView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    func changeTitle() {
+        signInLabel.text = signInLabel.text == "Sign in" ? "Sign up" : "Sign in"
+    }
 }
 
 // MARK: - Private Methods

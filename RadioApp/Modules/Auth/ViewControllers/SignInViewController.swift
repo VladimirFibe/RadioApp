@@ -8,13 +8,29 @@
 import UIKit
 import SwiftUI
 import SnapKit
+import FirebaseCore
+import FirebaseAuth
+import GoogleSignIn
 
 final class SignInViewController: UIViewController {
     
     // MARK: - Private Properties
-    private var isLogin: Bool = true
     private let backgroundView = BackgroundView()
+    private let signInStartLabel = SignInStartLabel()
     private var nameTFView: BorderView!
+    private var isLogin: Bool = true
+    
+    private let scrollView: UIScrollView = {
+       let scrollView = UIScrollView()
+        scrollView.showsHorizontalScrollIndicator = false
+        scrollView.isScrollEnabled = false
+        return scrollView
+    }()
+    
+    private let contentView: UIView = {
+        let view = UIView()
+        return view
+    }()
     
     private let authStackView: UIStackView = {
        let stackView = UIStackView()
@@ -41,6 +57,7 @@ final class SignInViewController: UIViewController {
     private let nameTextField: UITextField = {
        let textField = UITextField()
         textField.textColor = .white
+        textField.returnKeyType = .next
         let attributes: [NSAttributedString.Key: Any] = [.foregroundColor: UIColor.gray]
         textField.attributedPlaceholder = NSAttributedString(string: "Your name",
         attributes: attributes)
@@ -50,6 +67,7 @@ final class SignInViewController: UIViewController {
     private let emailTextField: UITextField = {
        let textField = UITextField()
         textField.textColor = .white
+        textField.returnKeyType = .next
         let attributes: [NSAttributedString.Key: Any] = [.foregroundColor: UIColor.gray]
         textField.attributedPlaceholder = NSAttributedString(string: "Your email", attributes: attributes)
         return textField
@@ -59,6 +77,7 @@ final class SignInViewController: UIViewController {
        let textField = UITextField()
         textField.isSecureTextEntry = true
         textField.textColor = .white
+        textField.returnKeyType = .go
         let attributes: [NSAttributedString.Key: Any] = [.foregroundColor: UIColor.gray]
         textField.attributedPlaceholder = NSAttributedString(string: "Your password", attributes: attributes)
         return textField
@@ -75,12 +94,12 @@ final class SignInViewController: UIViewController {
     private let forgotPasswordButton: UIButton = {
         let button = UIButton()
         button.setTitle("Forgot Password ?", for: .normal)
-        button.setTitleColor(.systemGray4, for: .normal)
+        button.setTitleColor(.gray, for: .normal)
         button.contentHorizontalAlignment = .right
         return button
     }()
     
-    private let connectGoogleButton: UIButton = {
+    private let googleSignInButton: UIButton = {
        let button = UIButton()
         button.setImage(UIImage(named: "google-plus"), for: .normal)
         return button
@@ -106,9 +125,16 @@ final class SignInViewController: UIViewController {
     override func viewDidLoad() {
         setupUI()
     }
+    
+    @objc private func dismissKeyboard() {
+        view.endEditing(true)
+        if !isLogin {
+            scrollView.scrollToTop(animated: true)
+        }
+    }
 }
 
-// MARK: - Private Methods
+// MARK: - Setup UI's
 private extension SignInViewController {
     func setupUI() {
         view.backgroundColor = .black
@@ -116,27 +142,28 @@ private extension SignInViewController {
         nameTFView = createNameBorderedTF()
         nameTFView.isHidden = true
         
+        setupDelegates()
         addSubviews()
         setConstraints()
+        addTargets()
         
-        showPasswordButton.addTarget(
-            self,
-            action: #selector(togglePasswordVisibility),
-            for: .touchUpInside
-        )
-        
-        signUpButton.addTarget(
-            self,
-            action: #selector(changeLoginState),
-            for: .touchUpInside
-        )
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+        view.addGestureRecognizer(tapGesture)
+    }
+    
+    func setupDelegates() {
+        nameTextField.delegate = self
+        emailTextField.delegate = self
+        passwordTextField.delegate = self
     }
     
     func addSubviews() {
         view.addSubview(backgroundView)
+        view.addSubview(scrollView)
+        scrollView.addSubview(contentView)
         
-        view.addSubview(authStackView)
-        authStackView.addArrangedSubview(SignInStartLabel())
+        contentView.addSubview(authStackView)
+        authStackView.addArrangedSubview(signInStartLabel)
         authStackView.addArrangedSubview(nameTFView)
         authStackView.addArrangedSubview(createEmailBorderedTF())
         authStackView.addArrangedSubview(createPasswordBorderedTF())
@@ -144,9 +171,9 @@ private extension SignInViewController {
         authStackView.addArrangedSubview(connectWithGoogleStackView)
         
         connectWithGoogleStackView.addArrangedSubview(ConnectWithGoogleView())
-        connectWithGoogleStackView.addArrangedSubview(connectGoogleButton)
+        connectWithGoogleStackView.addArrangedSubview(googleSignInButton)
         
-        view.addSubview(loginButtonsStackView)
+        contentView.addSubview(loginButtonsStackView)
         loginButtonsStackView.addArrangedSubview(loginButton)
         loginButtonsStackView.addArrangedSubview(signUpButton)
     }
@@ -156,29 +183,71 @@ private extension SignInViewController {
             make.edges.equalToSuperview()
         }
         
+        scrollView.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+        }
+        
+        contentView.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+            make.width.equalTo(scrollView)
+        }
+        
         authStackView.snp.makeConstraints { make in
+            make.top.equalToSuperview().offset(220)
             make.leading.equalToSuperview().offset(16)
             make.trailing.equalToSuperview().offset(-16)
-            make.centerY.equalToSuperview()
         }
         
         forgotPasswordButton.snp.makeConstraints { make in
             make.trailing.equalToSuperview().offset(-16)
         }
         
-        connectGoogleButton.snp.makeConstraints { make in
+        googleSignInButton.snp.makeConstraints { make in
             make.height.width.equalTo(40)
         }
         
         loginButtonsStackView.snp.makeConstraints { make in
             make.top.equalTo(authStackView.snp.bottom).offset(32)
             make.leading.equalToSuperview().offset(16)
+            make.bottom.equalToSuperview().offset(-200)
         }
         
         loginButton.snp.makeConstraints { make in
             make.width.equalTo(153)
             make.height.equalTo(62)
         }
+    }
+
+    func addTargets() {
+        showPasswordButton.addTarget(
+            self,
+            action: #selector(togglePasswordVisibility),
+            for: .touchUpInside
+        )
+        
+        forgotPasswordButton.addTarget(
+            self,
+            action: #selector(forgotPasswordButtonPressed),
+            for: .touchUpInside
+        )
+        
+        signUpButton.addTarget(
+            self,
+            action: #selector(changeLoginState),
+            for: .touchUpInside
+        )
+        
+        loginButton.addTarget(
+            self,
+            action: #selector(loginButtonPressed),
+            for: .touchUpInside
+        )
+        
+        googleSignInButton.addTarget(
+            self,
+            action: #selector(googleSignInButtonPressed),
+            for: .touchUpInside
+        )
     }
     
     func createNameBorderedTF() -> BorderView {
@@ -224,7 +293,10 @@ private extension SignInViewController {
         }
         return borderView
     }
-    
+}
+
+// MARK: - Private Methods
+private extension SignInViewController {
     @objc func togglePasswordVisibility() {
         passwordTextField.isSecureTextEntry.toggle()
         showPasswordButton.isSelected.toggle()
@@ -245,17 +317,139 @@ private extension SignInViewController {
         }
     }
     
+    @objc func forgotPasswordButtonPressed() {
+        navigationController?.pushViewController(ForgotPasswordViewController(), animated: true)
+    }
+    
+    @objc func loginButtonPressed() {
+        isLogin ? signIn() : signUp()
+    }
+    
     func viewsIsHiddenToogle() {
         nameTFView.isHidden.toggle()
         forgotPasswordButton.isHidden.toggle()
         connectWithGoogleStackView.isHidden.toggle()
-        signUpButton.setTitle("or Sign UP", for: .normal)
+        signInStartLabel.changeTitle()
         
         signUpButton.setTitle(
-            isLogin ? "Or Sign UP" : "Or Sign In",
+            isLogin ? "Or Sign In" : "Or Sign Up",
             for: .normal
         )
         isLogin.toggle()
+    }
+}
+
+// MARK: - UITextFieldDelegate
+extension SignInViewController: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        switch textField {
+        case nameTextField:
+            emailTextField.becomeFirstResponder()
+        case emailTextField:
+            passwordTextField.becomeFirstResponder()
+        default:
+            loginButtonPressed()
+        }
+        return true
+    }
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        if !isLogin {
+            scrollView.scrollToBottom(animated: true)
+        }
+    }
+}
+
+// MARK: - FireBase Authorization
+private extension SignInViewController {
+    func signUp() {
+        guard let _ = nameTextField.text,
+              let email = emailTextField.text,
+              let password = passwordTextField.text else {
+            showAlert(title: "Missing Information", message: "Please fill in all required fields to proceed.")
+            return
+        }
+        
+        Auth.auth().createUser(withEmail: email, password: password) { [weak self] authDataResult, error in
+            
+            if let error = error {
+                self?.showAlert(title: "Oops..", message: "\(error.localizedDescription)")
+            } else {
+                self?.navigationController?.pushViewController(TabBarController(), animated: true)
+            }
+        }
+    }
+    
+    func signIn() {
+        guard let email = emailTextField.text, !email.isEmpty,
+              let password = passwordTextField.text, !password.isEmpty else {
+            showAlert(title: "Missing Information", message: "Please fill in all required fields to proceed.")
+            return
+        }
+        
+        Auth.auth().signIn(withEmail: email, password: password) { [weak self] authResult, error in
+            if let error = error {
+                self?.showAlert(title: "Oops..", message: "\(error.localizedDescription)")
+            } else {
+                self?.navigationController?.pushViewController(TabBarController(), animated: true)
+            }
+        }
+    }
+}
+
+// MARK: - GoogleSignIn Authorization
+private extension SignInViewController {
+    @objc func googleSignInButtonPressed() {
+        guard let clientID = FirebaseApp.app()?.options.clientID else { return }
+        
+        let config = GIDConfiguration(clientID: clientID)
+        GIDSignIn.sharedInstance.configuration = config
+        
+        GIDSignIn.sharedInstance.signIn(withPresenting: self) {
+            [weak self] result,
+            error in
+            guard error == nil else {
+                self?.showAlert(title: "Oops..", message: "\(error!.localizedDescription)")
+                return
+            }
+            
+            guard let user = result?.user,
+                  let idToken = user.idToken?.tokenString
+            else {
+                return
+            }
+            
+            let credential = GoogleAuthProvider.credential(
+                withIDToken: idToken,
+                accessToken: user.accessToken.tokenString
+            )
+            
+            Auth.auth().signIn(with: credential) { authResult, error in
+                if let error = error {
+                    self?.showAlert(title: "Oops..", message: "\(error.localizedDescription)")
+                    return
+                }
+                
+                self?.navigationController?.pushViewController(TabBarController(), animated: true)
+            }
+        }
+    }
+}
+
+// MARK: - Alert
+private extension SignInViewController {
+    func showAlert(title: String, message: String) {
+        let alert = UIAlertController(
+            title: title,
+            message: message,
+            preferredStyle: .alert
+        )
+        
+        let okButton = UIAlertAction(title: "OK", style: .cancel) { [weak self] _ in
+            self?.passwordTextField.text = ""
+        }
+        alert.addAction(okButton)
+        present(alert, animated: true)
     }
 }
 
