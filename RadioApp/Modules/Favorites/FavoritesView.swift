@@ -170,7 +170,7 @@ final class FavoritesView: UIView {
             topView.trailingAnchor.constraint(equalTo: trailingAnchor),
             topView.leadingAnchor.constraint(equalTo: leadingAnchor),
             
-            titleLabel.topAnchor.constraint(equalTo: topView.bottomAnchor, constant: 10),
+            titleLabel.topAnchor.constraint(equalTo: topView.bottomAnchor, constant: 26),
             titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 62.79),
             titleLabel.heightAnchor.constraint(equalToConstant: 36),
             
@@ -198,8 +198,8 @@ final class FavoritesView: UIView {
             backButton.centerYAnchor.constraint(equalTo: playPauseButton.centerYAnchor),
             backButton.trailingAnchor.constraint(equalTo: playPauseButton.leadingAnchor, constant: -35),
             
-            collectionView.topAnchor.constraint(equalTo: topAnchor, constant: 200),
-            collectionView.bottomAnchor.constraint(equalTo: playPauseButton.topAnchor, constant: -100),
+            collectionView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 26),
+            collectionView.bottomAnchor.constraint(equalTo: playPauseButton.topAnchor, constant: -110),
             collectionView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 60.5),
             collectionView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -60.5),
         ])
