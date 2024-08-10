@@ -13,6 +13,7 @@ final class SearchViewController: UIViewController {
     private var searchResultRadio: [RadioStation] = []
     private var filteredRadioStations: [RadioStation] = []
     private let networkManager = NetworkManager.shared
+    private let radioPlayer = RadioPlayer.shared
     
     private var offset: Int = 0
     private var limit: Int = 4
@@ -58,10 +59,16 @@ final class SearchViewController: UIViewController {
         super.viewWillAppear(animated)
         navigationController?.navigationBar.isHidden = true
     }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        radioPlayer.stopMusic()
+        updateButtonImage(isPlay: true)
+    }
 
     
     private func selectStation(at position: Int) {
-        //radioPlayer.changeCurrentURL(radioStations[selectedIndex].url_resolved)
+        radioPlayer.changeCurrentURL(searchResultRadio[selectedIndex].url_resolved)
         searchView.searchCollectionView.selectItem(at: IndexPath(item: position, section: 0), animated: true, scrollPosition: .top)
     }
    
@@ -93,7 +100,23 @@ extension SearchViewController: UICollectionViewDataSource, UICollectionViewDele
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SearchCell.identifier, for: indexPath) as? SearchCell else { return UICollectionViewCell() }
         let radio = searchResultRadio[indexPath.row]
-        cell.configureCell(with: radio, indexPath: indexPath)
+        let isFavorite = CoreManager.shared.updateLike(id: radio.stationuuid)
+        
+        //save to CoreData
+        cell.likeCompletion = {
+            cell.downloadRadioAt(indexPath: indexPath, radio: radio)
+        }
+        cell.deleteCompletion = {
+            cell.deleteRadioAt(id: radio.stationuuid)
+        }
+        cell.updateLikeCompletion = {
+            DispatchQueue.main.async {
+                self.searchView.searchCollectionView.reloadData()
+            }
+        }
+        
+        
+        cell.configureCell(with: radio, indexPath: indexPath, isFavorite: isFavorite)
         return cell
     }
     
@@ -123,19 +146,35 @@ extension SearchViewController: SearchViewDelegate {
     }
     
    func didSlideSlider(_ volume: Float) {
-      // radioPlayer.volume = volume
+       radioPlayer.volume = volume
    }
    
    func nextButtonPressed() {
        selectedIndex += 1
+       radioPlayer.configurePlayer(from: searchResultRadio[selectedIndex])
+       DispatchQueue.main.async {
+           self.updateButtonImage(isPlay: self.radioPlayer.isPlayerPerforming())
+       }
    }
    
    func backButtonPressed() {
        selectedIndex -= 1
+       radioPlayer.configurePlayer(from: searchResultRadio[selectedIndex])
+       DispatchQueue.main.async {
+           self.updateButtonImage(isPlay: self.radioPlayer.isPlayerPerforming())
+       }
    }
 
    func playButtonPressed() {
-       
+       let currentRadioStation = searchResultRadio[selectedIndex]
+       if radioPlayer.isPlayerPerforming() {
+           radioPlayer.pauseMusic()
+           updateButtonImage(isPlay: true)
+       } else {
+           radioPlayer.playMusic()
+           updateButtonImage(isPlay: false)
+           radioPlayer.configurePlayer(from: currentRadioStation)
+       }
    }
 }
 

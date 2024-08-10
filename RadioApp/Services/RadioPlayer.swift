@@ -33,6 +33,7 @@ class RadioPlayer {
     }
     private var currentIndex: Int = 0
     private var radioStation: [RadioStation] = []
+    private var favoriteRadioStations: [RadioStations] = []
 
     func configurePlayer(from radio: RadioStation) {
         guard let radioURL = URL(string: radio.url_resolved) else { return print("Error with URL Radio Station") }
@@ -44,6 +45,18 @@ class RadioPlayer {
         currentURL = radio.url_resolved
         delegate?.changePlayButton(isPlaying: true)
         delegate?.changeCurrentURL(radio.url_resolved)
+    }
+    
+    func configurePlayerForFavorite(from radio: RadioStations) {
+        guard let radioURL = URL(string: radio.url_resolved ?? "") else { return print("Error with URL Radio Station") }
+
+        playerItem = AVPlayerItem(url: radioURL)
+        player = AVPlayer(playerItem: playerItem)
+        player?.volume = 0.5
+        player?.play()
+        currentURL = radio.url_resolved
+        delegate?.changePlayButton(isPlaying: true)
+        delegate?.changeCurrentURL(radio.url_resolved ?? "")
     }
     
     func playMusicWithURL(_ radio: RadioStation) {
