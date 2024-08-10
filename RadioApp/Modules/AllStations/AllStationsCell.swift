@@ -11,6 +11,13 @@ final class AllStationsCell: UICollectionViewCell {
     
     static let identifier = "AllStationsCell"
     private var isFavorite: Bool = false
+    private var liked: Bool = false
+    private var votes: Int = 0
+    private var indexPath: IndexPath!
+    
+    var likeCompletion: (() -> Void)?
+    var deleteCompletion: (() -> Void)?
+    var updateLikeCompletion: (() -> Void)?
     
     private lazy var stackView: UIStackView = {
         let stackView = UIStackView()
@@ -62,6 +69,7 @@ final class AllStationsCell: UICollectionViewCell {
         let button = UIButton(type: .system)
         button.tintColor = .white
         button.setBackgroundImage(UIImage(named: "likeButton"), for: .normal)
+        button.addTarget(self, action: #selector(likeRadio), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
@@ -97,6 +105,7 @@ final class AllStationsCell: UICollectionViewCell {
         super.init(frame: frame)
         setupViews()
         setConstraint()
+        NotificationCenter.default.addObserver(self, selector: #selector(likeButtonTapped), name: NSNotification.Name("deleteFavoriteFromFavoriteScreen"), object: nil)
     }
     
     required init?(coder: NSCoder) {
@@ -104,8 +113,7 @@ final class AllStationsCell: UICollectionViewCell {
     }
     
     @objc func likeButtonTapped(_ sender: UIButton) {
-        isFavorite.toggle()
-        updateFavoriteButtonAppearance(isFavorite: isFavorite)
+        updateLikeCompletion?()
     }
     
     override func prepareForReuse() {
@@ -114,10 +122,16 @@ final class AllStationsCell: UICollectionViewCell {
         radioNameLabel.text = nil
     }
     
-    public func configureCell(with radio: RadioStation, indexPath: IndexPath) {
+    public func configureCell(with radio: RadioStation, indexPath: IndexPath, isFavorite: Bool) {
         votesLabel.text = "votes \(radio.votes)"
         genreLabel.text = (radio.tag == "") ? "Online" : radio.tag
         radioNameLabel.text = radio.capitalizedName
+        
+        self.liked = isFavorite
+        self.indexPath = indexPath
+        self.votes = radio.votes
+
+        updateFavoriteButtonAppearance(isFavorite: liked)
         addPointColors(with: indexPath)
     }
     
@@ -134,6 +148,32 @@ final class AllStationsCell: UICollectionViewCell {
         let image = isFavorite ? likeButtonActive : likeButtonInactive
         likeButton.setBackgroundImage(image, for: .normal)
     }
+    
+    
+    public func downloadRadioAt(indexPath: IndexPath, radio: RadioStation) {
+        CoreManager.shared.downloadRadioWith(model: radio) { result in
+            switch result {
+            case .success():
+                print("downloaded to Database")
+                NotificationCenter.default.post(name: NSNotification.Name("downloaded"), object: nil)
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+        }
+    }
+    
+    public func deleteRadioAt(id: String) {
+        CoreManager.shared.deleteRadioFromFavorites(id: id) { result in
+            switch result {
+            case .success():
+                print("deleted from Database")
+                NotificationCenter.default.post(name: NSNotification.Name("radioDeleted"), object: nil)
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+        }
+    }
+
     
     private func setupViews() {
         layer.cornerRadius = 15
@@ -218,5 +258,17 @@ extension AllStationsCell {
             rightPointView.heightAnchor.constraint(equalToConstant: 8.26),
             rightPointView.widthAnchor.constraint(equalToConstant: 8.26),
         ])
+    }
+}
+
+private extension AllStationsCell {
+    @objc func likeRadio(_ sender: UIButton) {
+        liked.toggle()
+        updateFavoriteButtonAppearance(isFavorite: liked)
+        if liked {
+            likeCompletion?()
+        } else {
+            deleteCompletion?()
+        }
     }
 }
