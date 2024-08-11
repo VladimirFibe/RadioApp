@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import CoreData
 
 final class PopularViewController: UIViewController {
     
@@ -45,6 +44,7 @@ final class PopularViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.navigationBar.isHidden = true
+        popularView.popularCollectionView.reloadData()
     }
     
     func selectStation(at position: Int) {
@@ -81,10 +81,10 @@ extension PopularViewController: UICollectionViewDataSource, UICollectionViewDel
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PopularCell.identifier, for: indexPath) as? PopularCell else { return UICollectionViewCell() }
-
+        
         let radio = popularRadioStations[indexPath.row]
         let isFavorite = CoreManager.shared.updateLike(id: radio.stationuuid)
-
+        
         
         //MARK: - Save to CoreData
         cell.likeCompletion = {
@@ -95,18 +95,14 @@ extension PopularViewController: UICollectionViewDataSource, UICollectionViewDel
             cell.deleteRadioAt(id: radio.stationuuid)
         }
         
-        cell.updateLikeCompletion = {
-            DispatchQueue.main.async {
-                self.popularView.popularCollectionView.reloadData()
-            }
-        }
-
         cell.configure(with: radio, indexPath: indexPath, isFavorite: isFavorite)
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         selectedIndex = indexPath.row
+        let detailVC = DetailsViewController(currentRadio: popularRadioStations, positionRadio: selectedIndex)
+        navigationController?.pushViewController(detailVC, animated: true)
     }
     
     func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {

@@ -119,6 +119,8 @@ final class AllStationsViewController: UIViewController {
      func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
          print(indexPath.row)
          selectedIndex = indexPath.row
+         radioPlayer.configurePlayer(from: allRadioStations[selectedIndex])
+         updateButtonImage(isPlay: false)
      }
      
      func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
