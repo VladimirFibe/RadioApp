@@ -115,7 +115,6 @@ extension SearchViewController: UICollectionViewDataSource, UICollectionViewDele
             }
         }
         
-        
         cell.configureCell(with: radio, indexPath: indexPath, isFavorite: isFavorite)
         return cell
     }
@@ -123,6 +122,8 @@ extension SearchViewController: UICollectionViewDataSource, UICollectionViewDele
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         print(indexPath.row)
         selectedIndex = indexPath.row
+        radioPlayer.configurePlayer(from: searchResultRadio[selectedIndex])
+        updateButtonImage(isPlay: false)
     }
     
     func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {

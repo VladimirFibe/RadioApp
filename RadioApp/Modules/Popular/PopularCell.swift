@@ -14,11 +14,11 @@ final class PopularCell: UICollectionViewCell {
     private var liked: Bool = false
     private var votes: Int = 0
     private var indexPath: IndexPath!
-
+    
     var likeCompletion: (() -> Void)?
     var deleteCompletion: (() -> Void)?
     var updateLikeCompletion: (() -> Void)?
-
+    
     
     private lazy var genreLabel: UILabel = {
         let label = UILabel()
@@ -98,7 +98,6 @@ final class PopularCell: UICollectionViewCell {
         super.init(frame: frame)
         setupViews()
         setConstraint()
-        NotificationCenter.default.addObserver(self, selector: #selector(updateLike), name: NSNotification.Name("deleteFavoriteFromFavoriteScreen"), object: nil)
     }
     
     required init?(coder: NSCoder) {
@@ -117,10 +116,6 @@ final class PopularCell: UICollectionViewCell {
         addSubview(curvedLineImageView)
         curvedLineImageView.addSubview(rightPointView)
         curvedLineImageView.addSubview(leftPointView)
-    }
-    
-    @objc func updateLike() {
-        updateLikeCompletion?()
     }
     
     override var isSelected: Bool {
@@ -163,7 +158,7 @@ final class PopularCell: UICollectionViewCell {
         self.liked = isFavorite
         self.indexPath = indexPath
         self.votes = radio.votes
-
+        
         updateFavoriteButtonAppearance(isFavorite: liked)
         addPointColors(with: indexPath)
     }
@@ -193,7 +188,7 @@ final class PopularCell: UICollectionViewCell {
             }
         }
     }
-
+    
     public func deleteRadioAt(id: String) {
         CoreManager.shared.deleteRadioFromFavorites(id: id) { result in
             switch result {
@@ -254,7 +249,7 @@ extension PopularCell {
     public func addStationVotes(isAddVote: Bool) {
         updateVote(isAddVote: isAddVote)
     }
-
+    
     private func updateVote(isAddVote: Bool) {
         if isAddVote == true {
             votes = votes + 1
@@ -268,7 +263,7 @@ extension PopularCell {
 }
 
 private extension PopularCell {
-    @objc func likeButtonTapped(_ sender: UIButton) {
+    @objc private func likeButtonTapped(_ sender: UIButton) {
         liked.toggle()
         updateFavoriteButtonAppearance(isFavorite: liked)
         if liked {
