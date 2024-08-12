@@ -22,7 +22,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
     
     func start() {
-        setRootViewController(makeMain())
+        setRootViewController(makeWelcome())
     }
 
     func setRootViewController(_ controller: UIViewController, animated: Bool = true) {
@@ -41,10 +41,19 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                           completion: nil)
     }
     
+    private func makeWelcome() -> UIViewController {
+        let controller = WelcomeViewController()
+        controller.action = { [weak self] in
+            guard let self else { return }
+            self.setRootViewController(self.makeMain())
+        }
+        return controller
+    }
+    
     private func makeMain() -> UIViewController {
         let controller = SignInViewController()
         return UINavigationController(rootViewController: controller)
     }
-
 }
+
 

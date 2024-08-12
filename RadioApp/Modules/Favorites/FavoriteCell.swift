@@ -88,7 +88,6 @@ class FavoriteCell: UICollectionViewCell {
     
     @objc func likeButtonPressed(sender: UIButton) {
         dontLikeButtonTapped?()
-        print("dontLikeButtonPressed")
     }
     
     override func prepareForReuse() {
@@ -102,8 +101,12 @@ class FavoriteCell: UICollectionViewCell {
             guard let stroke = radio.tags?.components(separatedBy: CharacterSet(charactersIn: " ,")).first else { return "" }
             return stroke.capitalized
         }
+        var capitalizedName: String {
+            guard let stroke = radio.name?.replacingOccurrences(of: "\t", with: "", options: NSString.CompareOptions.literal, range: nil) else { return "" }
+            return stroke.capitalized
+        }
         genreLabel.text = (radio.tags == "") ? "Online" : tag
-        radioNameLabel.text = radio.name
+        radioNameLabel.text = capitalizedName
         addPointColors(with: indexPath)
     }
     

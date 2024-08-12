@@ -26,19 +26,6 @@ final class FavoritesViewController: UIViewController {
             }
         }
     }
-    
-    private let radioStations: [RadioStation] = [
-        .init(stationuuid: "", name: "MANGORADIO", votes: 100, url_resolved: "https://mangoradio.stream.laut.fm/mangoradio?t302=2024-07-30_09-17-41&uuid=7c9dcca1-00a5-4fd2-bda6-bfa522ed50d5", tags: "Punk", isFavorite: true),
-        .init(stationuuid: "", name: "REYFM - #original", votes: 250, url_resolved: "https://reyfm-stream18.radiohost.de/reyfm-original_mp3-192?_art=dD0xNzIyMzIzMTkyJmQ9YzFlMDc5NjUzYWVlOWZlYWUxYzg", tags: "Classic", isFavorite: true),
-        .init(stationuuid: "", name: "Classic Vinyl HD", votes: 100, url_resolved: "https://icecast.walmradio.com:8443/classic", tags: "", isFavorite: true),
-        .init(stationuuid: "", name: "WALM HD", votes: 100, url_resolved: "https://icecast.walmradio.com:8443/walm", tags: "POP", isFavorite: true),
-        .init(stationuuid: "", name: "Christmas Vinyl HD", votes: 100, url_resolved: "https://icecast.walmradio.com:8443/christmas", tags: "", isFavorite: true),
-        .init(stationuuid: "", name: "BBC World Service", votes: 100, url_resolved: "http://stream.live.vc.bbcmedia.co.uk/bbc_world_service", tags: "Dance", isFavorite: true),
-        .init(stationuuid: "", name: "Adroit Jazz Underground", votes: 250, url_resolved: "https://icecast.walmradio.com:8443/jazz", tags: "Rock", isFavorite: true),
-        .init(stationuuid: "", name: "RFI Afrique", votes: 100, url_resolved: "", tags: "Classic", isFavorite: true),
-        .init(stationuuid: "", name: "WALM - Old Time Radio", votes: 100, url_resolved: "https://icecast.walmradio.com:8443/otr", tags: "", isFavorite: true),
-        .init(stationuuid: "", name: "Iran International", votes: 100, url_resolved: "https://radio.iraninternational.app/iintl_c", tags: "", isFavorite: true),
-    ]
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -74,7 +61,7 @@ final class FavoritesViewController: UIViewController {
     }
     
     func selectStation(at position: Int) {
-        radioPlayer.changeCurrentURL(radioStations[selectedIndex].url_resolved)
+        radioPlayer.changeCurrentURL(favoritesRadioStation[selectedIndex].url_resolved ?? "")
         favoritesView.collectionView.selectItem(at: IndexPath(item: position, section: 0), animated: true, scrollPosition: .top)
     }
     
@@ -132,21 +119,21 @@ extension FavoritesViewController: FavoritesViewDelegate {
     }
     
     func playButtonPressed() {
-        let currentRadioStation = radioStations[selectedIndex]
+        let currentRadioStation = favoritesRadioStation[selectedIndex]
         if radioPlayer.isPlayerPerforming() {
             radioPlayer.pauseMusic()
             updateButtonImage(isPlay: true)
         } else {
             radioPlayer.playMusic()
             updateButtonImage(isPlay: false)
-            radioPlayer.configurePlayer(from: currentRadioStation)
+            radioPlayer.configurePlayerForFavorite(from: currentRadioStation)
         }
         //radioPlayer.isPlayerPerforming() ? radioPlayer.pauseMusic() : radioPlayer.playMusic()
     }
     
     func backButtonPressed() {
         selectedIndex -= 1
-        radioPlayer.configurePlayer(from: radioStations[selectedIndex])
+        radioPlayer.configurePlayerForFavorite(from: favoritesRadioStation[selectedIndex])
         DispatchQueue.main.async {
             self.updateButtonImage(isPlay: self.radioPlayer.isPlayerPerforming())
         }
@@ -154,7 +141,7 @@ extension FavoritesViewController: FavoritesViewDelegate {
     
     func nextButtonPressed() {
         selectedIndex += 1
-        radioPlayer.configurePlayer(from: radioStations[selectedIndex])
+        radioPlayer.configurePlayerForFavorite(from: favoritesRadioStation[selectedIndex])
         DispatchQueue.main.async {
               self.updateButtonImage(isPlay: self.radioPlayer.isPlayerPerforming())
         }

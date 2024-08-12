@@ -25,6 +25,7 @@ final class AllStationsViewController: UIViewController {
     private var allRadioStations: [RadioStation] = []
     private var filteredData: [RadioStation] = []
     private var networkManager = NetworkManager.shared
+    private let radioPlayer = RadioPlayer.shared
 
      var selectedIndex = 0 {
          didSet {
@@ -52,6 +53,8 @@ final class AllStationsViewController: UIViewController {
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         allStationsView.searchBar.textField.text?.removeAll()
+        radioPlayer.stopMusic()
+        updateButtonImage(isPlay: true)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -60,7 +63,7 @@ final class AllStationsViewController: UIViewController {
     }
 
      private func selectStation(at position: Int) {
-         //radioPlayer.changeCurrentURL(radioStations[selectedIndex].url_resolved)
+         radioPlayer.changeCurrentURL(allRadioStations[selectedIndex].url_resolved)
          allStationsView.allStationsCollectionView.selectItem(at: IndexPath(item: position, section: 0), animated: true, scrollPosition: .top)
      }
     
@@ -94,13 +97,30 @@ final class AllStationsViewController: UIViewController {
      func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
          guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: AllStationsCell.identifier, for: indexPath) as? AllStationsCell else { return UICollectionViewCell() }
          let radio = allRadioStations[indexPath.row]
-         cell.configureCell(with: radio, indexPath: indexPath)
+         let isFavorite = CoreManager.shared.updateLike(id: radio.stationuuid)
+         
+         //save to CoreData
+         cell.likeCompletion = {
+             cell.downloadRadioAt(indexPath: indexPath, radio: radio)
+         }
+         cell.deleteCompletion = {
+             cell.deleteRadioAt(id: radio.stationuuid)
+         }
+         cell.updateLikeCompletion = {
+             DispatchQueue.main.async {
+                 self.allStationsView.allStationsCollectionView.reloadData()
+             }
+         }
+
+         cell.configureCell(with: radio, indexPath: indexPath, isFavorite: isFavorite)
          return cell
      }
      
      func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
          print(indexPath.row)
          selectedIndex = indexPath.row
+         radioPlayer.configurePlayer(from: allRadioStations[selectedIndex])
+         updateButtonImage(isPlay: false)
      }
      
      func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
@@ -128,19 +148,35 @@ extension AllStationsViewController: AllStationsViewDelegate {
     }
     
     func didSlideSlider(_ volume: Float) {
-        //radioPlayer.volume = volume
+        radioPlayer.volume = volume
     }
     
     func nextButtonPressed() {
         selectedIndex += 1
+        radioPlayer.configurePlayer(from: allRadioStations[selectedIndex])
+        DispatchQueue.main.async {
+            self.updateButtonImage(isPlay: self.radioPlayer.isPlayerPerforming())
+        }
     }
     
     func backButtonPressed() {
         selectedIndex -= 1
+        radioPlayer.configurePlayer(from: allRadioStations[selectedIndex])
+        DispatchQueue.main.async {
+            self.updateButtonImage(isPlay: self.radioPlayer.isPlayerPerforming())
+        }
     }
 
     func playButtonPressed() {
-        
+        let currentRadioStation = allRadioStations[selectedIndex]
+        if radioPlayer.isPlayerPerforming() {
+            radioPlayer.pauseMusic()
+            updateButtonImage(isPlay: true)
+        } else {
+            radioPlayer.playMusic()
+            updateButtonImage(isPlay: false)
+            radioPlayer.configurePlayer(from: currentRadioStation)
+        }
     }
 }
 
