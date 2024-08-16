@@ -1,5 +1,13 @@
 # Radio: Listen to your favorite stations anytime!
-!iOS  !Swift  !UIKit
+![iOS](https://img.shields.io/badge/iOS-15.0-orange)  ![Swift](https://img.shields.io/badge/Swift-blue)  ![UIKit](https://img.shields.io/badge/UIKit-deeppink)
+
+<p align="center">
+<img src="https://github.com/VladimirFibe/RadioApp/blob/18-profile/Image/image1.jpeg" width="140" /> 
+<img src="https://github.com/VladimirFibe/RadioApp/blob/18-profile/Image/image2.jpeg" width="140" /> 
+<img src="https://github.com/VladimirFibe/RadioApp/blob/18-profile/Image/image3.jpeg" width="140" /> 
+<img src="https://github.com/VladimirFibe/RadioApp/blob/18-profile/Image/image4.jpeg" width="140" /> 
+<img src="https://github.com/VladimirFibe/RadioApp/blob/18-profile/Image/image5.jpeg" width="140" /> 
+</p>
 
  ### Project created by:
 <p align="left"> 
