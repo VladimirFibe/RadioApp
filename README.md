@@ -2,11 +2,11 @@
 ![iOS](https://img.shields.io/badge/iOS-15.0-orange)  ![Swift](https://img.shields.io/badge/Swift-blue)  ![UIKit](https://img.shields.io/badge/UIKit-deeppink)
 
 <p align="center">
-<img src="https://github.com/VladimirFibe/RadioApp/blob/develop/Assets.xcassets/ImageReadme/image1.imageset/image1.jpeg" width="140" /> 
-<img src="https://github.com/VladimirFibe/RadioApp/blob/develop/Assets.xcassets/ImageReadme/image2.imageset/image2.jpeg" width="140" /> 
-<img src="https://github.com/VladimirFibe/RadioApp/blob/develop/Assets.xcassets/ImageReadme/image3.imageset/image3.jpeg" width="140" /> 
-<img src="https://github.com/VladimirFibe/RadioApp/blob/develop/Assets.xcassets/ImageReadme/image4.imageset/image4.jpeg" width="140" /> 
-<img src="https://github.com/VladimirFibe/RadioApp/blob/develop/Assets.xcassets/ImageReadme/image5.imageset/image5.jpeg" width="140" /> 
+<img src="https://github.com/VladimirFibe/RadioApp/blob/develop/RadioApp/Assets.xcassets/ImageReadme/image1.imageset/image1.jpeg" width="140" /> 
+<img src="https://github.com/VladimirFibe/RadioApp/blob/develop/RadioApp/Assets.xcassets/ImageReadme/image2.imageset/image2.jpeg" width="140" /> 
+<img src="https://github.com/VladimirFibe/RadioApp/blob/develop/RadioApp/Assets.xcassets/ImageReadme/image3.imageset/image3.jpeg" width="140" /> 
+<img src="https://github.com/VladimirFibe/RadioApp/blob/develop/RadioApp/Assets.xcassets/ImageReadme/image4.imageset/image4.jpeg" width="140" /> 
+<img src="https://github.com/VladimirFibe/RadioApp/blob/develop/RadioApp/Assets.xcassets/ImageReadme/image5.imageset/image5.jpeg" width="140" /> 
 </p>
 
  ### В разработке участвовали:
