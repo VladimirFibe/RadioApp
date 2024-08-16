@@ -166,7 +166,7 @@ extension FavoriteCell {
             leftPointView.heightAnchor.constraint(equalToConstant: 8.26),
             leftPointView.widthAnchor.constraint(equalToConstant: 8.26),
             
-            rightPointView.trailingAnchor.constraint(equalTo: curvedLineImageView.trailingAnchor, constant: -104),
+            rightPointView.leadingAnchor.constraint(equalTo: curvedLineImageView.leadingAnchor, constant: 81),
             rightPointView.centerYAnchor.constraint(equalTo: curvedLineImageView.centerYAnchor, constant: -5),
             rightPointView.heightAnchor.constraint(equalToConstant: 8.26),
             rightPointView.widthAnchor.constraint(equalToConstant: 8.26),

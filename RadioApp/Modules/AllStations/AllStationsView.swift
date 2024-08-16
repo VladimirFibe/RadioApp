@@ -17,11 +17,13 @@ protocol AllStationsViewDelegate: AnyObject {
 }
 
 final class AllStationsView: UIView {
-
+    
     weak var delegate: AllStationsViewDelegate?
     
-   lazy var allStationsCollectionView: UICollectionView = {
-        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: setupFlowLayout())
+    lazy var allStationsCollectionView: UICollectionView = {
+        let layout = UICollectionViewFlowLayout()
+        layout.minimumLineSpacing = 16.5
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.backgroundColor = .clear
         collectionView.showsVerticalScrollIndicator = false
         collectionView.register(AllStationsCell.self, forCellWithReuseIdentifier: AllStationsCell.identifier)
@@ -117,12 +119,11 @@ final class AllStationsView: UIView {
         searchBar.translatesAutoresizingMaskIntoConstraints = false
         return searchBar
     }()
-
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupViews()
         setConstraints()
-        
     }
     
     required init?(coder: NSCoder) {
@@ -169,14 +170,6 @@ final class AllStationsView: UIView {
         addSubview(backButton)
         addSubview(allStationsCollectionView)
         addSubview(searchBar)
-       
-    }
-    
-    func setupFlowLayout() -> UICollectionViewFlowLayout {
-        let layout = UICollectionViewFlowLayout()
-        layout.itemSize = .init(width: 291, height: 123)
-        layout.minimumLineSpacing = 16.5
-        return layout
     }
     
     func setConstraints() {
@@ -196,7 +189,7 @@ final class AllStationsView: UIView {
             allStationsLabel.heightAnchor.constraint(equalToConstant: 36),
             
             volumeSlider.centerYAnchor.constraint(equalTo: centerYAnchor, constant: -20),
-            volumeSlider.centerXAnchor.constraint(equalTo: centerXAnchor, constant: -178),
+            volumeSlider.trailingAnchor.constraint(equalTo: volumeImageView.centerXAnchor, constant: 100),
             volumeSlider.widthAnchor.constraint(equalToConstant: 196),
             
             volumeImageView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 15),

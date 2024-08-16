@@ -87,7 +87,7 @@ final class FavoritesViewController: UIViewController {
 
 //MARK: - UICollectionViewDataSource, UICollectionViewDelegate
 
-extension FavoritesViewController: UICollectionViewDataSource, UICollectionViewDelegate {
+extension FavoritesViewController: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         favoritesRadioStation.count
     }
@@ -111,6 +111,12 @@ extension FavoritesViewController: UICollectionViewDataSource, UICollectionViewD
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         selectedIndex = indexPath.row
     }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let width = collectionView.bounds.width
+        let height: CGFloat = 123
+        return CGSize(width: width, height: height)
+    }
 }
 
 extension FavoritesViewController: FavoritesViewDelegate {
@@ -128,7 +134,6 @@ extension FavoritesViewController: FavoritesViewDelegate {
             updateButtonImage(isPlay: false)
             radioPlayer.configurePlayerForFavorite(from: currentRadioStation)
         }
-        //radioPlayer.isPlayerPerforming() ? radioPlayer.pauseMusic() : radioPlayer.playMusic()
     }
     
     func backButtonPressed() {

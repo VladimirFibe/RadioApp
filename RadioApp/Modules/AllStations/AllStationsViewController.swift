@@ -89,7 +89,7 @@ final class AllStationsViewController: UIViewController {
 
  //MARK: - UITableViewDelegate, UITableViewDataSource
 
- extension AllStationsViewController: UICollectionViewDataSource, UICollectionViewDelegate {
+ extension AllStationsViewController: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
      func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
          allRadioStations.count
      }
@@ -121,6 +121,12 @@ final class AllStationsViewController: UIViewController {
          selectedIndex = indexPath.row
          radioPlayer.configurePlayer(from: allRadioStations[selectedIndex])
          updateButtonImage(isPlay: false)
+     }
+     
+     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+         let width = collectionView.bounds.width
+         let height: CGFloat = 123
+         return CGSize(width: width, height: height)
      }
      
      func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
