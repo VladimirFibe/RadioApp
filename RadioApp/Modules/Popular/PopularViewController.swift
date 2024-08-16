@@ -86,7 +86,7 @@ extension PopularViewController: UICollectionViewDataSource, UICollectionViewDel
         let isFavorite = CoreManager.shared.updateLike(id: radio.stationuuid)
         
         
-        //MARK: - Save to CoreData
+        //Save to CoreData
         cell.likeCompletion = {
             cell.downloadRadioAt(indexPath: indexPath, radio: radio)
         }
