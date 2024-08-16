@@ -19,7 +19,9 @@ final class FavoritesView: UIView {
     weak var delegate: FavoritesViewDelegate?
     
     lazy var collectionView: UICollectionView = {
-        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: setupFlowLayout())
+        let layout = UICollectionViewFlowLayout()
+        layout.minimumLineSpacing = 16.5
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.backgroundColor = .clear
         collectionView.showsVerticalScrollIndicator = false
         collectionView.bounces = false
@@ -156,13 +158,6 @@ final class FavoritesView: UIView {
         addSubview(topView)
     }
     
-    func setupFlowLayout() -> UICollectionViewFlowLayout {
-        let layout = UICollectionViewFlowLayout()
-        layout.itemSize = .init(width: 291, height: 123)
-        layout.minimumLineSpacing = 16.5
-        return layout
-    }
-    
     func setConstraints() {
         NSLayoutConstraint.activate([
             topView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 0),
@@ -175,7 +170,7 @@ final class FavoritesView: UIView {
             titleLabel.heightAnchor.constraint(equalToConstant: 36),
             
             volumeSlider.centerYAnchor.constraint(equalTo: centerYAnchor, constant: -20),
-            volumeSlider.centerXAnchor.constraint(equalTo: centerXAnchor, constant: -178),
+            volumeSlider.trailingAnchor.constraint(equalTo: volumeImageView.centerXAnchor, constant: 100),
             volumeSlider.widthAnchor.constraint(equalToConstant: 196),
             
             volumeImageView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 15),

@@ -73,7 +73,7 @@ final class PopularViewController: UIViewController {
 
 // MARK: - UICollectionViewDataSource, UICollectionViewDelegate
 
-extension PopularViewController: UICollectionViewDataSource, UICollectionViewDelegate {
+extension PopularViewController: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         popularRadioStations.count
@@ -103,6 +103,14 @@ extension PopularViewController: UICollectionViewDataSource, UICollectionViewDel
         selectedIndex = indexPath.row
         let detailVC = DetailsViewController(currentRadio: popularRadioStations, positionRadio: selectedIndex)
         navigationController?.pushViewController(detailVC, animated: true)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let interItemSpacing: CGFloat = 15.0
+        let numberOfItemsPerRow: CGFloat = 2
+        let totalSpacing = (numberOfItemsPerRow - 1) * interItemSpacing
+        let itemSize = (collectionView.bounds.width - totalSpacing) / numberOfItemsPerRow
+        return CGSize(width: itemSize, height: itemSize)
     }
     
     func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
@@ -135,7 +143,6 @@ extension PopularViewController: PopularViewDelegate {
             updateButtonImage(isPlay: false)
             radioPlayer.configurePlayer(from: currentRadioStation)
         }
-        //radioPlayer.isPlayerPerforming() ? radioPlayer.pauseMusic() : radioPlayer.playMusic()
     }
     
     func backButtonPressed() {

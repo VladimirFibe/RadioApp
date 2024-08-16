@@ -92,7 +92,7 @@ final class SearchViewController: UIViewController {
 
 //MARK: - UICollectionViewDelegate, UICollectionViewDataSource
 
-extension SearchViewController: UICollectionViewDataSource, UICollectionViewDelegate {
+extension SearchViewController: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         searchResultRadio.count
     }
@@ -124,6 +124,12 @@ extension SearchViewController: UICollectionViewDataSource, UICollectionViewDele
         selectedIndex = indexPath.row
         radioPlayer.configurePlayer(from: searchResultRadio[selectedIndex])
         updateButtonImage(isPlay: false)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let width = collectionView.bounds.width
+        let height: CGFloat = 123
+        return CGSize(width: width, height: height)
     }
     
     func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {

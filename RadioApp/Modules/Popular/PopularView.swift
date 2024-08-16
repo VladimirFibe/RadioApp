@@ -52,7 +52,10 @@ final class PopularView: UIView {
     }()
     
     lazy var popularCollectionView: UICollectionView = {
-        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: setupFlowLayout())
+        let layout = UICollectionViewFlowLayout()
+        layout.minimumLineSpacing = 14
+        layout.minimumInteritemSpacing = 15
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.backgroundColor = .clear
         collectionView.showsVerticalScrollIndicator = false
         collectionView.register(PopularCell.self, forCellWithReuseIdentifier: PopularCell.identifier)
@@ -142,13 +145,6 @@ final class PopularView: UIView {
         popularCollectionView.dataSource = viewController
     }
     
-    func setupFlowLayout() -> UICollectionViewFlowLayout {
-        let layout = UICollectionViewFlowLayout()
-        layout.itemSize = .init(width: 139, height: 139)
-        layout.minimumLineSpacing = 14
-        return layout
-    }
-    
     func setupViews() {
         backgroundColor = #colorLiteral(red: 0.002947255969, green: 0.002675811062, blue: 0.1643544436, alpha: 1)
         addSubview(topView)
@@ -175,8 +171,8 @@ final class PopularView: UIView {
             popularLabel.heightAnchor.constraint(equalToConstant: 36),
             
             volumeSlider.centerYAnchor.constraint(equalTo: centerYAnchor, constant: -20),
-            volumeSlider.centerXAnchor.constraint(equalTo: centerXAnchor, constant: -178),
             volumeSlider.widthAnchor.constraint(equalToConstant: 196),
+            volumeSlider.trailingAnchor.constraint(equalTo: volumeImageView.centerXAnchor, constant: 100),
             
             volumeImageView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 15),
             volumeImageView.topAnchor.constraint(equalTo: volumeSlider.topAnchor, constant: 118),
