@@ -1,4 +1,4 @@
-# Radio: Listen to your favorite stations anytime!
+# Радио: Слушайте любимые станции в любое время!
 ![iOS](https://img.shields.io/badge/iOS-15.0-orange)  ![Swift](https://img.shields.io/badge/Swift-blue)  ![UIKit](https://img.shields.io/badge/UIKit-deeppink)
 
 <p align="center">
@@ -9,7 +9,7 @@
 <img src="https://github.com/VladimirFibe/RadioApp/blob/18-profile/Image/image5.jpeg" width="140" /> 
 </p>
 
- ### Project created by:
+ ### В разработке участвовали:
 <p align="left"> 
 <a href="https://github.com/VladimirFibe">
 <img src="https://img.shields.io/badge/VladimirFibe-grey"/></a>
